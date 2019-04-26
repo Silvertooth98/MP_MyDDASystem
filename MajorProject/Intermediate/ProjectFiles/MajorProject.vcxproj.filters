@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{A1DAACB0-52F4-4BF3-BF8E-364873795D25}</UniqueIdentifier>
+      <UniqueIdentifier>{8A16AC36-0C62-4EDE-B530-6AEB9482DA92}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{8F69FAF2-0B73-4904-B5FD-983CABF3B8A9}</UniqueIdentifier>
+      <UniqueIdentifier>{0E76984A-AE6D-48A6-8238-4EBC2AA91A1E}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,8 +30,20 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{8BB1DBBA-286F-42BE-A01A-4333639983D9}</UniqueIdentifier>
+      <UniqueIdentifier>{4282F5A7-2A2F-4688-8597-EB540E3A9B52}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\CharacterCameraShake.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\DDATriggerBox.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\DDATriggerBox.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
     <None Include="..\..\Source\MajorProject\MajorProject.Build.cs">
       <Filter>Source\MajorProject</Filter>
     </None>
@@ -65,15 +77,5 @@
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectProjectile.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\MajorProject\CharacterCameraShake.h">
-      <Filter>Source\MajorProject</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
-      <Filter>Source\MajorProject</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

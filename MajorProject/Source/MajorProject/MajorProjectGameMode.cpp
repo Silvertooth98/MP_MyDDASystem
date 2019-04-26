@@ -4,6 +4,8 @@
 #include "MajorProjectHUD.h"
 #include "MajorProjectCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Engine/GameEngine.h"
+#include "Kismet/GameplayStatics.h"
 
 AMajorProjectGameMode::AMajorProjectGameMode()
 	: Super()
@@ -14,4 +16,25 @@ AMajorProjectGameMode::AMajorProjectGameMode()
 
 	// use our custom HUD class
 	HUDClass = AMajorProjectHUD::StaticClass();
+}
+
+int AMajorProjectGameMode::GetElapedTime(bool intSeconds, bool floatSeconds)
+{
+	m_secondsFlt = UGameplayStatics::GetTimeSeconds(GetWorld());
+
+	if (intSeconds)
+	{
+		m_secondsInt = (int)m_secondsFlt;
+		m_secondsInInt = true;
+
+		return m_secondsInt;
+	}
+	else if (floatSeconds)
+	{
+		m_secondsInInt = false;
+
+		return m_secondsFlt;
+	}
+
+	return 0;
 }

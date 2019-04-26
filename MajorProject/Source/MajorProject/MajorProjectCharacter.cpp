@@ -11,6 +11,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "Engine/GameEngine.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -64,6 +65,9 @@ void AMajorProjectCharacter::BeginPlay()
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
+
+	// Link gamemode variable to the gamemode
+	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,6 +103,42 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 
 void AMajorProjectCharacter::OnFire()
 {
+	Gamemode->GetElapedTime(true, false);
+
+	if (GEngine)
+	{
+		if (Gamemode->GetIsSecondsInInt())
+		{
+			m_intSeconds = Gamemode->GetSecondsInt();
+
+			FString TheIntStr = FString::FromInt(m_intSeconds);//FString::SanitizeFloat(realtimeSeconds);
+			if (m_intSeconds >= 3)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
+			}
+		}
+		else
+		{
+			m_fltSeconds = Gamemode->GetSecondsFlt();
+
+			FString TheFloatStr = FString::SanitizeFloat(m_fltSeconds);
+
+			if (m_fltSeconds >= 3)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheFloatStr);
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheFloatStr);
+			}
+		}
+		
+	}
+
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
 	{

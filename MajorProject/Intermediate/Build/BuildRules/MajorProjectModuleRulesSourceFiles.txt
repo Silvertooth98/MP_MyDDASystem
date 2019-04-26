@@ -1,3 +1,0 @@
-D:\SpareTimeGames\C++\MajorProject\Source\MajorProject\MajorProject.Build.cs
-D:\SpareTimeGames\C++\MajorProject\Source\MajorProject.Target.cs
-D:\SpareTimeGames\C++\MajorProject\Source\MajorProjectEditor.Target.cs

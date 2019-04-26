@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "CharacterCameraShake.h"
+#include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.generated.h"
 
 class UInputComponent;
@@ -41,11 +42,17 @@ class AMajorProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UCameraShake> CameraShake;
 
+	UPROPERTY(EditAnywhere)
+	AMajorProjectGameMode* Gamemode;
+
 public:
 	AMajorProjectCharacter();
 
 protected:
 	virtual void BeginPlay();
+
+	int m_intSeconds;
+	float m_fltSeconds;
 
 public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
