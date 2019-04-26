@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\MajorProject.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{A1DAACB0-52F4-4BF3-BF8E-364873795D25}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MajorProject.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\MajorProjectEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{8F69FAF2-0B73-4904-B5FD-983CABF3B8A9}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\MajorProject">
+      <UniqueIdentifier>{8BB1DBBA-286F-42BE-A01A-4333639983D9}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MajorProject\MajorProject.Build.cs">
+      <Filter>Source\MajorProject</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProject.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProject.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectCharacter.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectCharacter.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectGameMode.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectGameMode.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectHUD.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectHUD.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectProjectile.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectProjectile.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\MajorProject\CharacterCameraShake.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
