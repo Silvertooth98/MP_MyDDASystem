@@ -12,6 +12,7 @@
 #include "MotionControllerComponent.h"
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Engine/GameEngine.h"
+#include "TimerManager.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -56,6 +57,10 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
+
+	//m_movementTime = 0;
+
+	m_isMoving = false;
 }
 
 void AMajorProjectCharacter::BeginPlay()
@@ -68,6 +73,16 @@ void AMajorProjectCharacter::BeginPlay()
 
 	// Link gamemode variable to the gamemode
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
+}
+
+void AMajorProjectCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetVelocity().Size() != 0)
+	{
+		m_isMoving = false;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -201,44 +216,6 @@ void AMajorProjectCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const
 	TouchItem.bIsPressed = false;
 }
 
-//Commenting this section out to be consistent with FPS BP template.
-//This allows the user to turn without using the right virtual joystick
-
-//void AMajorProjectCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
-//	{
-//		if (TouchItem.bIsPressed)
-//		{
-//			if (GetWorld() != nullptr)
-//			{
-//				UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
-//				if (ViewportClient != nullptr)
-//				{
-//					FVector MoveDelta = Location - TouchItem.Location;
-//					FVector2D ScreenSize;
-//					ViewportClient->GetViewportSize(ScreenSize);
-//					FVector2D ScaledDelta = FVector2D(MoveDelta.X, MoveDelta.Y) / ScreenSize;
-//					if (FMath::Abs(ScaledDelta.X) >= 4.0 / ScreenSize.X)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.X * BaseTurnRate;
-//						AddControllerYawInput(Value);
-//					}
-//					if (FMath::Abs(ScaledDelta.Y) >= 4.0 / ScreenSize.Y)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.Y * BaseTurnRate;
-//						AddControllerPitchInput(Value);
-//					}
-//					TouchItem.Location = Location;
-//				}
-//				TouchItem.Location = Location;
-//			}
-//		}
-//	}
-//}
-
 void AMajorProjectCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f && CameraShake != NULL)
@@ -247,6 +224,11 @@ void AMajorProjectCharacter::MoveForward(float Value)
 		AddMovementInput(GetActorForwardVector(), Value);
 		// Add the camera shake in when player is moving
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
+
+		// connect timer function to actor. After 5 seconds run RepeatingFunction every 2 seconds 
+		//GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
+
+		m_isMoving = true;
 	}
 }
 
@@ -258,8 +240,20 @@ void AMajorProjectCharacter::MoveRight(float Value)
 		AddMovementInput(GetActorRightVector(), Value);
 		// Add the camera shake in when player is moving
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
+
+		m_isMoving = true;
 	}
 }
+
+//void AMajorProjectCharacter::MovementTimer()
+//{
+//	if (GEngine)
+//	{
+//		m_movementTime++;
+//		FString timeStr = FString::FromInt(m_movementTime);
+//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, timeStr);
+//	}
+//}
 
 void AMajorProjectCharacter::TurnAtRate(float Rate)
 {

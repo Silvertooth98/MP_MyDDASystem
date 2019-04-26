@@ -45,14 +45,23 @@ class AMajorProjectCharacter : public ACharacter
 	UPROPERTY(EditAnywhere)
 	AMajorProjectGameMode* Gamemode;
 
+	UFUNCTION(BlueprintPure, Category = "Movement Timer")
+	bool GetIsMoving() { return m_isMoving; }
+
 public:
 	AMajorProjectCharacter();
 
 protected:
 	virtual void BeginPlay();
 
+	virtual void Tick(float DeltaTime) override;
+
+	//int m_movementTime;
 	int m_intSeconds;
 	float m_fltSeconds;
+	bool m_isMoving;
+
+	//FTimerHandle m_movementTimer;
 
 public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
@@ -89,6 +98,9 @@ protected:
 
 	/** Handles stafing movement, left and right */
 	void MoveRight(float Val);
+
+	/** Handles the timer for the movement */
+	//void MovementTimer();
 
 	/**
 	 * Called via input to turn at a given rate.

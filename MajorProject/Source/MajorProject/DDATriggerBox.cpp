@@ -18,12 +18,17 @@ void ADDATriggerBox::BeginPlay()
 	Super::BeginPlay();
 
 	DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Purple, true, 100, 0, 5);
+
+	// Link gamemode variable to the gamemode
+	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 }
 
 void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActor)
 {
+	Gamemode->GetElapedTime(true, false);
+
 	// Check if the trigger box is the first one
-	if (OverlappedActor->GetName() == "SpawnTriggerBox_1")
+	if (OverlappedActor->GetName() == "DDATriggerBox_01")
 	{
 		// Check if the actor overlapping the trigger box is the FirstPersonCharacter
 		if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
@@ -31,9 +36,24 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 			// Do the checks for the total time and set the difficult etc etc
 			// Spawn a certain amount of enemies based on the above
 
+			m_intSeconds = Gamemode->GetSecondsInt();
+			if (m_intSeconds >= 3)
+			{
+				m_easyDifficulty = true;
+				m_mediumDifficulty = false;
+				m_hardDifficulty = false;
+			}
+			else
+			{
+				m_easyDifficulty = false;
+				m_mediumDifficulty = false;
+				m_hardDifficulty = true;
+			}
+
 			print("Being Overlap - Spawn Sentries");
 			printf("Actor Overlapped = %s", *OverlappedActor->GetName());
 			printf("Actor that Overlapped = %s", *OtherActor->GetName());
+			//m_setDifficulty = true;
 		}
 	}
 }
@@ -45,5 +65,6 @@ void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
 		print("End Overlap - Sentries already spawned");
 		printf("Actor Left = %s", *OverlappedActor->GetName());
 		printf("Actor Overlapped = %s", *OtherActor->GetName());
+		//m_setDifficulty = false;
 	}
 }
