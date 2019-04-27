@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/TriggerBox.h"
 #include "MajorProjectGameMode.h"
+#include "MajorProjectCharacter.h"
 #include "DDATriggerBox.generated.h"
 
 /**
@@ -17,6 +18,9 @@ class MAJORPROJECT_API ADDATriggerBox : public ATriggerBox
 
 	UPROPERTY(EditAnywhere)
 	AMajorProjectGameMode* Gamemode;
+
+	UPROPERTY(EditAnywhere)
+	AMajorProjectCharacter* Character;
 	
 protected:
 

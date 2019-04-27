@@ -58,9 +58,7 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
-	//m_movementTime = 0;
-
-	m_isMoving = false;
+	m_movementTime = 0;
 }
 
 void AMajorProjectCharacter::BeginPlay()
@@ -79,9 +77,16 @@ void AMajorProjectCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (GetVelocity().Size() != 0)
+	// Check if the player is not moving
+	if (GetVelocity().Size() == 0)
 	{
-		m_isMoving = false;
+		// Check if the movement timer exists
+		if (GetWorldTimerManager().TimerExists(m_movementTimer))
+		{
+			// Pause the movement timer
+			GetWorldTimerManager().PauseTimer(m_movementTimer);
+			GEngine->AddOnScreenDebugMessage(-1, 0.05, FColor::Red, "Timer paused");
+		}
 	}
 }
 
@@ -225,10 +230,19 @@ void AMajorProjectCharacter::MoveForward(float Value)
 		// Add the camera shake in when player is moving
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
 
-		// connect timer function to actor. After 5 seconds run RepeatingFunction every 2 seconds 
-		//GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
-
-		m_isMoving = true;
+		// If the movement timer does not exist
+		if (!GetWorldTimerManager().TimerExists(m_movementTimer))
+		{
+			// Set the movement timer to start. Run the MovementTimer function in 1 second intervals. 
+			GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
+		}
+		// If the movement timer does exist
+		else
+		{
+			// Unpause the movement timeer
+			GetWorldTimerManager().UnPauseTimer(m_movementTimer);
+		}
 	}
 }
 
@@ -241,19 +255,32 @@ void AMajorProjectCharacter::MoveRight(float Value)
 		// Add the camera shake in when player is moving
 		GetWorld()->GetFirstPlayerController()->PlayerCameraManager->PlayCameraShake(CameraShake, 1.0f);
 
-		m_isMoving = true;
+		// If the movement timer does not exist
+		if (!GetWorldTimerManager().TimerExists(m_movementTimer))
+		{
+			// Set the movement timer to start. Run the MovementTimer function in 1 second intervals. 
+			GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
+		}
+		// If the movement timer does exist
+		else
+		{
+			// Unpause the movement timeer
+			GetWorldTimerManager().UnPauseTimer(m_movementTimer);
+		}
 	}
 }
 
-//void AMajorProjectCharacter::MovementTimer()
-//{
-//	if (GEngine)
-//	{
-//		m_movementTime++;
-//		FString timeStr = FString::FromInt(m_movementTime);
-//		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, timeStr);
-//	}
-//}
+void AMajorProjectCharacter::MovementTimer()
+{
+	if (GEngine)
+	{
+		// Add 1 to the current movement time integer
+		m_movementTime = m_movementTime + 1;
+		FString timeStr = FString::FromInt(m_movementTime);
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, timeStr);
+	}
+}
 
 void AMajorProjectCharacter::TurnAtRate(float Rate)
 {
