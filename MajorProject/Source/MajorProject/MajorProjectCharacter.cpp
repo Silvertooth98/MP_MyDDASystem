@@ -85,7 +85,6 @@ void AMajorProjectCharacter::Tick(float DeltaTime)
 		{
 			// Pause the movement timer
 			GetWorldTimerManager().PauseTimer(m_movementTimer);
-			GEngine->AddOnScreenDebugMessage(-1, 0.05, FColor::Red, "Timer paused");
 		}
 	}
 }
@@ -244,9 +243,43 @@ void AMajorProjectCharacter::MovementTimer()
 	{
 		// Add 1 to the current movement time integer
 		m_movementTime = m_movementTime + 1;
-		FString timeStr = FString::FromInt(m_movementTime);
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, timeStr);
+		FString movementTimeStr = FString::FromInt(m_movementTime);
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, movementTimeStr);
 	}
+}
+
+void AMajorProjectCharacter::InLightTimer()
+{
+	// If the in light timer does not exist
+	if (!GetWorldTimerManager().TimerExists(m_inLightTimer))
+	{
+		// Set the in light timer to start. Run the InLightTimer function in 1 second intervals. 
+		GetWorldTimerManager().SetTimer(m_inLightTimer, this, &AMajorProjectCharacter::AddToInLightTimer, 1.0f, true, 1.0f);
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
+	}
+	// If the in light timer does exist
+	else
+	{
+		// Unpause the in light timeer
+		GetWorldTimerManager().UnPauseTimer(m_inLightTimer);
+	}
+}
+
+void AMajorProjectCharacter::AddToInLightTimer()
+{
+	if (GEngine)
+	{
+		// Add 1 to the current in light time integer
+		m_inLightTime = m_inLightTime + 1;
+		FString inLightStr = FString::FromInt(m_inLightTime);
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, inLightStr);
+	}
+}
+
+void AMajorProjectCharacter::PauseInLightTimer()
+{
+	// Pause the in light timer
+	GetWorldTimerManager().PauseTimer(m_inLightTimer);
 }
 
 // USED FOR DEBUGGING

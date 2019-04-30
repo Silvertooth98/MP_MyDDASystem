@@ -50,6 +50,14 @@ public:
 
 	int GetTotalMovementTime() { return m_movementTime; }
 
+	/** Handles the creation/unpausing of the in the light timer */
+	void InLightTimer();
+
+	/** Handles the timer for the player being in the light */
+	void AddToInLightTimer();
+
+	void PauseInLightTimer();
+
 protected:
 	virtual void BeginPlay();
 
@@ -58,8 +66,10 @@ protected:
 	int m_movementTime;
 	int m_intSeconds;
 	float m_fltSeconds;
-
 	FTimerHandle m_movementTimer;
+
+	int m_inLightTime;
+	FTimerHandle m_inLightTimer;
 
 public:
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
