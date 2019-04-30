@@ -105,6 +105,9 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMajorProjectCharacter::OnFire);
 
+	// Bind display total time event
+	PlayerInputComponent->BindAction("TotalTime", IE_Pressed, this, &AMajorProjectCharacter::DisplayTotalTime);
+
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
 
@@ -123,42 +126,6 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 
 void AMajorProjectCharacter::OnFire()
 {
-	Gamemode->GetElapedTime(true, false);
-
-	if (GEngine)
-	{
-		if (Gamemode->GetIsSecondsInInt())
-		{
-			m_intSeconds = Gamemode->GetSecondsInt();
-
-			FString TheIntStr = FString::FromInt(m_intSeconds);//FString::SanitizeFloat(realtimeSeconds);
-			if (m_intSeconds >= 3)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
-			}
-		}
-		else
-		{
-			m_fltSeconds = Gamemode->GetSecondsFlt();
-
-			FString TheFloatStr = FString::SanitizeFloat(m_fltSeconds);
-
-			if (m_fltSeconds >= 3)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheFloatStr);
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheFloatStr);
-			}
-		}
-		
-	}
-
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
 	{
@@ -279,6 +246,45 @@ void AMajorProjectCharacter::MovementTimer()
 		m_movementTime = m_movementTime + 1;
 		FString timeStr = FString::FromInt(m_movementTime);
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, timeStr);
+	}
+}
+
+// USED FOR DEBUGGING
+void AMajorProjectCharacter::DisplayTotalTime()
+{
+	Gamemode->GetElapedTime(true, false);
+
+	if (GEngine)
+	{
+		if (Gamemode->GetIsSecondsInInt())
+		{
+			m_intSeconds = Gamemode->GetSecondsInt();
+
+			FString TheIntStr = FString::FromInt(m_intSeconds);//FString::SanitizeFloat(realtimeSeconds);
+			if (m_intSeconds >= 3)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
+			}
+		}
+		else
+		{
+			m_fltSeconds = Gamemode->GetSecondsFlt();
+
+			FString TheFloatStr = FString::SanitizeFloat(m_fltSeconds);
+
+			if (m_fltSeconds >= 3)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheFloatStr);
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheFloatStr);
+			}
+		}
 	}
 }
 

@@ -100,6 +100,10 @@ protected:
 	/** Handles the timer for the movement */
 	void MovementTimer();
 
+	// USED FOR DEBUGGING
+	/** Handles displaying total time */
+	void DisplayTotalTime();
+
 	/**
 	 * Called via input to turn at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate

@@ -15,12 +15,6 @@ UCLASS()
 class MAJORPROJECT_API ADDATriggerBox : public ATriggerBox
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere)
-	AMajorProjectGameMode* Gamemode;
-
-	UPROPERTY(EditAnywhere)
-	AMajorProjectCharacter* Character;
 	
 protected:
 
@@ -48,7 +42,28 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
 	bool GetDifficultyChange() { return m_setDifficulty; }
 
+	// SECTION 1 SENTRIES
+	// Array of type actor for the sentries to delete when in easy mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s1EasyModeSetup;
+
+	// Array of type actor for the sentries to delete when in medium mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s1MediumModeSetup;
+
+	// DEBUGGING * WON'T REMOVE ANY
+	// Array of type actor for the sentries to delete when in hard mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s1HardModeSetup;
+
+
 protected:
+
+	//UPROPERTY(EditAnywhere)
+	AMajorProjectGameMode* Gamemode;
+
+	//UPROPERTY(EditAnywhere)
+	AMajorProjectCharacter* Character;
 
 	int m_intSeconds;
 

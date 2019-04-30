@@ -91,6 +91,36 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 				}
 			}
 
+			// Check if easy difficulty
+			if (m_easyDifficulty)
+			{
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1EasyModeSetup.Num(); i++)
+				{
+					m_s1EasyModeSetup[i]->Destroy();
+				}
+			}
+			// Check if medium difficulty
+			else if (m_mediumDifficulty)
+			{
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1MediumModeSetup.Num(); i++)
+				{
+					m_s1MediumModeSetup[i]->Destroy();
+				}
+			}
+			// Check if hard difficuly
+			else if (m_hardDifficulty)
+			{
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1HardModeSetup.Num(); i++)
+				{
+					m_s1HardModeSetup[i]->Destroy();
+				}
+			}
+
+			OverlappedActor->Destroy();
+
 			print("Being Overlap - Spawn Sentries");
 			printf("Actor Overlapped = %s", *OverlappedActor->GetName());
 			printf("Actor that Overlapped = %s", *OtherActor->GetName());
