@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{9FBCD634-B7DA-42EB-9CF9-1C832B6FCE02}</UniqueIdentifier>
+      <UniqueIdentifier>{3BC81A60-44F1-43BA-8EEA-8D64D76880BA}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{4E58DCBD-E9C2-44C0-B71C-4A7A601C2517}</UniqueIdentifier>
+      <UniqueIdentifier>{CED86744-9632-4021-B0F9-6A274AD684DC}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{D12FDA53-89DB-49CD-B445-E151DF58756C}</UniqueIdentifier>
+      <UniqueIdentifier>{35CAAC9F-870D-42AE-BA9A-C519410C8EC5}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
       <Filter>Source\MajorProject</Filter>
@@ -42,6 +42,12 @@
       <Filter>Source\MajorProject</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MajorProject\DDATriggerBox.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\DDATriggerCapsule.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\DDATriggerCapsule.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
     <None Include="..\..\Source\MajorProject\MajorProject.Build.cs">
@@ -77,15 +83,5 @@
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectProjectile.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\MajorProject\DDATriggerCapsule.h">
-      <Filter>Source\MajorProject</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\MajorProject\DDATriggerCapsule.cpp">
-      <Filter>Source\MajorProject</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
