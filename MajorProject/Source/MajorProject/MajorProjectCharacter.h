@@ -48,7 +48,11 @@ class AMajorProjectCharacter : public ACharacter
 public:
 	AMajorProjectCharacter();
 
+	// Getter for the total movement time
 	int GetTotalMovementTime() { return m_movementTime; }
+	
+	// Getter for the total in light time
+	int GetTotalInLightTime() { return m_inLightTime; }
 
 	/** Handles the creation/unpausing of the in the light timer */
 	void InLightTimer();
@@ -56,7 +60,17 @@ public:
 	/** Handles the timer for the player being in the light */
 	void AddToInLightTimer();
 
+	/** Handles the pausing for the light timer */
 	void PauseInLightTimer();
+
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isEasyDifficulty = false;
+
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isMediumDifficulty = false;
+
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isHardDifficulty = false;
 
 protected:
 	virtual void BeginPlay();
