@@ -320,7 +320,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 
 void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
 {
-	if (OtherActor && (OtherActor != this))
+	if (OtherActor && (OtherActor != this) && (OverlappedActor->GetName() == "FirstPersonCharacter"))
 	{
 		printf("Actor Left = %s", *OverlappedActor->GetName());
 		printf("Actor Overlapped = %s", *OtherActor->GetName());
