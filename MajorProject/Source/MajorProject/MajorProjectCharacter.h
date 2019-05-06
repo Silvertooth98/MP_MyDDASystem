@@ -64,13 +64,19 @@ public:
 	void PauseInLightTimer();
 
 	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isEasyDifficulty = false;
+	bool m_isEasy1Difficulty = false;							// Starting easy difficulty
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isEasy2Difficulty = false;							// Easier easy difficulty
 
 	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isMediumDifficulty = false;
+	bool m_isMedium1Difficulty = false;							// Starting medium difficulty
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isMedium2Difficulty = false;							// Harder medium difficulty
 
 	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isHardDifficulty = false;
+	bool m_isHard1Difficulty = false;							// Starting hard difficulty
+	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
+	bool m_isHard2Difficulty = false;							// Harder hard difficulty
 
 protected:
 	virtual void BeginPlay();

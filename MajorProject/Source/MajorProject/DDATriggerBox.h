@@ -8,9 +8,19 @@
 #include "MajorProjectCharacter.h"
 #include "DDATriggerBox.generated.h"
 
-/**
- * 
- */
+UENUM()
+enum class EDifficulty : uint8
+{
+	EASY_01,
+	EASY_02,
+
+	MEDIUM_01,
+	MEDIUM_02,
+
+	HARD_01,
+	HARD_02
+};
+
 UCLASS()
 class MAJORPROJECT_API ADDATriggerBox : public ATriggerBox
 {
@@ -20,7 +30,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void DifficultySetup(bool Easy = false, bool Medium = false, bool Hard = false);
+	EDifficulty GetEDifficulty();
 	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false);
 
 public:
@@ -34,13 +44,19 @@ public:
 	void OnOverLapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetEasyDifficulty() { return m_easyDifficulty; }
+	bool GetEasy1Difficulty() { return m_easy1Difficulty; }			// Getter for starting Easy difficulty
+	UFUNCTION(BlueprintPure, Category = "Trigger Box")
+	bool GetEasy2Difficulty() { return m_easy2Difficulty; }			// Getter for easier Easy difficulty
 
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetMediumDifficulty() { return m_mediumDifficulty; }
+	bool GetMedium1Difficulty() { return m_medium1Difficulty; }		// Getter for starting Medium difficulty
+	UFUNCTION(BlueprintPure, Category = "Trigger Box")
+	bool GetMedium2Difficulty() { return m_medium2Difficulty; }		// Getter for harder Medium difficulty
 
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetHardDifficulty() { return m_hardDifficulty; }
+	bool GetHard1Difficulty() { return m_hard1Difficulty; }			// Getter for starting Hard difficulty
+	UFUNCTION(BlueprintPure, Category = "Trigger Box")
+	bool GetHard2Difficulty() { return m_hard2Difficulty; }			// Getter for harder Hard difficulty
 
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
 	bool GetDifficultyChange() { return m_setDifficulty; }
@@ -89,11 +105,19 @@ protected:
 	//UPROPERTY(EditAnywhere)
 	AMajorProjectCharacter* Character;
 
+	EDifficulty m_difficulty;
+
 	int m_intSeconds;
 
-	bool m_easyDifficulty;
-	bool m_mediumDifficulty;
-	bool m_hardDifficulty;
+	bool m_easy1Difficulty;		// Starting easy difficulty
+	bool m_easy2Difficulty;		// Easier easy difficulty
+
+	bool m_medium1Difficulty;	// Starting medium difficulty
+	bool m_medium2Difficulty;	// Harder medium difficulty
+
+	bool m_hard1Difficulty;		// Starting hard difficulty
+	bool m_hard2Difficulty;		// Harder hard difficulty
+
 	FString m_lastDifficultySetting;
 	bool m_setDifficulty;
 
