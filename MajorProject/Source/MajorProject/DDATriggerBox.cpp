@@ -24,6 +24,8 @@ void ADDATriggerBox::BeginPlay()
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 	// Link character variable to the character class
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
+
+	print("test");
 }
 
 EDifficulty ADDATriggerBox::GetEDifficulty()
