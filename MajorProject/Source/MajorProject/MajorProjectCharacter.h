@@ -8,6 +8,21 @@
 #include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.generated.h"
 
+UENUM(BlueprintType)
+enum class ESetDifficulty : uint8
+{
+	NONE		UMETA(DisplayName = "No Set Difficulty"),
+
+	EASY_01		UMETA(DisplayName = "EASY_01"),
+	EASY_02 	UMETA(DisplayName = "EASY_02"),
+
+	MEDIUM_01 	UMETA(DisplayName = "MEDIUM_01"),
+	MEDIUM_02 	UMETA(DisplayName = "MEDIUM_02"),
+
+	HARD_01 	UMETA(DisplayName = "HARD_01"),
+	HARD_02 	UMETA(DisplayName = "HARD_02")
+};
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -63,20 +78,20 @@ public:
 	/** Handles the pausing for the light timer */
 	void PauseInLightTimer();
 
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isEasy1Difficulty = false;							// Starting easy difficulty
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isEasy2Difficulty = false;							// Easier easy difficulty
+	ESetDifficulty SetDifficulty(ESetDifficulty SetDifficulty);
 
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isMedium1Difficulty = false;							// Starting medium difficulty
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isMedium2Difficulty = false;							// Harder medium difficulty
+	UFUNCTION(BlueprintCallable, category = "DifficultyEnum")
+	ESetDifficulty GetSetDifficulty() { return m_setDifficulty; }
 
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isHard1Difficulty = false;							// Starting hard difficulty
-	UPROPERTY(BlueprintReadWrite, category = "Difficulty")
-	bool m_isHard2Difficulty = false;							// Harder hard difficulty
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "DifficultyEnum")
+	ESetDifficulty m_setDifficulty = ESetDifficulty::NONE;
+
+	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
+	bool m_section01 = false;									// Boolean for first section
+	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
+	bool m_section02 = false;									// Boolean for second section
+	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
+	bool m_section03 = false;									// Boolean for third section
 
 protected:
 	virtual void BeginPlay();

@@ -282,6 +282,15 @@ void AMajorProjectCharacter::PauseInLightTimer()
 	GetWorldTimerManager().PauseTimer(m_inLightTimer);
 }
 
+ESetDifficulty AMajorProjectCharacter::SetDifficulty(ESetDifficulty SetDifficulty)
+{
+	if (SetDifficulty == ESetDifficulty::EASY_01)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, "EASY_01 FROM CHAR");
+	}
+	return ESetDifficulty();
+}
+
 // USED FOR DEBUGGING
 void AMajorProjectCharacter::DisplayTotalTime()
 {

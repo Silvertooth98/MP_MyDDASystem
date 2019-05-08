@@ -30,7 +30,6 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	EDifficulty GetEDifficulty();
 	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false);
 
 public:
@@ -42,21 +41,6 @@ public:
 	
 	UFUNCTION()
 	void OnOverLapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
-
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetEasy1Difficulty() { return m_easy1Difficulty; }			// Getter for starting Easy difficulty
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetEasy2Difficulty() { return m_easy2Difficulty; }			// Getter for easier Easy difficulty
-
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetMedium1Difficulty() { return m_medium1Difficulty; }		// Getter for starting Medium difficulty
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetMedium2Difficulty() { return m_medium2Difficulty; }		// Getter for harder Medium difficulty
-
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetHard1Difficulty() { return m_hard1Difficulty; }			// Getter for starting Hard difficulty
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetHard2Difficulty() { return m_hard2Difficulty; }			// Getter for harder Hard difficulty
 
 	UFUNCTION(BlueprintPure, Category = "Trigger Box")
 	bool GetDifficultyChange() { return m_setDifficulty; }
@@ -84,18 +68,30 @@ public:
 							// SECTION 2 SENTRIES
 //#####################################################################################################
 	
-// Array of type actor for the sentries to delete when in easy mode
+	// Array of type actor for the sentries to delete when in easy_01 mode
 	UPROPERTY(EditAnywhere, Category = "Trigger Box")
-	TArray<AActor*> m_s2EasyModeSetup;
+	TArray<AActor*> m_s2EasyMode1Setup;
+	// Array of type actor for the sentries to delete when in easy_02 mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s2EasyMode2Setup;
 
-	// Array of type actor for the sentries to delete when in medium mode
+	// Array of type actor for the sentries to delete when in medium_01 mode
 	UPROPERTY(EditAnywhere, Category = "Trigger Box")
-	TArray<AActor*> m_s2MediumModeSetup;
+	TArray<AActor*> m_s2MediumMode1Setup;
+	// Array of type actor for the sentries to delete when in medium_02 mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s2MediumMode2Setup;
 
-	// DEBUGGING * WON'T REMOVE ANY
-	// Array of type actor for the sentries to delete when in hard mode
+	// Array of type actor for the sentries to delete when in hard_01 mode
 	UPROPERTY(EditAnywhere, Category = "Trigger Box")
-	TArray<AActor*> m_s2HardModeSetup;
+	TArray<AActor*> m_s2HardMode1Setup;
+	// Array of type actor for the sentries to delete when in hard_02 mode
+	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	TArray<AActor*> m_s2HardMode2Setup;
+
+//#####################################################################################################
+							// SECTION 3 SENTRIES
+//#####################################################################################################
 
 protected:
 
@@ -108,15 +104,6 @@ protected:
 	EDifficulty m_difficulty;
 
 	int m_intSeconds;
-
-	bool m_easy1Difficulty;		// Starting easy difficulty
-	bool m_easy2Difficulty;		// Easier easy difficulty
-
-	bool m_medium1Difficulty;	// Starting medium difficulty
-	bool m_medium2Difficulty;	// Harder medium difficulty
-
-	bool m_hard1Difficulty;		// Starting hard difficulty
-	bool m_hard2Difficulty;		// Harder hard difficulty
 
 	FString m_lastDifficultySetting;
 	bool m_setDifficulty;

@@ -24,59 +24,6 @@ void ADDATriggerBox::BeginPlay()
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 	// Link character variable to the character class
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
-
-	print("test");
-}
-
-EDifficulty ADDATriggerBox::GetEDifficulty()
-{
-	// Check if difficulty is set to Easy_01 within the character class
-	if (Character->m_isEasy1Difficulty)
-	{
-		// Set m_difficulty enum variable to Easy_01
-		m_difficulty = EDifficulty::EASY_01;
-	}
-	// Check if difficulty is set to Easy_02 within the character class
-	else if (Character->m_isEasy2Difficulty)
-	{
-		// Set m_difficulty enum variable to Easy_02
-		m_difficulty = EDifficulty::EASY_02;
-	}
-
-	// Check if difficulty is set to Medium_01 within the character class
-	else if (Character->m_isMedium1Difficulty)
-	{
-		// Set m_difficulty enum variable to Medium_01
-		m_difficulty = EDifficulty::MEDIUM_01;
-	}
-	// Check if difficulty is set to Medium_02 within the character class
-	else if (Character->m_isMedium2Difficulty)
-	{
-		// Set m_difficulty enum variable to Medium_02
-		m_difficulty = EDifficulty::MEDIUM_02;
-	}
-
-	// Check if difficulty is set to Hard_01 within the character class
-	else if (Character->m_isHard1Difficulty)
-	{
-		// Set m_difficulty enum variable to Hard_01
-		m_difficulty = EDifficulty::HARD_01;
-	}
-	// Check if difficulty is set to Hard_02 within the character class
-	else if (Character->m_isHard2Difficulty)
-	{
-		// Set m_difficulty enum variable to Hard_02
-		m_difficulty = EDifficulty::HARD_02;
-	}
-
-	// Else, print error message
-	else
-	{
-		print("ERROR - NOT DIFFICULTY SET IN CHAR");
-	}
-
-	// Return enum variable for difficulty
-	return m_difficulty;
 }
 
 void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
@@ -89,6 +36,10 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 	{
 		print("SECTION 1");
 
+		Character->m_section01 = true;
+		Character->m_section02 = false;
+		Character->m_section03 = false;
+
 		// Check if easy difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
 		{
@@ -100,14 +51,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 				m_s1EasyModeSetup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = true;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 		}
 
 		// Check if medium difficulty
@@ -121,14 +65,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 				m_s1MediumModeSetup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = true;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 		}
 
 		// Check if hard difficuly
@@ -142,14 +79,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 				m_s1HardModeSetup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = true;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 		}
 
 		else
@@ -166,25 +96,22 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 	{
 		print("SECTION 2");
 
+		Character->m_section01 = false;
+		Character->m_section02 = true;
+		Character->m_section03 = false;
+
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
 		{
 			print("DIFFICULTY - EASY_01");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2EasyModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2EasyMode1Setup.Num(); i++)
 			{
-				m_s2EasyModeSetup[i]->Destroy();
+				m_s2EasyMode1Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = true;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 		}
 
 		// Check if Easy 2 difficulty
@@ -193,19 +120,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			print("DIFFICULTY - EASY_02");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2EasyModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2EasyMode2Setup.Num(); i++)
 			{
-				m_s2EasyModeSetup[i]->Destroy();
+				m_s2EasyMode2Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = true;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
 		}
 
 		// Check if Medium 1 difficulty
@@ -214,19 +134,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			print("DIFFICULTY - MEDIUM_01");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2MediumModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2MediumMode1Setup.Num(); i++)
 			{
-				m_s2MediumModeSetup[i]->Destroy();
+				m_s2MediumMode1Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = true;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 		}
 		
 		// Check if Medium 2 difficulty
@@ -235,19 +148,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			print("DIFFICULTY - MEDIUM_02");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2MediumModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2MediumMode2Setup.Num(); i++)
 			{
-				m_s2MediumModeSetup[i]->Destroy();
+				m_s2MediumMode2Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = true;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
 		}
 
 		// Check if Hard 1 difficulty
@@ -256,19 +162,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			print("DIFFICULTY - HARD_01");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2HardModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2HardMode1Setup.Num(); i++)
 			{
-				m_s2HardModeSetup[i]->Destroy();
+				m_s2HardMode1Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = true;
-			Character->m_isHard2Difficulty = false;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 		}
 		
 		// Check if Hard 2 difficulty
@@ -277,19 +176,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			print("DIFFICULTY - HARD_02");
 
 			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2HardModeSetup.Num(); i++)
+			for (int i = 0; i < m_s2HardMode2Setup.Num(); i++)
 			{
-				m_s2HardModeSetup[i]->Destroy();
+				m_s2HardMode2Setup[i]->Destroy();
 			}
 
-			Character->m_isEasy1Difficulty = false;
-			Character->m_isEasy2Difficulty = false;
-
-			Character->m_isMedium1Difficulty = false;
-			Character->m_isMedium2Difficulty = false;
-
-			Character->m_isHard1Difficulty = false;
-			Character->m_isHard2Difficulty = true;
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 		}
 	}
 }
@@ -390,21 +282,21 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 					if (Character->GetTotalInLightTime() == 0)
 					{
 						// If Easy_01 difficulty, set difficulty to Medium_01
-						if (GetEDifficulty() == EDifficulty::EASY_01)
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
 						}
 
 						// If Medium_01 difficulty, set difficulty to Medium_02
-						else if (GetEDifficulty() == EDifficulty::MEDIUM_01)
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 						{
 							print("DIFFICULTY - MEDIUM_02");
 							m_difficulty = EDifficulty::MEDIUM_02;
 						}
 
 						// If Hard_01 difficulty, set difficulty to Hard_02
-						else if (GetEDifficulty() == EDifficulty::HARD_01)
+						else if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
 							print("DIFFICULTY - HARD_02");
 							m_difficulty = EDifficulty::HARD_02;
@@ -420,7 +312,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 4)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
-						if (GetEDifficulty() == EDifficulty::MEDIUM_01)
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 						{
 							print("DIFFICULTY - MEDIUM_02");
 							m_difficulty = EDifficulty::MEDIUM_02;
@@ -438,14 +330,14 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 					else if (Character->GetTotalInLightTime() >= 5)
 					{
 						// If Easy_01 difficulty, set difficulty to Easy_02
-						if (GetEDifficulty() == EDifficulty::EASY_01)
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01)
 						{
 							print("DIFFICULTY - EASY_02");
 							m_difficulty = EDifficulty::EASY_02;
 						}
 
 						// If Hard_01 difficulty, set difficulty to Medium_01
-						else if (GetEDifficulty() == EDifficulty::HARD_01)
+						else if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
@@ -467,7 +359,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 					if (Character->GetTotalInLightTime() <= 3)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
-						if (GetEDifficulty() == EDifficulty::MEDIUM_01)
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 						{
 							print("DIFFICULTY - MEDIUM_02");
 							m_difficulty = EDifficulty::MEDIUM_02;
@@ -485,14 +377,14 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 					else if (Character->GetTotalInLightTime() >= 4)
 					{
 						// If Easy_01 difficulty, set difficulty to Medium_01
-						if (GetEDifficulty() == EDifficulty::EASY_01)
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
 						}
 
 						// Else, if Hard_01 difficulty, set difficulty to Hard_02
-						if (GetEDifficulty() == EDifficulty::HARD_02)
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
 							print("DIFFICULTY - HARD_02");
 							m_difficulty = EDifficulty::HARD_02;
@@ -511,7 +403,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 				else if (Character->GetTotalMovementTime() <= 8)
 				{
 					// If Hard_01 difficulty, set difficulty to Hard_02
-					if (GetEDifficulty() == EDifficulty::HARD_01)
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 					{
 						print("DIFFICULTY - HARD_02");
 						m_difficulty = EDifficulty::HARD_02;
@@ -533,14 +425,15 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 				if (Character->GetTotalMovementTime() == m_intSeconds)
 				{
 					// If Medium_01 difficulty, set difficulty to Medium_02
-					if (GetEDifficulty() == EDifficulty::MEDIUM_01)
+					if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 					{
 						print("DIFFICULTY - MEDIUM_02");
 						m_difficulty = EDifficulty::MEDIUM_02;
 					}
 
 					// Else, set difficulty to Medium_01
-					else if (GetEDifficulty() == EDifficulty::EASY_01 || GetEDifficulty() == EDifficulty::HARD_01)
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 || 
+							 Character->m_setDifficulty == ESetDifficulty::HARD_01)
 					{
 						print("DIFFICULTY - MEDIUM_01");
 						m_difficulty = EDifficulty::MEDIUM_01;
@@ -557,14 +450,15 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 				else
 				{
 					// If Hard_01 difficulty, set difficulty to Hard_02
-					if (GetEDifficulty() == EDifficulty::HARD_01)
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 					{
 						print("DIFFICULTY - HARD_02");
 						m_difficulty = EDifficulty::HARD_02;
 					}
 
 					// If Easy_01 or Medium_01 difficulty, set difficulty to Hard_01
-					else if (GetEDifficulty() == EDifficulty::EASY_01 || GetEDifficulty() == EDifficulty::MEDIUM_01)
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 || 
+							 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 					{
 						print("DIFFICULTY - HARD_01");
 						m_difficulty = EDifficulty::HARD_01;
