@@ -52,16 +52,16 @@ public:
 //#####################################################################################################
 	
 // Array of type actor for the sentries to delete when in easy mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
 	TArray<AActor*> m_s1EasyModeSetup;
 
 	// Array of type actor for the sentries to delete when in medium mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
 	TArray<AActor*> m_s1MediumModeSetup;
 
 	// DEBUGGING * WON'T REMOVE ANY
 	// Array of type actor for the sentries to delete when in hard mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
 	TArray<AActor*> m_s1HardModeSetup;
 
 //#####################################################################################################
@@ -69,36 +69,59 @@ public:
 //#####################################################################################################
 	
 	// Array of type actor for the sentries to delete when in easy_01 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2EasyMode1Setup;
 	// Array of type actor for the sentries to delete when in easy_02 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2EasyMode2Setup;
 
 	// Array of type actor for the sentries to delete when in medium_01 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2MediumMode1Setup;
 	// Array of type actor for the sentries to delete when in medium_02 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2MediumMode2Setup;
 
 	// Array of type actor for the sentries to delete when in hard_01 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2HardMode1Setup;
 	// Array of type actor for the sentries to delete when in hard_02 mode
-	UPROPERTY(EditAnywhere, Category = "Trigger Box")
+	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
 	TArray<AActor*> m_s2HardMode2Setup;
 
 //#####################################################################################################
 							// SECTION 3 SENTRIES
 //#####################################################################################################
 
+	// Array of type actor for the sentries to delete when in easy_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3EasyMode1Setup;
+	// Array of type actor for the sentries to delete when in easy_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3EasyMode2Setup;
+
+	// Array of type actor for the sentries to delete when in medium_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3MediumMode1Setup;
+	// Array of type actor for the sentries to delete when in medium_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3MediumMode2Setup;
+
+	// Array of type actor for the sentries to delete when in hard_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3HardMode1Setup;
+	// Array of type actor for the sentries to delete when in hard_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
+	TArray<AActor*> m_s3HardMode2Setup;
+
+//#####################################################################################################
+							// SECTION 4 SENTRIES
+//#####################################################################################################
+
 protected:
 
-	//UPROPERTY(EditAnywhere)
 	AMajorProjectGameMode* Gamemode;
 
-	//UPROPERTY(EditAnywhere)
 	AMajorProjectCharacter* Character;
 
 	EDifficulty m_difficulty;

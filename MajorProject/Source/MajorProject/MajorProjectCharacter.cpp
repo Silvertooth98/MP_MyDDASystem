@@ -294,6 +294,7 @@ ESetDifficulty AMajorProjectCharacter::SetDifficulty(ESetDifficulty SetDifficult
 // USED FOR DEBUGGING
 void AMajorProjectCharacter::DisplayTotalTime()
 {
+	//RENAME TO ELAPSED
 	Gamemode->GetElapedTime(true, false);
 
 	if (GEngine)

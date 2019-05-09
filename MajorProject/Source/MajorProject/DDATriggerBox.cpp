@@ -184,9 +184,106 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 		}
 	}
+
+//#####################################################################################################
+							// SECTION 3 TRIGGER BOX
+//#####################################################################################################
+	// Check if player is within the third section trigger box
+	else if (S3)
+	{
+		print("SECTION 3");
+
+		Character->m_section01 = false;
+		Character->m_section02 = false;
+		Character->m_section03 = true;
+
+		// Check if Easy 1 difficulty
+		if (m_difficulty == EDifficulty::EASY_01)
+		{
+			print("DIFFICULTY - EASY_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3EasyMode1Setup.Num(); i++)
+			{
+				m_s3EasyMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+		}
+
+		// Check if Easy 2 difficulty
+		else if (m_difficulty == EDifficulty::EASY_02)
+		{
+			print("DIFFICULTY - EASY_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3EasyMode2Setup.Num(); i++)
+			{
+				m_s3EasyMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
+		}
+
+		// Check if Medium 1 difficulty
+		else if (m_difficulty == EDifficulty::MEDIUM_01)
+		{
+			print("DIFFICULTY - MEDIUM_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3MediumMode1Setup.Num(); i++)
+			{
+				m_s3MediumMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+		}
+
+		// Check if Medium 2 difficulty
+		else if (m_difficulty == EDifficulty::MEDIUM_02)
+		{
+			print("DIFFICULTY - MEDIUM_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3MediumMode2Setup.Num(); i++)
+			{
+				m_s3MediumMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
+		}
+
+		// Check if Hard 1 difficulty
+		else if (m_difficulty == EDifficulty::HARD_01)
+		{
+			print("DIFFICULTY - HARD_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3HardMode1Setup.Num(); i++)
+			{
+				m_s3HardMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+		}
+
+		// Check if Hard 2 difficulty
+		else if (m_difficulty == EDifficulty::HARD_02)
+		{
+			print("DIFFICULTY - HARD_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s3HardMode2Setup.Num(); i++)
+			{
+				m_s3HardMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+		}
+	}
 }
 
-void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActor)
+void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
 	Gamemode->GetElapedTime(true, false);
 
@@ -194,7 +291,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 							// SECTION 1 TRIGGER BOX
 //#####################################################################################################
 	
-// Check if the trigger box is the first one
+	// Check if the trigger box is the first one
 	if (OverlappedActor->GetName() == "DDATriggerBox_01")
 	{
 		// Check if the actor overlapping the trigger box is the FirstPersonCharacter
@@ -268,9 +365,6 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 		{
 			// Get the current seconds spent in level
 			m_intSeconds = Gamemode->GetSecondsInt();
-
-			// Get the current difficulty setting
-			//sm_difficulty = GetEDifficulty();
 
 			// Check if seconds is greater than or equal to 15
 			if (m_intSeconds >= 15)
@@ -479,11 +573,248 @@ void ADDATriggerBox::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActo
 			OverlappedActor->Destroy();
 		}
 	}
+
+//#####################################################################################################
+							// SECTION 3 TRIGGER BOX
+//#####################################################################################################
+
+	// Check if the trigger box is the third one
+	else if (OverlappedActor->GetName() == "DDATriggerBox_03")
+	{
+		// Check if the actor overlapping the trigger box is the FirstPersonCharacter
+		if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
+		{
+			// Get the current seconds spent in level
+			m_intSeconds = Gamemode->GetSecondsInt();
+
+			// Check if seconds is greater than or equal to 25
+			if (m_intSeconds >= 25)
+			{
+				// Check if total movement time is greater than 20
+				if (Character->GetTotalMovementTime() >= 20)
+				{
+					// Check if total time in sentry light is equal to 0
+					if (Character->GetTotalInLightTime() == 0)
+					{
+						// If Easy_01 or Easy_02 difficulty, set difficulty to Medium_01
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// If Merdium_02, Hard_01, or Hard_02 difficulty, set difficulty to Hard_02
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						else
+						{
+							print("ERROR - NO SET DIFFICULTY FOUND");
+						}
+					}
+
+					// Check if total time in sentry light is between 1-6
+					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 6)
+					{
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// Else, set difficulty to Medium_01
+						else
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+					}
+
+					// Check if total time in sentry light is 7 or more
+					else if (Character->GetTotalInLightTime() >= 7)
+					{
+						// If Easy_01 or Easy_02 difficulty, set difficulty to Easy_02
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - EASY_02");
+							m_difficulty = EDifficulty::EASY_02;
+						}
+
+						// If Medium_02, Hard_01, or Hard_02 difficulty, set difficulty to Medium_01
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// Else, set difficulty to Easy_01 (Else wil be if difficulty = Medium_01
+						else
+						{
+							print("DIFFICULTY - EASY_01");
+							m_difficulty = EDifficulty::EASY_01;
+						}
+					}
+				}
+
+				// Check if total movement time is equal to 17, 18, or 19
+				else if (Character->GetTotalMovementTime() >= 17 && Character->GetTotalMovementTime() <= 19)
+				{
+					// If total in light equals 5 or less
+					if (Character->GetTotalInLightTime() <= 5)
+					{
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// Else, set difficulty to Medium_01
+						else
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+					}
+
+					// Check if total in light time equals greater than or equal to 6
+					else if (Character->GetTotalInLightTime() >= 6)
+					{
+						// If Easy_01 difficulty, set difficulty to Medium_01
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// Else, if Hard_01 difficulty, set difficulty to Hard_02
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						// Else, set difficulty to Hard_01 (Medium_01 and Medium_02)
+						else
+						{
+							print("DIFFICULTY - HARD_01");
+							m_difficulty = EDifficulty::HARD_01;
+						}
+					}
+				}
+
+				// Check if total movement time is equal to or less than 16
+				else if (Character->GetTotalMovementTime() <= 16)
+				{
+					// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+						Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - HARD_02");
+						m_difficulty = EDifficulty::HARD_02;
+					}
+
+					// Else, set difficulty to Hard_01
+					else
+					{
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+				}
+			}
+
+			// If seconds equals less than 20
+			else
+			{
+				// Check if total movement time is equal to or greater than the total time spent in the level - 2
+				if (Character->GetTotalMovementTime() >= (m_intSeconds - 2))
+				{
+					// If Medium_01 difficulty, set difficulty to Medium_02
+					if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+						Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+					{
+						print("DIFFICULTY - MEDIUM_02");
+						m_difficulty = EDifficulty::MEDIUM_02;
+					}
+
+					// Else if any other difficulty, set difficulty to Medium_01
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+							 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - MEDIUM_01");
+						m_difficulty = EDifficulty::MEDIUM_01;
+					}
+
+					// Else, print ERROR message
+					else
+					{
+						print("ERROR - NO SET DIFFICULTY");
+					}
+				}
+
+				// Otherwise, set to hard mode
+				else
+				{
+					// If Hard_01 difficulty, set difficulty to Hard_02
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+						Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - HARD_02");
+						m_difficulty = EDifficulty::HARD_02;
+					}
+
+					// Else if any other difficulty, set difficulty to Hard_01
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+							 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+					{
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+
+					// Else, print ERROR message
+					else
+					{
+						print("ERROR - NO SET DIFFICULTY FOUND");
+					}
+				}
+			}
+
+			// Setup the difficulty within the level
+			DifficultyFinializedSetup(false, false, true);
+
+			// Destroy the trigger box
+			OverlappedActor->Destroy();
+		}
+	}
 }
 
 void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
 {
-	if (OtherActor && (OtherActor != this) && (OverlappedActor->GetName() == "FirstPersonCharacter"))
+	if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
 	{
 		printf("Actor Left = %s", *OverlappedActor->GetName());
 		printf("Actor Overlapped = %s", *OtherActor->GetName());

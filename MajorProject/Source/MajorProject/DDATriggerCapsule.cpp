@@ -23,7 +23,7 @@ void ADDATriggerCapsule::BeginPlay()
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
 }
 
-void ADDATriggerCapsule::OnOverlapBegin(AActor * OverlappedActor, AActor * OtherActor)
+void ADDATriggerCapsule::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
 	// Check if the actor overlapping the trigger box is the FirstPersonCharacter
 	if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
@@ -32,10 +32,11 @@ void ADDATriggerCapsule::OnOverlapBegin(AActor * OverlappedActor, AActor * Other
 	}
 }
 
-void ADDATriggerCapsule::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
+void ADDATriggerCapsule::OnOverLapEnd(AActor* OverlappedActor, AActor* OtherActor)
 {
-	if (OtherActor && (OtherActor != this))
+	if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString(TEXT("Pause")));
 		Character->PauseInLightTimer();
 	}
 }
