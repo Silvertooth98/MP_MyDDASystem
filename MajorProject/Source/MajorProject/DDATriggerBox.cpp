@@ -26,7 +26,7 @@ void ADDATriggerBox::BeginPlay()
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
 }
 
-void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
+void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4)
 {
 //#####################################################################################################
 							// SECTION 1 TRIGGER BOX
@@ -39,6 +39,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 		Character->m_section01 = true;
 		Character->m_section02 = false;
 		Character->m_section03 = false;
+		Character->m_section04 = false;
 
 		// Check if easy difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -99,6 +100,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 		Character->m_section01 = false;
 		Character->m_section02 = true;
 		Character->m_section03 = false;
+		Character->m_section04 = false;
 
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -196,6 +198,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 		Character->m_section01 = false;
 		Character->m_section02 = false;
 		Character->m_section03 = true;
+		Character->m_section04 = false;
 
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -276,6 +279,104 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3)
 			for (int i = 0; i < m_s3HardMode2Setup.Num(); i++)
 			{
 				m_s3HardMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+		}
+	}
+
+//#####################################################################################################
+							// SECTION 4 TRIGGER BOX
+//#####################################################################################################
+	// Check if player is within the fourth section trigger box
+	else if (S4)
+	{
+		print("SECTION 4");
+
+		Character->m_section01 = false;
+		Character->m_section02 = false;
+		Character->m_section03 = false;
+		Character->m_section04 = true;
+
+		// Check if Easy 1 difficulty
+		if (m_difficulty == EDifficulty::EASY_01)
+		{
+			print("DIFFICULTY - EASY_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4EasyMode1Setup.Num(); i++)
+			{
+				m_s4EasyMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+		}
+
+		// Check if Easy 2 difficulty
+		else if (m_difficulty == EDifficulty::EASY_02)
+		{
+			print("DIFFICULTY - EASY_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4EasyMode2Setup.Num(); i++)
+			{
+				m_s4EasyMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
+		}
+
+		// Check if Medium 1 difficulty
+		else if (m_difficulty == EDifficulty::MEDIUM_01)
+		{
+			print("DIFFICULTY - MEDIUM_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4MediumMode1Setup.Num(); i++)
+			{
+				m_s4MediumMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+		}
+
+		// Check if Medium 2 difficulty
+		else if (m_difficulty == EDifficulty::MEDIUM_02)
+		{
+			print("DIFFICULTY - MEDIUM_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4MediumMode2Setup.Num(); i++)
+			{
+				m_s4MediumMode2Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
+		}
+
+		// Check if Hard 1 difficulty
+		else if (m_difficulty == EDifficulty::HARD_01)
+		{
+			print("DIFFICULTY - HARD_01");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4HardMode1Setup.Num(); i++)
+			{
+				m_s4HardMode1Setup[i]->Destroy();
+			}
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+		}
+
+		// Check if Hard 2 difficulty
+		else if (m_difficulty == EDifficulty::HARD_02)
+		{
+			print("DIFFICULTY - HARD_02");
+
+			// Step through the array and destroy all the actors
+			for (int i = 0; i < m_s4HardMode2Setup.Num(); i++)
+			{
+				m_s4HardMode2Setup[i]->Destroy();
 			}
 
 			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
@@ -478,7 +579,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 
 						// Else, if Hard_01 difficulty, set difficulty to Hard_02
-						if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
+						else if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
 							print("DIFFICULTY - HARD_02");
 							m_difficulty = EDifficulty::HARD_02;
@@ -707,8 +808,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 
 						// Else, if Hard_01 difficulty, set difficulty to Hard_02
-						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						else if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
 						{
 							print("DIFFICULTY - HARD_02");
 							m_difficulty = EDifficulty::HARD_02;
@@ -805,6 +906,243 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 			// Setup the difficulty within the level
 			DifficultyFinializedSetup(false, false, true);
+
+			// Destroy the trigger box
+			OverlappedActor->Destroy();
+		}
+	}
+
+//#####################################################################################################
+							// SECTION 4 TRIGGER BOX
+//#####################################################################################################
+
+	// Check if the trigger box is the fourth one
+	else if (OverlappedActor->GetName() == "DDATriggerBox_04")
+	{
+		// Check if the actor overlapping the trigger box is the FirstPersonCharacter
+		if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
+		{
+			// Get the current seconds spent in level
+			m_intSeconds = Gamemode->GetSecondsInt();
+
+			// Check if seconds is greater than or equal to 45
+			if (m_intSeconds >= 45)
+			{
+				// Check if total movement time is greater than 38
+				if (Character->GetTotalMovementTime() >= 38)
+				{
+					// Check if total time in sentry light is equal to 0
+					if (Character->GetTotalInLightTime() == 0)
+					{
+						// If Easy_01 or Easy_02 difficulty, set difficulty to Medium_01
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// If Merdium_02, Hard_01, or Hard_02 difficulty, set difficulty to Hard_02
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						else
+						{
+							print("ERROR - NO SET DIFFICULTY FOUND");
+						}
+					}
+
+					// Check if total time in sentry light is between 1-8
+					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 8)
+					{
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// Else, set difficulty to Medium_01
+						else
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+					}
+
+					// Check if total time in sentry light is 9 or more
+					else if (Character->GetTotalInLightTime() >= 9)
+					{
+						// If Easy_01 or Easy_02 difficulty, set difficulty to Easy_02
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - EASY_02");
+							m_difficulty = EDifficulty::EASY_02;
+						}
+
+						// If Medium_02, Hard_01, or Hard_02 difficulty, set difficulty to Medium_01
+						else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// Else, set difficulty to Easy_01 (Else wil be if difficulty = Medium_01
+						else
+						{
+							print("DIFFICULTY - EASY_01");
+							m_difficulty = EDifficulty::EASY_01;
+						}
+					}
+				}
+
+				// Check if total movement time is equal to 36, or 37
+				else if (Character->GetTotalMovementTime() >= 36 && Character->GetTotalMovementTime() <= 37)
+				{
+					// If total in light equals 8 or less
+					if (Character->GetTotalInLightTime() <= 8)
+					{
+						// If Medium_01 difficulty, set difficulty to Medium_02
+						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+						{
+							print("DIFFICULTY - MEDIUM_02");
+							m_difficulty = EDifficulty::MEDIUM_02;
+						}
+
+						// Else, set difficulty to Medium_01
+						else
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+					}
+
+					// Check if total in light time equals greater than or equal to 9
+					else if (Character->GetTotalInLightTime() >= 9)
+					{
+						// If Easy_01 difficulty, set difficulty to Medium_01
+						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							Character->m_setDifficulty == ESetDifficulty::EASY_02)
+						{
+							print("DIFFICULTY - MEDIUM_01");
+							m_difficulty = EDifficulty::MEDIUM_01;
+						}
+
+						// Else, if Hard_01 difficulty, set difficulty to Hard_02
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						// Else, set difficulty to Hard_01 (Medium_01 and Medium_02)
+						else
+						{
+							print("DIFFICULTY - HARD_01");
+							m_difficulty = EDifficulty::HARD_01;
+						}
+					}
+				}
+
+				// Check if total movement time is equal to or less than 35
+				else if (Character->GetTotalMovementTime() <= 35)
+				{
+					// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+						Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - HARD_02");
+						m_difficulty = EDifficulty::HARD_02;
+					}
+
+					// Else, set difficulty to Hard_01
+					else
+					{
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+				}
+			}
+
+			// If seconds equals less than 45
+			else
+			{
+				// Check if total movement time is equal to or greater than the total time spent in the level - 3
+				if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
+				{
+					// If Medium_01 difficulty, set difficulty to Medium_02
+					if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+						Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+					{
+						print("DIFFICULTY - MEDIUM_02");
+						m_difficulty = EDifficulty::MEDIUM_02;
+					}
+
+					// Else if any other difficulty, set difficulty to Medium_01
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+							 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - MEDIUM_01");
+						m_difficulty = EDifficulty::MEDIUM_01;
+					}
+
+					// Else, print ERROR message
+					else
+					{
+						print("ERROR - NO SET DIFFICULTY");
+					}
+				}
+
+				// Otherwise, set to hard mode
+				else
+				{
+					// If Hard_01 difficulty, set difficulty to Hard_02
+					if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+						Character->m_setDifficulty == ESetDifficulty::HARD_02)
+					{
+						print("DIFFICULTY - HARD_02");
+						m_difficulty = EDifficulty::HARD_02;
+					}
+
+					// Else if any other difficulty, set difficulty to Hard_01
+					else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+							 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+							 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+					{
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+
+					// Else, print ERROR message
+					else
+					{
+						print("ERROR - NO SET DIFFICULTY FOUND");
+					}
+				}
+			}
+
+			// Setup the difficulty within the level
+			DifficultyFinializedSetup(false, false, false, true);
 
 			// Destroy the trigger box
 			OverlappedActor->Destroy();

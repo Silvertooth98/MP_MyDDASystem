@@ -92,6 +92,8 @@ public:
 	bool m_section02 = false;									// Boolean for second section
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
 	bool m_section03 = false;									// Boolean for third section
+	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
+	bool m_section04 = false;									// Boolean for fourth section
 
 protected:
 	virtual void BeginPlay();

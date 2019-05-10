@@ -30,7 +30,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false);
+	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false);
 
 public:
 
@@ -117,6 +117,27 @@ public:
 //#####################################################################################################
 							// SECTION 4 SENTRIES
 //#####################################################################################################
+
+	// Array of type actor for the sentries to delete when in easy_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4EasyMode1Setup;
+	// Array of type actor for the sentries to delete when in easy_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4EasyMode2Setup;
+
+	// Array of type actor for the sentries to delete when in medium_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4MediumMode1Setup;
+	// Array of type actor for the sentries to delete when in medium_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4MediumMode2Setup;
+
+	// Array of type actor for the sentries to delete when in hard_01 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4HardMode1Setup;
+	// Array of type actor for the sentries to delete when in hard_02 mode
+	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
+	TArray<AActor*> m_s4HardMode2Setup;
 
 protected:
 
