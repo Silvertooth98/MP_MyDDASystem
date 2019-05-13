@@ -86,6 +86,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "DifficultyEnum")
 	ESetDifficulty m_setDifficulty = ESetDifficulty::NONE;
 
+	// Level 01 section booleans
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
 	bool m_section01 = false;									// Boolean for first section
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
@@ -94,6 +95,8 @@ public:
 	bool m_section03 = false;									// Boolean for third section
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
 	bool m_section04 = false;									// Boolean for fourth section
+	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
+	bool m_section05 = false;									// Boolean for fifth section
 
 protected:
 	virtual void BeginPlay();

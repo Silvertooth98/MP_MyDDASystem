@@ -26,7 +26,7 @@ void ADDATriggerBox::BeginPlay()
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
 }
 
-void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4)
+void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4, bool S5)
 {
 //#####################################################################################################
 							// SECTION 1 TRIGGER BOX
@@ -40,6 +40,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		Character->m_section02 = false;
 		Character->m_section03 = false;
 		Character->m_section04 = false;
+		Character->m_section05 = false;
 
 		// Check if easy difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -101,6 +102,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		Character->m_section02 = true;
 		Character->m_section03 = false;
 		Character->m_section04 = false;
+		Character->m_section05 = false;
 
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -199,6 +201,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		Character->m_section02 = false;
 		Character->m_section03 = true;
 		Character->m_section04 = false;
+		Character->m_section05 = false;
 
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -297,6 +300,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		Character->m_section02 = false;
 		Character->m_section03 = false;
 		Character->m_section04 = true;
+		Character->m_section05 = false;
 
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
@@ -380,6 +384,57 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			}
 
 			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+		}
+	}
+
+//#####################################################################################################
+							// SECTION 5 TRIGGER BOX
+//#####################################################################################################
+	// Check if player is within the fifth and final section trigger box
+	else if (S5)
+	{
+		print("SECTION 5");
+
+		Character->m_section01 = false;
+		Character->m_section02 = false;
+		Character->m_section03 = false;
+		Character->m_section04 = false;
+		Character->m_section05 = true;
+
+		// Check if Easy 1 difficulty
+		if (m_difficulty == EDifficulty::EASY_01)
+		{
+			print("DIFFICULTY - EASY_01");
+
+			// Set difficulty in Game Instance Class
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+		}
+
+		// Check if Medium 1 difficulty
+		else if (m_difficulty == EDifficulty::MEDIUM_01)
+		{
+			print("DIFFICULTY - MEDIUM_01");
+
+			// Set difficulty in Game Instance Class
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+		}
+
+		// Check if Hard 1 difficulty
+		else if (m_difficulty == EDifficulty::HARD_01)
+		{
+			print("DIFFICULTY - HARD_01");
+
+			// Set difficulty in Game Instance Class
+
+			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+		}
+
+		// Print error message if difficulty equals anything other than Easy_01, Medium_01 or Hard_01
+		else
+		{
+			print("DIFFICULTY - ERROR SETTING FINAL DIFFICULTY");
 		}
 	}
 }
@@ -503,8 +558,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is 1, 2, 3, or 4
-					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 4)
+					// Check if total time in sentry light is 1, 2 or 3
+					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 3)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
@@ -521,8 +576,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is 5 or more
-					else if (Character->GetTotalInLightTime() >= 5)
+					// Check if total time in sentry light is 4 or more
+					else if (Character->GetTotalInLightTime() >= 4)
 					{
 						// If Easy_01 difficulty, set difficulty to Easy_02
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01)
@@ -550,8 +605,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Check if total movement time is equal to 9, 10, 11, or 12
 				else if (Character->GetTotalMovementTime() >= 9 && Character->GetTotalMovementTime() <= 12)
 				{
-					// If total in light equals 3 or less
-					if (Character->GetTotalInLightTime() <= 3)
+					// If total in light equals 2 or less
+					if (Character->GetTotalInLightTime() <= 2)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
@@ -568,8 +623,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total in light time equals greater than or equal to 4
-					else if (Character->GetTotalInLightTime() >= 4)
+					// Check if total in light time equals greater than or equal to 3
+					else if (Character->GetTotalInLightTime() >= 3)
 					{
 						// If Easy_01 difficulty, set difficulty to Medium_01
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01)
@@ -694,8 +749,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Check if total movement time is greater than 20
 				if (Character->GetTotalMovementTime() >= 20)
 				{
-					// Check if total time in sentry light is equal to 0
-					if (Character->GetTotalInLightTime() == 0)
+					// Check if total time in sentry light is less than or equal to 1
+					if (Character->GetTotalInLightTime() <= 1)
 					{
 						// If Easy_01 or Easy_02 difficulty, set difficulty to Medium_01
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -727,8 +782,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is between 1-6
-					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 6)
+					// Check if total time in sentry light is between 2-5
+					else if (Character->GetTotalInLightTime() >= 2 && Character->GetTotalInLightTime() <= 2)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
@@ -745,8 +800,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is 7 or more
-					else if (Character->GetTotalInLightTime() >= 7)
+					// Check if total time in sentry light is 6 or more
+					else if (Character->GetTotalInLightTime() >= 6)
 					{
 						// If Easy_01 or Easy_02 difficulty, set difficulty to Easy_02
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -777,8 +832,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Check if total movement time is equal to 17, 18, or 19
 				else if (Character->GetTotalMovementTime() >= 17 && Character->GetTotalMovementTime() <= 19)
 				{
-					// If total in light equals 5 or less
-					if (Character->GetTotalInLightTime() <= 5)
+					// If total in light equals 6 or less
+					if (Character->GetTotalInLightTime() <= 6)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
@@ -796,8 +851,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total in light time equals greater than or equal to 6
-					else if (Character->GetTotalInLightTime() >= 6)
+					// Check if total in light time equals greater than or equal to 7
+					else if (Character->GetTotalInLightTime() >= 7)
 					{
 						// If Easy_01 difficulty, set difficulty to Medium_01
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -931,8 +986,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Check if total movement time is greater than 38
 				if (Character->GetTotalMovementTime() >= 38)
 				{
-					// Check if total time in sentry light is equal to 0
-					if (Character->GetTotalInLightTime() == 0)
+					// Check if total time in sentry light is less than or equal to 2
+					if (Character->GetTotalInLightTime() <= 2)
 					{
 						// If Easy_01 or Easy_02 difficulty, set difficulty to Medium_01
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -964,8 +1019,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is between 1-8
-					else if (Character->GetTotalInLightTime() >= 1 && Character->GetTotalInLightTime() <= 8)
+					// Check if total time in sentry light is between 3-6
+					else if (Character->GetTotalInLightTime() >= 3 && Character->GetTotalInLightTime() <= 6)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
@@ -982,8 +1037,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total time in sentry light is 9 or more
-					else if (Character->GetTotalInLightTime() >= 9)
+					// Check if total time in sentry light is 7 or more
+					else if (Character->GetTotalInLightTime() >= 7)
 					{
 						// If Easy_01 or Easy_02 difficulty, set difficulty to Easy_02
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -1014,8 +1069,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Check if total movement time is equal to 36, or 37
 				else if (Character->GetTotalMovementTime() >= 36 && Character->GetTotalMovementTime() <= 37)
 				{
-					// If total in light equals 8 or less
-					if (Character->GetTotalInLightTime() <= 8)
+					// If total in light equals 6 or less
+					if (Character->GetTotalInLightTime() <= 6)
 					{
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
@@ -1033,8 +1088,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 					}
 
-					// Check if total in light time equals greater than or equal to 9
-					else if (Character->GetTotalInLightTime() >= 9)
+					// Check if total in light time equals greater than or equal to 7
+					else if (Character->GetTotalInLightTime() >= 7)
 					{
 						// If Easy_01 difficulty, set difficulty to Medium_01
 						if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
@@ -1084,8 +1139,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			// If seconds equals less than 45
 			else
 			{
-				// Check if total movement time is equal to or greater than the total time spent in the level - 3
-				if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
+				// Check if total movement time is equal to or greater than the total time spent in the level - 2
+				if (Character->GetTotalMovementTime() >= (m_intSeconds - 2))
 				{
 					// If Medium_01 difficulty, set difficulty to Medium_02
 					if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
@@ -1143,6 +1198,107 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 			// Setup the difficulty within the level
 			DifficultyFinializedSetup(false, false, false, true);
+
+			// Destroy the trigger box
+			OverlappedActor->Destroy();
+		}
+	}
+
+//#####################################################################################################
+							// SECTION 5 TRIGGER BOX
+//#####################################################################################################
+
+	// Check if the trigger box is the fifth and last one for level 1
+	else if (OverlappedActor->GetName() == "DDATriggerBox_05")
+	{
+		// Check if the actor overlapping the trigger box is the FirstPersonCharacter
+		if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
+		{
+			// Get the current seconds spent in level
+			m_intSeconds = Gamemode->GetSecondsInt();
+
+			// Check if seconds is greater than or equal to 50
+			if (m_intSeconds >= 50)
+			{
+				// Check if total movement time is greater than 43
+				if (Character->GetTotalMovementTime() >= 43)
+				{
+					// Check if total time in sentry light is between 0-3
+					if (Character->GetTotalInLightTime() >= 3)
+					{
+						// Set difficulty to Hard
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+
+					// Check if total time in sentry light is between 4-7
+					else if (Character->GetTotalInLightTime() >= 4 && Character->GetTotalInLightTime() <= 7)
+					{
+						// Set difficulty to Medium
+						print("DIFFICULTY - MEDIUM_01");
+						m_difficulty = EDifficulty::MEDIUM_01;
+					}
+
+					// Check if total time in sentry light is 8 or more
+					else if (Character->GetTotalInLightTime() >= 8)
+					{
+						// Set difficulty to Easy
+						print("DIFFICULTY - EASY_01");
+						m_difficulty = EDifficulty::EASY_01;
+					}
+				}
+
+				// Check if total movement time is equal to 40, 41, or 42
+				else if (Character->GetTotalMovementTime() >= 40 && Character->GetTotalMovementTime() <= 42)
+				{
+					// If total in light equals 7 or less
+					if (Character->GetTotalInLightTime() <= 7)
+					{
+						// Set difficulty to Medium
+						print("DIFFICULTY - MEDIUM_01");
+						m_difficulty = EDifficulty::MEDIUM_01;
+					}
+
+					// Check if total in light time equals greater than or equal to 8
+					else if (Character->GetTotalInLightTime() >= 8)
+					{
+						// Set difficulty to Hard
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+				}
+
+				// Check if total movement time is equal to or less than 39
+				else if (Character->GetTotalMovementTime() <= 39)
+				{
+					// Set difficulty to Hard
+					print("DIFFICULTY - HARD_01");
+					m_difficulty = EDifficulty::HARD_01;
+				}
+			}
+
+			// If seconds equals less than 45
+			else
+			{
+				// Check if total movement time is equal to or greater than the total time spent in the level - 3
+				if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
+				{
+					// Set difficulty to Medium
+					print("DIFFICULTY - MEDIUM_01");
+					m_difficulty = EDifficulty::MEDIUM_01;
+				}
+
+				// Otherwise, set to hard mode
+				else
+				{
+					// Set difficulty to Hard
+					print("DIFFICULTY - HARD_01");
+					m_difficulty = EDifficulty::HARD_01;
+				}
+			}
+
+			// Setup the difficulty within the level
+			DifficultyFinializedSetup(false, false, false, false, true);
 
 			// Destroy the trigger box
 			OverlappedActor->Destroy();

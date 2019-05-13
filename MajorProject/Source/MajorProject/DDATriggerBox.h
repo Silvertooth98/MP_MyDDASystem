@@ -30,7 +30,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false);
+	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false, bool S5 = false);
 
 public:
 
