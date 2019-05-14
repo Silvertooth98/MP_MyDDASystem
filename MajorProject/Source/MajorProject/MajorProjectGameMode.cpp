@@ -18,6 +18,13 @@ AMajorProjectGameMode::AMajorProjectGameMode()
 	HUDClass = AMajorProjectHUD::StaticClass();
 }
 
+FString AMajorProjectGameMode::SetLevelName(FString LevelName)
+{
+	m_currentLevel = LevelName;
+
+	return m_currentLevel;
+}
+
 int AMajorProjectGameMode::GetElapedTime(bool intSeconds, bool floatSeconds)
 {
 	m_secondsFlt = UGameplayStatics::GetTimeSeconds(GetWorld());

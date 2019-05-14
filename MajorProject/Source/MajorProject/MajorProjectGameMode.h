@@ -14,6 +14,11 @@ class AMajorProjectGameMode : public AGameModeBase
 public:
 	AMajorProjectGameMode();
 
+	UFUNCTION(BlueprintCallable, Category = "Level Name")
+	FString SetLevelName(FString LevelName);
+	UFUNCTION(BlueprintCallable, Category = "Level Name")
+	FString GetLevelName() { return m_currentLevel; }
+
 	UFUNCTION(BlueprintCallable)
 	int GetElapedTime(bool intSeconds, bool floatSeconds);
 	
@@ -30,5 +35,6 @@ protected:
 	float m_secondsFlt;
 	int m_secondsInt;
 	bool m_secondsInInt;
+	FString m_currentLevel;
 
 };

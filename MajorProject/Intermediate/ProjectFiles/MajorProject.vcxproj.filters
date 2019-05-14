@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{337A6790-E821-43C9-ABA3-032215CD4DFE}</UniqueIdentifier>
+      <UniqueIdentifier>{C85F7EE2-ECBF-4544-8952-616FB2668B74}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{171C5D59-2D6D-49F2-9A3D-584A65B6C1CD}</UniqueIdentifier>
+      <UniqueIdentifier>{A69952CA-65A4-4B61-88FE-721EE4C849FD}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{E84BAC33-E25C-444D-B622-3176F1B0830D}</UniqueIdentifier>
+      <UniqueIdentifier>{8860951B-2811-456E-AE71-82E6B7724AF2}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
       <Filter>Source\MajorProject</Filter>

@@ -147,6 +147,8 @@ protected:
 
 	EDifficulty m_difficulty;
 
+	FString m_currentLevel;
+
 	int m_intSeconds;
 
 	FString m_lastDifficultySetting;
