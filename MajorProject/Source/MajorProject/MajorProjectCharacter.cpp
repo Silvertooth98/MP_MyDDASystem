@@ -284,18 +284,15 @@ void AMajorProjectCharacter::PauseInLightTimer()
 
 ESetDifficulty AMajorProjectCharacter::SetDifficulty(ESetDifficulty SetDifficulty)
 {
-	if (SetDifficulty == ESetDifficulty::EASY_01)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Yellow, "EASY_01 FROM CHAR");
-	}
-	return ESetDifficulty();
+	m_setDifficulty = SetDifficulty;
+
+	return m_setDifficulty;
 }
 
 // USED FOR DEBUGGING
 void AMajorProjectCharacter::DisplayTotalTime()
 {
-	//RENAME TO ELAPSED
-	Gamemode->GetElapedTime(true, false);
+	Gamemode->GetElapsedTime(true, false);
 
 	if (GEngine)
 	{

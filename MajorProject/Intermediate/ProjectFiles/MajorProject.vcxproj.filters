@@ -84,4 +84,14 @@
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectGameInstance.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectGameInstance.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

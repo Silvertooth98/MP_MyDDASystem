@@ -25,7 +25,7 @@ FString AMajorProjectGameMode::SetLevelName(FString LevelName)
 	return m_currentLevel;
 }
 
-int AMajorProjectGameMode::GetElapedTime(bool intSeconds, bool floatSeconds)
+int AMajorProjectGameMode::GetElapsedTime(bool intSeconds, bool floatSeconds)
 {
 	m_secondsFlt = UGameplayStatics::GetTimeSeconds(GetWorld());
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/TriggerBox.h"
+#include "MajorProjectGameInstance.h"
 #include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.h"
 #include "DDATriggerBox.generated.h"
@@ -140,6 +141,8 @@ public:
 	TArray<AActor*> m_s4HardMode2Setup;
 
 protected:
+
+	UMajorProjectGameInstance* GameInstance;
 
 	AMajorProjectGameMode* Gamemode;
 

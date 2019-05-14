@@ -19,7 +19,8 @@ void ADDATriggerBox::BeginPlay()
 	Super::BeginPlay();
 
 	DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Purple, true, 100, 0, 5);
-
+	
+	GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
 	// Link gamemode variable to the gamemode class
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 	// Link character variable to the character class
@@ -401,14 +402,15 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		Character->m_section04 = false;
 		Character->m_section05 = true;
 
+		GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
+
 		// Check if Easy 1 difficulty
 		if (m_difficulty == EDifficulty::EASY_01)
 		{
 			print("DIFFICULTY - EASY_01");
 
-			// Set difficulty in Game Instance Class
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+			GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
 		}
 
 		// Check if Medium 1 difficulty
@@ -416,9 +418,8 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("DIFFICULTY - MEDIUM_01");
 
-			// Set difficulty in Game Instance Class
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+			GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
 		}
 
 		// Check if Hard 1 difficulty
@@ -426,9 +427,8 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("DIFFICULTY - HARD_01");
 
-			// Set difficulty in Game Instance Class
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+			GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
 		}
 
 		// Print error message if difficulty equals anything other than Easy_01, Medium_01 or Hard_01
@@ -441,7 +441,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 
 void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
-	Gamemode->GetElapedTime(true, false);
+	Gamemode->GetElapsedTime(true, false);
 
 	m_currentLevel = Gamemode->GetLevelName();
 
@@ -459,9 +459,6 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			// Check if the actor overlapping the trigger box is the FirstPersonCharacter
 			if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
 			{
-				// Do the checks for the total time and set the difficult etc etc
-				// Spawn a certain amount of enemies based on the above
-
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
 

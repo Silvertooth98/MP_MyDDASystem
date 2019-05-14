@@ -20,7 +20,7 @@ public:
 	FString GetLevelName() { return m_currentLevel; }
 
 	UFUNCTION(BlueprintCallable)
-	int GetElapedTime(bool intSeconds, bool floatSeconds);
+	int GetElapsedTime(bool intSeconds, bool floatSeconds);
 	
 	UFUNCTION(BlueprintCallable)
 	int GetSecondsInt() { return m_secondsInt; }
