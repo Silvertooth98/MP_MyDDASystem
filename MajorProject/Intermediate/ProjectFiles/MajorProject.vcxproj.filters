@@ -90,4 +90,14 @@
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\MajorProject\TextFile.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MajorProject\TextFile.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

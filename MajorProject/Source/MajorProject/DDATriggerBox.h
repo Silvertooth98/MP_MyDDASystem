@@ -7,6 +7,7 @@
 #include "MajorProjectGameInstance.h"
 #include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.h"
+#include "TextFile.h"
 #include "DDATriggerBox.generated.h"
 
 UENUM()
@@ -30,6 +31,10 @@ class MAJORPROJECT_API ADDATriggerBox : public ATriggerBox
 protected:
 
 	virtual void BeginPlay() override;
+
+	void SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
+							FString TotalTime, FString TotalMovementTime,
+							FString TotalInLightTime, FString TextFileNumber);
 
 	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false, bool S5 = false);
 
@@ -148,9 +153,14 @@ protected:
 
 	AMajorProjectCharacter* Character;
 
+	UTextFile* m_textFile;
+
 	EDifficulty m_difficulty;
 
 	FString m_currentLevel;
+	FString m_totalTime;
+	FString m_movementTime;
+	FString m_inLightTime;
 
 	int m_intSeconds;
 

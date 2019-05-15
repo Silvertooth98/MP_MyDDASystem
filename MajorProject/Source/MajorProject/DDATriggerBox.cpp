@@ -27,415 +27,565 @@ void ADDATriggerBox::BeginPlay()
 	Character = Cast<AMajorProjectCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
 }
 
+void ADDATriggerBox::SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
+										FString TotalTime, FString TotalMovementTime,
+										FString TotalInLightTime, FString TextFileNumber)
+{
+	// Save difficulty details to text file
+	m_textFile->SaveTxt(FString(Level + " - " + LevelSection) +
+						FString("\r\nDifficulty Set to: " + Difficulty) +
+						FString("\r\nTotal Time: " + TotalTime) +
+						FString("\r\nTotal Movement Time: " + TotalMovementTime) +
+						FString("\r\nTotal In Light Time: " + TotalInLightTime),
+						FString("TextFiles/" + Level + "/Test" + TextFileNumber + ".txt"));
+}
+
 void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4, bool S5)
 {
-//#####################################################################################################
-							// SECTION 1 TRIGGER BOX
-//#####################################################################################################
-	// Check if player is within the first section trigger box
-	if (S1)
+	if (m_currentLevel == "Level_01")
 	{
-		print("SECTION 1");
+		// Set the total time variable to equal the current total time
+		m_totalTime = FString::FromInt(Gamemode->GetSecondsInt());
 
-		Character->m_section01 = true;
-		Character->m_section02 = false;
-		Character->m_section03 = false;
-		Character->m_section04 = false;
-		Character->m_section05 = false;
+		// Set the total movement time variable to equal the current total movement time
+		m_movementTime = FString::FromInt(Character->GetTotalMovementTime());
 
-		// Check if easy difficulty
-		if (m_difficulty == EDifficulty::EASY_01)
+		// Set the total in light time variable to equal the current total in light time
+		m_inLightTime = FString::FromInt(Character->GetTotalInLightTime());
+
+		//#####################################################################################################
+									// SECTION 1 TRIGGER BOX
+		//#####################################################################################################
+			// Check if player is within the first section trigger box
+		if (S1)
 		{
-			print("DIFFICULTY - EASY");
+			print("SECTION 1");
 
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s1EasyModeSetup.Num(); i++)
+			Character->m_section01 = true;
+			Character->m_section02 = false;
+			Character->m_section03 = false;
+			Character->m_section04 = false;
+			Character->m_section05 = false;
+
+			// Check if easy difficulty
+			if (m_difficulty == EDifficulty::EASY_01)
 			{
-				m_s1EasyModeSetup[i]->Destroy();
+				print("DIFFICULTY - EASY");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1EasyModeSetup.Num(); i++)
+				{
+					m_s1EasyModeSetup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 01"),
+					FString("EASY_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("01"));
 			}
 
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
-		}
-
-		// Check if medium difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_01)
-		{
-			print("DIFFICULTY - MEDIUM");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s1MediumModeSetup.Num(); i++)
+			// Check if medium difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_01)
 			{
-				m_s1MediumModeSetup[i]->Destroy();
+				print("DIFFICULTY - MEDIUM");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1MediumModeSetup.Num(); i++)
+				{
+					m_s1MediumModeSetup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 01"),
+					FString("MEDIUM_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("01"));
 			}
 
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
-		}
-
-		// Check if hard difficuly
-		else if (m_difficulty == EDifficulty::HARD_01)
-		{
-			print("DIFFICULTY - HARD");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s1HardModeSetup.Num(); i++)
+			// Check if hard difficuly
+			else if (m_difficulty == EDifficulty::HARD_01)
 			{
-				m_s1HardModeSetup[i]->Destroy();
+				print("DIFFICULTY - HARD");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s1HardModeSetup.Num(); i++)
+				{
+					m_s1HardModeSetup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 01"),
+					FString("HARD_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("01"));
 			}
 
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+			else
+			{
+				print("ERROR - NO SET DIFFICULTY - Difficulty check function");
+			}
 		}
 
-		else
+		//#####################################################################################################
+									// SECTION 2 TRIGGER BOX
+		//#####################################################################################################
+			// Check if player is within the second section trigger box
+		else if (S2)
 		{
-			print("ERROR - NO SET DIFFICULTY - Difficulty check function");
+			print("SECTION 2");
+
+			Character->m_section01 = false;
+			Character->m_section02 = true;
+			Character->m_section03 = false;
+			Character->m_section04 = false;
+			Character->m_section05 = false;
+
+			// Check if Easy 1 difficulty
+			if (m_difficulty == EDifficulty::EASY_01)
+			{
+				print("DIFFICULTY - EASY_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2EasyMode1Setup.Num(); i++)
+				{
+					m_s2EasyMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("EASY_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+
+			// Check if Easy 2 difficulty
+			else if (m_difficulty == EDifficulty::EASY_02)
+			{
+				print("DIFFICULTY - EASY_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2EasyMode2Setup.Num(); i++)
+				{
+					m_s2EasyMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("EASY_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+
+			// Check if Medium 1 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_01)
+			{
+				print("DIFFICULTY - MEDIUM_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2MediumMode1Setup.Num(); i++)
+				{
+					m_s2MediumMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("MEDIUM_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+
+			// Check if Medium 2 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_02)
+			{
+				print("DIFFICULTY - MEDIUM_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2MediumMode2Setup.Num(); i++)
+				{
+					m_s2MediumMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("MEDIUM_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+
+			// Check if Hard 1 difficulty
+			else if (m_difficulty == EDifficulty::HARD_01)
+			{
+				print("DIFFICULTY - HARD_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2HardMode1Setup.Num(); i++)
+				{
+					m_s2HardMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("HARD_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+
+			// Check if Hard 2 difficulty
+			else if (m_difficulty == EDifficulty::HARD_02)
+			{
+				print("DIFFICULTY - HARD_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s2HardMode2Setup.Num(); i++)
+				{
+					m_s2HardMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 02"),
+					FString("HARD_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("02"));
+			}
+		}
+
+		//#####################################################################################################
+									// SECTION 3 TRIGGER BOX
+		//#####################################################################################################
+			// Check if player is within the third section trigger box
+		else if (S3)
+		{
+			print("SECTION 3");
+
+			Character->m_section01 = false;
+			Character->m_section02 = false;
+			Character->m_section03 = true;
+			Character->m_section04 = false;
+			Character->m_section05 = false;
+
+			// Check if Easy 1 difficulty
+			if (m_difficulty == EDifficulty::EASY_01)
+			{
+				print("DIFFICULTY - EASY_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3EasyMode1Setup.Num(); i++)
+				{
+					m_s3EasyMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("EASY_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+
+			// Check if Easy 2 difficulty
+			else if (m_difficulty == EDifficulty::EASY_02)
+			{
+				print("DIFFICULTY - EASY_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3EasyMode2Setup.Num(); i++)
+				{
+					m_s3EasyMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("EASY_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+
+			// Check if Medium 1 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_01)
+			{
+				print("DIFFICULTY - MEDIUM_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3MediumMode1Setup.Num(); i++)
+				{
+					m_s3MediumMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("MEDIUM_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+
+			// Check if Medium 2 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_02)
+			{
+				print("DIFFICULTY - MEDIUM_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3MediumMode2Setup.Num(); i++)
+				{
+					m_s3MediumMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("MEDIUM_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+
+			// Check if Hard 1 difficulty
+			else if (m_difficulty == EDifficulty::HARD_01)
+			{
+				print("DIFFICULTY - HARD_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3HardMode1Setup.Num(); i++)
+				{
+					m_s3HardMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("HARD_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+
+			// Check if Hard 2 difficulty
+			else if (m_difficulty == EDifficulty::HARD_02)
+			{
+				print("DIFFICULTY - HARD_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s3HardMode2Setup.Num(); i++)
+				{
+					m_s3HardMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 03"),
+					FString("HARD_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("03"));
+			}
+		}
+
+		//#####################################################################################################
+									// SECTION 4 TRIGGER BOX
+		//#####################################################################################################
+			// Check if player is within the fourth section trigger box
+		else if (S4)
+		{
+			print("SECTION 4");
+
+			Character->m_section01 = false;
+			Character->m_section02 = false;
+			Character->m_section03 = false;
+			Character->m_section04 = true;
+			Character->m_section05 = false;
+
+			// Check if Easy 1 difficulty
+			if (m_difficulty == EDifficulty::EASY_01)
+			{
+				print("DIFFICULTY - EASY_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4EasyMode1Setup.Num(); i++)
+				{
+					m_s4EasyMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("EASY_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+
+			// Check if Easy 2 difficulty
+			else if (m_difficulty == EDifficulty::EASY_02)
+			{
+				print("DIFFICULTY - EASY_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4EasyMode2Setup.Num(); i++)
+				{
+					m_s4EasyMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("EASY_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+
+			// Check if Medium 1 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_01)
+			{
+				print("DIFFICULTY - MEDIUM_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4MediumMode1Setup.Num(); i++)
+				{
+					m_s4MediumMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("MEDIUM_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+
+			// Check if Medium 2 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_02)
+			{
+				print("DIFFICULTY - MEDIUM_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4MediumMode2Setup.Num(); i++)
+				{
+					m_s4MediumMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("MEDIUM_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+
+			// Check if Hard 1 difficulty
+			else if (m_difficulty == EDifficulty::HARD_01)
+			{
+				print("DIFFICULTY - HARD_01");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4HardMode1Setup.Num(); i++)
+				{
+					m_s4HardMode1Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("HARD_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+
+			// Check if Hard 2 difficulty
+			else if (m_difficulty == EDifficulty::HARD_02)
+			{
+				print("DIFFICULTY - HARD_02");
+
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_s4HardMode2Setup.Num(); i++)
+				{
+					m_s4HardMode2Setup[i]->Destroy();
+				}
+
+				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 04"),
+					FString("HARD_02"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("04"));
+			}
+		}
+
+		//#####################################################################################################
+									// SECTION 5 TRIGGER BOX
+		//#####################################################################################################
+			// Check if player is within the fifth and final section trigger box
+		else if (S5)
+		{
+			print("SECTION 5");
+
+			Character->m_section01 = false;
+			Character->m_section02 = false;
+			Character->m_section03 = false;
+			Character->m_section04 = false;
+			Character->m_section05 = true;
+
+			GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
+
+			// Check if Easy 1 difficulty
+			if (m_difficulty == EDifficulty::EASY_01)
+			{
+				print("DIFFICULTY - EASY_01");
+
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 05"),
+					FString("EASY_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("05"));
+			}
+
+			// Check if Medium 1 difficulty
+			else if (m_difficulty == EDifficulty::MEDIUM_01)
+			{
+				print("DIFFICULTY - MEDIUM_01");
+
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 05"),
+					FString("MEDIUM_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("05"));
+			}
+
+			// Check if Hard 1 difficulty
+			else if (m_difficulty == EDifficulty::HARD_01)
+			{
+				print("DIFFICULTY - HARD_01");
+
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
+
+				// Save difficulty details to text file
+				SaveDataToTextFile(FString("Level_01"), FString("Section 05"),
+					FString("HARD_01"), m_totalTime, m_movementTime,
+					m_inLightTime, FString("05"));
+			}
+
+			// Print error message if difficulty equals anything other than Easy_01, Medium_01 or Hard_01
+			else
+			{
+				print("DIFFICULTY - ERROR SETTING FINAL DIFFICULTY");
+			}
 		}
 	}
-
-//#####################################################################################################
-							// SECTION 2 TRIGGER BOX
-//#####################################################################################################
-	// Check if player is within the second section trigger box
-	else if (S2)
+	
+	else if (m_currentLevel == "Level_02")
 	{
-		print("SECTION 2");
-
-		Character->m_section01 = false;
-		Character->m_section02 = true;
-		Character->m_section03 = false;
-		Character->m_section04 = false;
-		Character->m_section05 = false;
-
-		// Check if Easy 1 difficulty
-		if (m_difficulty == EDifficulty::EASY_01)
-		{
-			print("DIFFICULTY - EASY_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2EasyMode1Setup.Num(); i++)
-			{
-				m_s2EasyMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
-		}
-
-		// Check if Easy 2 difficulty
-		else if (m_difficulty == EDifficulty::EASY_02)
-		{
-			print("DIFFICULTY - EASY_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2EasyMode2Setup.Num(); i++)
-			{
-				m_s2EasyMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
-		}
-
-		// Check if Medium 1 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_01)
-		{
-			print("DIFFICULTY - MEDIUM_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2MediumMode1Setup.Num(); i++)
-			{
-				m_s2MediumMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
-		}
-		
-		// Check if Medium 2 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - MEDIUM_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2MediumMode2Setup.Num(); i++)
-			{
-				m_s2MediumMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
-		}
-
-		// Check if Hard 1 difficulty
-		else if (m_difficulty == EDifficulty::HARD_01)
-		{
-			print("DIFFICULTY - HARD_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2HardMode1Setup.Num(); i++)
-			{
-				m_s2HardMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
-		}
-		
-		// Check if Hard 2 difficulty
-		else if (m_difficulty == EDifficulty::HARD_02)
-		{
-			print("DIFFICULTY - HARD_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s2HardMode2Setup.Num(); i++)
-			{
-				m_s2HardMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
-		}
-	}
-
-//#####################################################################################################
-							// SECTION 3 TRIGGER BOX
-//#####################################################################################################
-	// Check if player is within the third section trigger box
-	else if (S3)
-	{
-		print("SECTION 3");
-
-		Character->m_section01 = false;
-		Character->m_section02 = false;
-		Character->m_section03 = true;
-		Character->m_section04 = false;
-		Character->m_section05 = false;
-
-		// Check if Easy 1 difficulty
-		if (m_difficulty == EDifficulty::EASY_01)
-		{
-			print("DIFFICULTY - EASY_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3EasyMode1Setup.Num(); i++)
-			{
-				m_s3EasyMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
-		}
-
-		// Check if Easy 2 difficulty
-		else if (m_difficulty == EDifficulty::EASY_02)
-		{
-			print("DIFFICULTY - EASY_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3EasyMode2Setup.Num(); i++)
-			{
-				m_s3EasyMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
-		}
-
-		// Check if Medium 1 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_01)
-		{
-			print("DIFFICULTY - MEDIUM_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3MediumMode1Setup.Num(); i++)
-			{
-				m_s3MediumMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
-		}
-
-		// Check if Medium 2 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - MEDIUM_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3MediumMode2Setup.Num(); i++)
-			{
-				m_s3MediumMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
-		}
-
-		// Check if Hard 1 difficulty
-		else if (m_difficulty == EDifficulty::HARD_01)
-		{
-			print("DIFFICULTY - HARD_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3HardMode1Setup.Num(); i++)
-			{
-				m_s3HardMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
-		}
-
-		// Check if Hard 2 difficulty
-		else if (m_difficulty == EDifficulty::HARD_02)
-		{
-			print("DIFFICULTY - HARD_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s3HardMode2Setup.Num(); i++)
-			{
-				m_s3HardMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
-		}
-	}
-
-//#####################################################################################################
-							// SECTION 4 TRIGGER BOX
-//#####################################################################################################
-	// Check if player is within the fourth section trigger box
-	else if (S4)
-	{
-		print("SECTION 4");
-
-		Character->m_section01 = false;
-		Character->m_section02 = false;
-		Character->m_section03 = false;
-		Character->m_section04 = true;
-		Character->m_section05 = false;
-
-		// Check if Easy 1 difficulty
-		if (m_difficulty == EDifficulty::EASY_01)
-		{
-			print("DIFFICULTY - EASY_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4EasyMode1Setup.Num(); i++)
-			{
-				m_s4EasyMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
-		}
-
-		// Check if Easy 2 difficulty
-		else if (m_difficulty == EDifficulty::EASY_02)
-		{
-			print("DIFFICULTY - EASY_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4EasyMode2Setup.Num(); i++)
-			{
-				m_s4EasyMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
-		}
-
-		// Check if Medium 1 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_01)
-		{
-			print("DIFFICULTY - MEDIUM_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4MediumMode1Setup.Num(); i++)
-			{
-				m_s4MediumMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
-		}
-
-		// Check if Medium 2 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - MEDIUM_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4MediumMode2Setup.Num(); i++)
-			{
-				m_s4MediumMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
-		}
-
-		// Check if Hard 1 difficulty
-		else if (m_difficulty == EDifficulty::HARD_01)
-		{
-			print("DIFFICULTY - HARD_01");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4HardMode1Setup.Num(); i++)
-			{
-				m_s4HardMode1Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
-		}
-
-		// Check if Hard 2 difficulty
-		else if (m_difficulty == EDifficulty::HARD_02)
-		{
-			print("DIFFICULTY - HARD_02");
-
-			// Step through the array and destroy all the actors
-			for (int i = 0; i < m_s4HardMode2Setup.Num(); i++)
-			{
-				m_s4HardMode2Setup[i]->Destroy();
-			}
-
-			Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
-		}
-	}
-
-//#####################################################################################################
-							// SECTION 5 TRIGGER BOX
-//#####################################################################################################
-	// Check if player is within the fifth and final section trigger box
-	else if (S5)
-	{
-		print("SECTION 5");
-
-		Character->m_section01 = false;
-		Character->m_section02 = false;
-		Character->m_section03 = false;
-		Character->m_section04 = false;
-		Character->m_section05 = true;
-
-		GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
-
-		// Check if Easy 1 difficulty
-		if (m_difficulty == EDifficulty::EASY_01)
-		{
-			print("DIFFICULTY - EASY_01");
-
-			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-			GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
-		}
-
-		// Check if Medium 1 difficulty
-		else if (m_difficulty == EDifficulty::MEDIUM_01)
-		{
-			print("DIFFICULTY - MEDIUM_01");
-
-			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-			GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
-		}
-
-		// Check if Hard 1 difficulty
-		else if (m_difficulty == EDifficulty::HARD_01)
-		{
-			print("DIFFICULTY - HARD_01");
-
-			// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-			GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
-		}
-
-		// Print error message if difficulty equals anything other than Easy_01, Medium_01 or Hard_01
-		else
-		{
-			print("DIFFICULTY - ERROR SETTING FINAL DIFFICULTY");
-		}
+		print("Level_02");
 	}
 }
 
@@ -686,7 +836,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// Else, set difficulty to Medium_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_01)
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
@@ -711,7 +861,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// If Easy_01 or Medium_01 difficulty, set difficulty to Hard_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 						{
 							print("DIFFICULTY - HARD_01");
 							m_difficulty = EDifficulty::HARD_01;
