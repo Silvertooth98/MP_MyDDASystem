@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{C85F7EE2-ECBF-4544-8952-616FB2668B74}</UniqueIdentifier>
+      <UniqueIdentifier>{B7780416-B6B7-4105-946F-E028FA5E7735}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{A69952CA-65A4-4B61-88FE-721EE4C849FD}</UniqueIdentifier>
+      <UniqueIdentifier>{0C75B091-5D72-43BD-A1C0-C22FCFB0EE09}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{8860951B-2811-456E-AE71-82E6B7724AF2}</UniqueIdentifier>
+      <UniqueIdentifier>{CAC4E983-FC4A-482D-81DA-3A990F2E4DF2}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
       <Filter>Source\MajorProject</Filter>
@@ -65,6 +65,12 @@
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectCharacter.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MajorProject\MajorProjectGameInstance.cpp">
+      <Filter>Source\MajorProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MajorProject\MajorProjectGameInstance.h">
+      <Filter>Source\MajorProject</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MajorProject\MajorProjectGameMode.cpp">
       <Filter>Source\MajorProject</Filter>
     </ClCompile>
@@ -83,15 +89,5 @@
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectProjectile.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\MajorProject\MajorProjectGameInstance.h">
-      <Filter>Source\MajorProject</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\MajorProject\MajorProjectGameInstance.cpp">
-      <Filter>Source\MajorProject</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
