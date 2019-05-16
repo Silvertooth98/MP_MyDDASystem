@@ -63,7 +63,7 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 
 void AMajorProjectCharacter::BeginPlay()
 {
-	// Call the base class  
+	// Call the base class
 	Super::BeginPlay();
 
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor

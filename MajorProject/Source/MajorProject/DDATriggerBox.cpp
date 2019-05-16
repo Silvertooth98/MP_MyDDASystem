@@ -639,14 +639,18 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// If seconds equals less than 5
 				else
 				{
-					// Medium Setting
 					// Check if total movement time is equal to the total time spent in the level
 					if (Character->GetTotalMovementTime() == m_intSeconds)
+					{
+						m_difficulty = EDifficulty::HARD_01;
+					}
+
+					// Check if total movement time is equal to the total time - 1
+					else if (Character->GetTotalMovementTime() == (m_intSeconds - 1))
 					{
 						m_difficulty = EDifficulty::MEDIUM_01;
 					}
 
-					// Hard Setting
 					// Otherwise, set to hard mode
 					else
 					{
@@ -824,21 +828,48 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// If seconds equals less than 15
 				else
 				{
-					// Check if total movement time is equal to the total time spent in the level
-					if (Character->GetTotalMovementTime() == m_intSeconds)
+					// Check if total movement time is greater than or equal to the total time - 1
+					if (Character->GetTotalMovementTime() >= (m_intSeconds - 1))
 					{
+						print("movement >= total - 1");
+
+						// If Hard_01 difficulty, set difficulty to Hard_02
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01)
+						{
+							print("HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						// Else if Easy_01 or Medium_01, set difficulty to Hard_01
+						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
+						{
+							print("HARD_01");
+							m_difficulty = EDifficulty::HARD_01;
+						}
+
+						// Else, print ERROR message
+						else
+						{
+							print("ERROR - NO SET DIFFICULTY");
+						}
+					}
+
+					// Else, check if total movement time equals total time - 2 or - 3
+					else if (Character->GetTotalMovementTime() == (m_intSeconds - 2) || Character->GetTotalMovementTime() == (m_intSeconds - 3))
+					{
+						print("Movement = total - 2 or - 3");
+
 						// If Medium_01 difficulty, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
 						{
-							print("DIFFICULTY - MEDIUM_02");
 							m_difficulty = EDifficulty::MEDIUM_02;
 						}
 
-						// Else, set difficulty to Medium_01
+						// Else if Easy_01 o Hard_01, set difficulty to Medium_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
 								 Character->m_setDifficulty == ESetDifficulty::HARD_01)
 						{
-							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
 						}
 
@@ -922,8 +953,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 							// If Merdium_02, Hard_01, or Hard_02 difficulty, set difficulty to Hard_02
 							else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
-								Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
-								Character->m_setDifficulty == ESetDifficulty::HARD_02)
+									 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+									 Character->m_setDifficulty == ESetDifficulty::HARD_02)
 							{
 								print("DIFFICULTY - HARD_02");
 								m_difficulty = EDifficulty::HARD_02;
@@ -936,7 +967,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 						}
 
 						// Check if total time in sentry light is between 2-5
-						else if (Character->GetTotalInLightTime() >= 2 && Character->GetTotalInLightTime() <= 2)
+						else if (Character->GetTotalInLightTime() >= 2 && Character->GetTotalInLightTime() <= 5)
 						{
 							// If Medium_01 difficulty, set difficulty to Medium_02
 							if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01)
@@ -966,8 +997,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 							// If Medium_02, Hard_01, or Hard_02 difficulty, set difficulty to Medium_01
 							else if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_02 ||
-								Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
-								Character->m_setDifficulty == ESetDifficulty::HARD_02)
+									 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+									 Character->m_setDifficulty == ESetDifficulty::HARD_02)
 							{
 								print("DIFFICULTY - MEDIUM_01");
 								m_difficulty = EDifficulty::MEDIUM_01;
@@ -1055,10 +1086,38 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// If seconds equals less than 20
 				else
 				{
-					// Check if total movement time is equal to or greater than the total time spent in the level - 2
+					// Check if total movement time is equal to or greater than the total time - 2
 					if (Character->GetTotalMovementTime() >= (m_intSeconds - 2))
 					{
-						// If Medium_01 difficulty, set difficulty to Medium_02
+						// If Hard_01 or Hard_02, set difficulty to Hard_02
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						// Else if any other difficulty, set difficulty to Hard_01
+						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+						{
+							print("DIFFICULTY - HARD_01");
+							m_difficulty = EDifficulty::HARD_01;
+						}
+
+						// Else, print ERROR message
+						else
+						{
+							print("ERROR - NO SET DIFFICULTY");
+						}
+					}
+
+					// Else, check if total movement time equals total time - 3 or - 4
+					else if (Character->GetTotalMovementTime() == (m_intSeconds - 3) || Character->GetTotalMovementTime() == (m_intSeconds - 4))
+					{
+						// If Medium_01 or Medium_02, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
 							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
 						{
@@ -1068,9 +1127,9 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// Else if any other difficulty, set difficulty to Medium_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
@@ -1086,7 +1145,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 					// Otherwise, set to hard mode
 					else
 					{
-						// If Hard_01 difficulty, set difficulty to Hard_02
+						// If Hard_01 or Hard_02, set difficulty to Hard_02
 						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
 							Character->m_setDifficulty == ESetDifficulty::HARD_02)
 						{
@@ -1096,9 +1155,9 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// Else if any other difficulty, set difficulty to Hard_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
-							Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
-							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
 						{
 							print("DIFFICULTY - HARD_01");
 							m_difficulty = EDifficulty::HARD_01;
@@ -1292,10 +1351,38 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// If seconds equals less than 45
 				else
 				{
-					// Check if total movement time is equal to or greater than the total time spent in the level - 2
-					if (Character->GetTotalMovementTime() >= (m_intSeconds - 2))
+					// Check if total movement time is greater than or equal to the total time - 3
+					if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
 					{
-						// If Medium_01 difficulty, set difficulty to Medium_02
+						// If Hard_01 or Hard_02, set difficulty to Hard_02
+						if (Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+						{
+							print("DIFFICULTY - HARD_02");
+							m_difficulty = EDifficulty::HARD_02;
+						}
+
+						// Else if any other difficulty, set difficulty to Hard_01
+						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+						{
+							print("DIFFICULTY - HARD_01");
+							m_difficulty = EDifficulty::HARD_01;
+						}
+
+						// Else, print ERROR message
+						else
+						{
+							print("ERROR - NO SET DIFFICULTY");
+						}
+					}
+
+					// Else, check if total movement time equals total time - 4 or - 5
+					else if (Character->GetTotalMovementTime() == (m_intSeconds - 4) || Character->GetTotalMovementTime() >= (m_intSeconds - 5))
+					{
+						// If Medium_01 or Medium_02, set difficulty to Medium_02
 						if (Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
 							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
 						{
@@ -1305,9 +1392,9 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// Else if any other difficulty, set difficulty to Medium_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
-							Character->m_setDifficulty == ESetDifficulty::HARD_02)
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::HARD_02)
 						{
 							print("DIFFICULTY - MEDIUM_01");
 							m_difficulty = EDifficulty::MEDIUM_01;
@@ -1333,9 +1420,9 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 						// Else if any other difficulty, set difficulty to Hard_01
 						else if (Character->m_setDifficulty == ESetDifficulty::EASY_01 ||
-							Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
-							Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
-							Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
+								 Character->m_setDifficulty == ESetDifficulty::EASY_02 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_01 ||
+								 Character->m_setDifficulty == ESetDifficulty::MEDIUM_02)
 						{
 							print("DIFFICULTY - HARD_01");
 							m_difficulty = EDifficulty::HARD_01;
@@ -1433,10 +1520,18 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// If seconds equals less than 45
 				else
 				{
-					// Check if total movement time is equal to or greater than the total time spent in the level - 3
-					if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
+					// Check if total movement time is greater than or equal to the total time - 4
+					if (Character->GetTotalMovementTime() >= (m_intSeconds - 4))
 					{
-						// Set difficulty to Medium
+						// Set difficulty to Hard_01
+						print("DIFFICULTY - HARD_01");
+						m_difficulty = EDifficulty::HARD_01;
+					}
+
+					// Else, check if total movement time equals total time - 5 or - 6
+					else if (Character->GetTotalMovementTime() == (m_intSeconds - 5) || Character->GetTotalMovementTime() == (m_intSeconds - 6))
+					{
+						// Set difficulty to Medium_01
 						print("DIFFICULTY - MEDIUM_01");
 						m_difficulty = EDifficulty::MEDIUM_01;
 					}
