@@ -53,97 +53,123 @@ public:
 
 	FString GetLastDifficulty() { return m_lastDifficultySetting; }
 
+//########################################################################################################################
+							// LEVEL 01 SENTRIES
+//########################################################################################################################
 //#####################################################################################################
 							// SECTION 1 SENTRIES
 //#####################################################################################################
 	
 // Array of type actor for the sentries to delete when in easy mode
-	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
-	TArray<AActor*> m_s1EasyModeSetup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
+	TArray<AActor*> m_L1S1EasyModeSetup;
 
 	// Array of type actor for the sentries to delete when in medium mode
-	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
-	TArray<AActor*> m_s1MediumModeSetup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
+	TArray<AActor*> m_L1S1MediumModeSetup;
 
 	// DEBUGGING * WON'T REMOVE ANY
 	// Array of type actor for the sentries to delete when in hard mode
-	UPROPERTY(EditAnywhere, Category = "Section 01 Trigger Box")
-	TArray<AActor*> m_s1HardModeSetup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
+	TArray<AActor*> m_L1S1HardModeSetup;
 
 //#####################################################################################################
 							// SECTION 2 SENTRIES
 //#####################################################################################################
 	
 	// Array of type actor for the sentries to delete when in easy_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2EasyMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2EasyMode1Setup;
 	// Array of type actor for the sentries to delete when in easy_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2EasyMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2EasyMode2Setup;
 
 	// Array of type actor for the sentries to delete when in medium_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2MediumMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2MediumMode1Setup;
 	// Array of type actor for the sentries to delete when in medium_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2MediumMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2MediumMode2Setup;
 
 	// Array of type actor for the sentries to delete when in hard_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2HardMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2HardMode1Setup;
 	// Array of type actor for the sentries to delete when in hard_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 02 Trigger Box")
-	TArray<AActor*> m_s2HardMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 02 Trigger Box")
+	TArray<AActor*> m_L1S2HardMode2Setup;
 
 //#####################################################################################################
 							// SECTION 3 SENTRIES
 //#####################################################################################################
 
 	// Array of type actor for the sentries to delete when in easy_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3EasyMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3EasyMode1Setup;
 	// Array of type actor for the sentries to delete when in easy_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3EasyMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3EasyMode2Setup;
 
 	// Array of type actor for the sentries to delete when in medium_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3MediumMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3MediumMode1Setup;
 	// Array of type actor for the sentries to delete when in medium_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3MediumMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3MediumMode2Setup;
 
 	// Array of type actor for the sentries to delete when in hard_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3HardMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3HardMode1Setup;
 	// Array of type actor for the sentries to delete when in hard_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 03 Trigger Box")
-	TArray<AActor*> m_s3HardMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 03 Trigger Box")
+	TArray<AActor*> m_L1S3HardMode2Setup;
 
 //#####################################################################################################
 							// SECTION 4 SENTRIES
 //#####################################################################################################
 
 	// Array of type actor for the sentries to delete when in easy_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4EasyMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4EasyMode1Setup;
 	// Array of type actor for the sentries to delete when in easy_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4EasyMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4EasyMode2Setup;
 
 	// Array of type actor for the sentries to delete when in medium_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4MediumMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4MediumMode1Setup;
 	// Array of type actor for the sentries to delete when in medium_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4MediumMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4MediumMode2Setup;
 
 	// Array of type actor for the sentries to delete when in hard_01 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4HardMode1Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4HardMode1Setup;
 	// Array of type actor for the sentries to delete when in hard_02 mode
-	UPROPERTY(EditAnywhere, Category = "Section 04 Trigger Box")
-	TArray<AActor*> m_s4HardMode2Setup;
+	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 04 Trigger Box")
+	TArray<AActor*> m_L1S4HardMode2Setup;
+
+//########################################################################################################################
+							// LEVEL 02 SENTRIES
+//########################################################################################################################
+//#####################################################################################################
+							// SECTION 1 SENTRIES
+//#####################################################################################################
+
+	// Array of type actor for the sentries to delete when in easy mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 01 Trigger Box")
+	TArray<AActor*> m_L2S1EasyModeSetup;
+
+	// Array of type actor for the sentries to delete when in medium mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 01 Trigger Box")
+	TArray<AActor*> m_L2S1MediumModeSetup;
+
+	// Array of type actor for the sentries to delete when in hard mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 01 Trigger Box")
+	TArray<AActor*> m_L2S1HardModeSetup;
+
+//#####################################################################################################
+							// SECTION 2 SENTRIES
+//#####################################################################################################
 
 protected:
 
