@@ -20,6 +20,7 @@ void ADDATriggerBox::BeginPlay()
 
 	DrawDebugBox(GetWorld(), GetActorLocation(), GetComponentsBoundingBox().GetExtent(), FColor::Purple, true, 100, 0, 5);
 	
+	// Create link from GameInstance class pointer variable to the GameInstance
 	GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
 	// Link gamemode variable to the gamemode class
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
@@ -42,6 +43,10 @@ void ADDATriggerBox::SaveDataToTextFile(FString Level, FString LevelSection, FSt
 
 void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4, bool S5)
 {
+//############################################################################################################################
+											// LEVEL 01 SECTIONS
+//############################################################################################################################
+
 	if (m_currentLevel == "Level_01")
 	{
 		// Set the total time variable to equal the current total time
@@ -61,6 +66,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 1");
 
+			// Set boolean for section01 in the character class to true and the other section booleans to false
 			Character->m_section01 = true;
 			Character->m_section02 = false;
 			Character->m_section03 = false;
@@ -78,6 +84,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S1EasyModeSetup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -97,6 +104,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S1MediumModeSetup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -116,6 +124,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S1HardModeSetup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -138,6 +147,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 2");
 
+			// Set boolean for section02 in the character class to true and the other section booleans to false
 			Character->m_section01 = false;
 			Character->m_section02 = true;
 			Character->m_section03 = false;
@@ -155,6 +165,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2EasyMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -174,6 +185,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2EasyMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
 
 				// Save difficulty details to text file
@@ -193,6 +205,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2MediumMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -212,6 +225,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2MediumMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
 
 				// Save difficulty details to text file
@@ -231,6 +245,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2HardMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -250,6 +265,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S2HardMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 
 				// Save difficulty details to text file
@@ -267,6 +283,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 3");
 
+			// Set boolean for section03 in the character class to true and the other section booleans to false
 			Character->m_section01 = false;
 			Character->m_section02 = false;
 			Character->m_section03 = true;
@@ -284,6 +301,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3EasyMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -303,6 +321,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3EasyMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
 
 				// Save difficulty details to text file
@@ -322,6 +341,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3MediumMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -341,6 +361,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3MediumMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
 
 				// Save difficulty details to text file
@@ -360,6 +381,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3HardMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -379,6 +401,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S3HardMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 
 				// Save difficulty details to text file
@@ -396,6 +419,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 4");
 
+			// Set boolean for section04 in the character class to true and the other section booleans to false
 			Character->m_section01 = false;
 			Character->m_section02 = false;
 			Character->m_section03 = false;
@@ -413,6 +437,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4EasyMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -432,6 +457,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4EasyMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
 
 				// Save difficulty details to text file
@@ -451,6 +477,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4MediumMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -470,6 +497,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4MediumMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
 
 				// Save difficulty details to text file
@@ -489,6 +517,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4HardMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -508,6 +537,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S4HardMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 
 				// Save difficulty details to text file
@@ -525,13 +555,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 5");
 
+			// Set boolean for section05 in the character class to true and the other section booleans to false
 			Character->m_section01 = false;
 			Character->m_section02 = false;
 			Character->m_section03 = false;
 			Character->m_section04 = false;
 			Character->m_section05 = true;
-
-			GameInstance = Cast<UMajorProjectGameInstance>(GetGameInstance());
 
 			// Check if Easy 1 difficulty
 			if (m_difficulty == EDifficulty::EASY_01)
@@ -583,6 +612,10 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		}
 	}
 	
+//############################################################################################################################
+											// LEVEL 02 SECTIONS
+//############################################################################################################################
+
 	else if (m_currentLevel == "Level_02")
 	{
 		// Set the total time variable to equal the current total time
@@ -602,6 +635,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 1");
 
+			// Set boolean for section01 in the character class to true and the other section booleans to false
 			Character->m_section01 = true;
 			Character->m_section02 = false;
 			Character->m_section03 = false;
@@ -619,6 +653,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S1EasyModeSetup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -637,7 +672,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 				{
 					m_L2S1MediumModeSetup[i]->Destroy();
 				}
-
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -657,6 +692,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S1HardModeSetup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -679,6 +715,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 2");
 
+			// Set boolean for section02 in the character class to true and the other section booleans to false
 			Character->m_section01 = false;
 			Character->m_section02 = true;
 			Character->m_section03 = false;
@@ -696,6 +733,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2EasyMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_01);
 
 				// Save difficulty details to text file
@@ -715,6 +753,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2EasyMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::EASY_02);
 
 				// Save difficulty details to text file
@@ -734,6 +773,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2MediumMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_01);
 
 				// Save difficulty details to text file
@@ -753,6 +793,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2MediumMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::MEDIUM_02);
 
 				// Save difficulty details to text file
@@ -772,6 +813,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2HardMode1Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_01);
 
 				// Save difficulty details to text file
@@ -791,6 +833,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L2S2HardMode2Setup[i]->Destroy();
 				}
 
+				// Set difficulty within the character class
 				Character->SetDifficulty(Character->m_setDifficulty = ESetDifficulty::HARD_02);
 
 				// Save difficulty details to text file
@@ -806,9 +849,14 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
 	Gamemode->GetElapsedTime(true, false);
 
+	// Get the current level name and set it into the FString variable "m_currentLevel"
 	m_currentLevel = Gamemode->GetLevelName();
 
 	print("Level Name: " + m_currentLevel);
+
+//############################################################################################################################
+											// LEVEL 01 TRIGGER BOXES
+//############################################################################################################################
 
 	if (m_currentLevel == "Level_01")
 	{
@@ -1766,6 +1814,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			}
 		}
 	}
+
+//############################################################################################################################
+											// LEVEL 02 TRIGGER BOXES
+//############################################################################################################################
 
 	else if (m_currentLevel == "Level_02")
 	{
