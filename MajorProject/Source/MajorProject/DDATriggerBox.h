@@ -196,6 +196,30 @@ public:
 							// SECTION 3 SENTRIES
 //#####################################################################################################
 
+	// Array of type actor for the sentries to delete when in easy_01 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3EasyMode1Setup;
+	// Array of type actor for the sentries to delete when in easy_02 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3EasyMode2Setup;
+
+	// Array of type actor for the sentries to delete when in medium_01 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3MediumMode1Setup;
+	// Array of type actor for the sentries to delete when in medium_02 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3MediumMode2Setup;
+
+	// Array of type actor for the sentries to delete when in hard_01 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3HardMode1Setup;
+	// Array of type actor for the sentries to delete when in hard_02 mode
+	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
+	TArray<AActor*> m_L2S3HardMode2Setup;
+
+//#####################################################################################################
+							// SECTION 4 SENTRIES
+//#####################################################################################################
 
 protected:
 
