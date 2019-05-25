@@ -58,6 +58,7 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
+	// Set movement time to 0
 	m_movementTime = 0;
 }
 

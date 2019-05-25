@@ -63,6 +63,9 @@ class AMajorProjectCharacter : public ACharacter
 public:
 	AMajorProjectCharacter();
 
+	UPROPERTY(EditAnywhere, Category = "Character Name")
+	FString PlayerCharacterName;
+
 	// Getter for the total movement time
 	int GetTotalMovementTime() { return m_movementTime; }
 	

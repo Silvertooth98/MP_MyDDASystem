@@ -217,10 +217,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Level 02 - Section 03 Trigger Box")
 	TArray<AActor*> m_L2S3HardMode2Setup;
 
-//#####################################################################################################
-							// SECTION 4 SENTRIES
-//#####################################################################################################
-
 protected:
 
 	UMajorProjectGameInstance* GameInstance;
@@ -233,6 +229,7 @@ protected:
 
 	EDifficulty m_difficulty;
 
+	FString m_playerCharacterName;
 	FString m_currentLevel;
 	FString m_totalTime;
 	FString m_movementTime;

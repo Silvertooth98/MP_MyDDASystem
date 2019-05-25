@@ -1,5 +1,5 @@
 Level_01 - Section 03
-Difficulty Set to: MEDIUM_01
-Total Time: 33
-Total Movement Time: 27
-Total In Light Time: 5
+Difficulty Set to: HARD_02
+Total Time: 14
+Total Movement Time: 13
+Total In Light Time: 3
