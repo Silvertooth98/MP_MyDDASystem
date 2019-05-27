@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{77586340-D231-4FA2-971C-2E4363CE81BE}</UniqueIdentifier>
+      <UniqueIdentifier>{01BEF3A3-A8EF-44DE-A407-ECF73A067708}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{923F6EAA-C678-4BD8-9410-90D3FA42C2B2}</UniqueIdentifier>
+      <UniqueIdentifier>{39B78EA3-C2AA-4790-8AED-637A457D3379}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{303AAF4F-829A-4660-8909-B1C1D20A3AE5}</UniqueIdentifier>
+      <UniqueIdentifier>{E0EA0E95-BAFA-4252-9D7C-70BA0D480336}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
       <Filter>Source\MajorProject</Filter>
@@ -81,12 +81,6 @@
       <Filter>Source\MajorProject</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectHUD.h">
-      <Filter>Source\MajorProject</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MajorProject\MajorProjectProjectile.cpp">
-      <Filter>Source\MajorProject</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MajorProject\MajorProjectProjectile.h">
       <Filter>Source\MajorProject</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MajorProject\TextFile.cpp">

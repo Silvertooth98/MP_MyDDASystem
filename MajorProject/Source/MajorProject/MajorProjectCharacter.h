@@ -127,10 +127,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	FVector GunOffset;
 
-	/** Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class AMajorProjectProjectile> ProjectileClass;
-
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class USoundBase* FireSound;
@@ -140,9 +136,6 @@ public:
 	class UAnimMontage* FireAnimation;
 
 protected:
-
-	/** Fires a projectile. */
-	void OnFire();
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);

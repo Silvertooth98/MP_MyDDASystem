@@ -1,5 +1,5 @@
 Level_02 - Section 03
 Difficulty Set to: HARD_02
 Total Time: 24
-Total Movement Time: 24
-Total In Light Time: 4
+Total Movement Time: 23
+Total In Light Time: 5
