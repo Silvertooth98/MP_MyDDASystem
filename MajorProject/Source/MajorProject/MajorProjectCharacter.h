@@ -46,23 +46,18 @@ class AMajorProjectCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FirstPersonCameraComponent;
 
-	/** Motion controller (right hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UMotionControllerComponent* R_MotionController;
-
-	/** Motion controller (left hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UMotionControllerComponent* L_MotionController;
-
+	// CameraShake subclass variable
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UCameraShake> CameraShake;
 
+	// Gamemode class pointer variable
 	UPROPERTY(EditAnywhere)
 	AMajorProjectGameMode* Gamemode;
 
 public:
 	AMajorProjectCharacter();
 
+	// FString variable for the player's character name to check when entering trigger boxes
 	UPROPERTY(EditAnywhere, Category = "Character Name")
 	FString PlayerCharacterName;
 
@@ -81,15 +76,18 @@ public:
 	/** Handles the pausing for the light timer */
 	void PauseInLightTimer();
 
+	// Setter - sets the difficulty using the ESetDifficulty enum
 	ESetDifficulty SetDifficulty(ESetDifficulty SetDifficulty);
 
+	// Getter - gets the difficulty set within the ESetDifficulty enum
 	UFUNCTION(BlueprintCallable, category = "DifficultyEnum")
 	ESetDifficulty GetSetDifficulty() { return m_setDifficulty; }
 
+	// ESetDifficulty enum variable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "DifficultyEnum")
 	ESetDifficulty m_setDifficulty = ESetDifficulty::NONE;
 
-	// Level 01 section booleans
+	// Level Section Booleans
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
 	bool m_section01 = false;									// Boolean for first section
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
@@ -100,6 +98,10 @@ public:
 	bool m_section04 = false;									// Boolean for fourth section
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
 	bool m_section05 = false;									// Boolean for fifth section
+
+	// Gun muzzle's offset from the characters location
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FVector GunOffset;
 
 protected:
 	virtual void BeginPlay();
@@ -114,29 +116,6 @@ protected:
 	int m_inLightTime;
 	FTimerHandle m_inLightTimer;
 
-public:
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseTurnRate;
-
-	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
-	float BaseLookUpRate;
-
-	/** Gun muzzle's offset from the characters location */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	FVector GunOffset;
-
-	/** Sound to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class USoundBase* FireSound;
-
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
-
-protected:
-
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 
@@ -150,43 +129,9 @@ protected:
 	/** Handles displaying total time */
 	void DisplayTotalTime();
 
-	/**
-	 * Called via input to turn at a given rate.
-	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
-	 */
-	void TurnAtRate(float Rate);
-
-	/**
-	 * Called via input to turn look up/down at a given rate.
-	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
-	 */
-	void LookUpAtRate(float Rate);
-
-	struct TouchData
-	{
-		TouchData() { bIsPressed = false; Location = FVector::ZeroVector; }
-		bool bIsPressed;
-		ETouchIndex::Type FingerIndex;
-		FVector Location;
-		bool bMoved;
-	};
-	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
-	TouchData	TouchItem;
-
-protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
-
-	/*
-	 * Configures input for touchscreen devices if there is a valid touch interface for doing so
-	 *
-	 * @param	InputComponent	The input component pointer to bind controls to
-	 * @returns true if touch controls were enabled.
-	 */
-	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
 
 public:
 	/** Returns Mesh1P subobject **/

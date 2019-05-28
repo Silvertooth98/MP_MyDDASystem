@@ -8,8 +8,6 @@
 #include "GameFramework/InputSettings.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
-#include "MotionControllerComponent.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Engine/GameEngine.h"
 #include "TimerManager.h"
 
@@ -22,10 +20,6 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
-
-	// set our turn rates for input
-	BaseTurnRate = 45.f;
-	BaseLookUpRate = 45.f;
 
 	// Create a CameraComponent	
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
@@ -47,7 +41,6 @@ AMajorProjectCharacter::AMajorProjectCharacter()
 	FP_Gun->SetOnlyOwnerSee(true);			// only the owning player will see this mesh
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
-	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
 	FP_Gun->SetupAttachment(RootComponent);
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
@@ -94,7 +87,7 @@ void AMajorProjectCharacter::Tick(float DeltaTime)
 
 void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
-	// set up gameplay key bindings
+	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 
 	// Bind jump events
@@ -104,41 +97,13 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	// Bind display total time event
 	PlayerInputComponent->BindAction("TotalTime", IE_Pressed, this, &AMajorProjectCharacter::DisplayTotalTime);
 
-	// Enable touchscreen input
-	EnableTouchscreenMovement(PlayerInputComponent);
-
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMajorProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMajorProjectCharacter::MoveRight);
 
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "turn" handles devices that provide an absolute delta, such as a mouse.
-	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
+	// Mouse rotation bindings which provide an absolute delta
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
-	PlayerInputComponent->BindAxis("TurnRate", this, &AMajorProjectCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &AMajorProjectCharacter::LookUpAtRate);
-}
-
-void AMajorProjectCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
-
-void AMajorProjectCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
 }
 
 void AMajorProjectCharacter::MoveForward(float Value)
@@ -246,65 +211,21 @@ ESetDifficulty AMajorProjectCharacter::SetDifficulty(ESetDifficulty SetDifficult
 // USED FOR DEBUGGING
 void AMajorProjectCharacter::DisplayTotalTime()
 {
-	Gamemode->GetElapsedTime(true, false);
+	Gamemode->GetElapsedTime();
 
 	if (GEngine)
 	{
-		if (Gamemode->GetIsSecondsInInt())
-		{
-			m_intSeconds = Gamemode->GetSecondsInt();
+		m_intSeconds = Gamemode->GetSecondsInt();
 
-			FString TheIntStr = FString::FromInt(m_intSeconds);//FString::SanitizeFloat(realtimeSeconds);
-			if (m_intSeconds >= 3)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
-			}
+		FString TheIntStr = FString::FromInt(m_intSeconds);
+
+		if (m_intSeconds >= 3)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
 		}
 		else
 		{
-			m_fltSeconds = Gamemode->GetSecondsFlt();
-
-			FString TheFloatStr = FString::SanitizeFloat(m_fltSeconds);
-
-			if (m_fltSeconds >= 3)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheFloatStr);
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheFloatStr);
-			}
+			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
 		}
 	}
-}
-
-void AMajorProjectCharacter::TurnAtRate(float Rate)
-{
-	// calculate delta for this frame from the rate information
-	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
-}
-
-void AMajorProjectCharacter::LookUpAtRate(float Rate)
-{
-	// calculate delta for this frame from the rate information
-	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
-}
-
-bool AMajorProjectCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
-{
-	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
-	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AMajorProjectCharacter::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &AMajorProjectCharacter::EndTouch);
-
-		//Commenting this out to be more consistent with FPS BP template.
-		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AMPv1Character::TouchUpdate);
-		return true;
-	}
-
-	return false;
 }

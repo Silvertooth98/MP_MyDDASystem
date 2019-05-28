@@ -1086,7 +1086,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 
 void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 {
-	Gamemode->GetElapsedTime(true, false);
+	Gamemode->GetElapsedTime();
 
 	// Get the current level name and set it into the FString variable "m_currentLevel"
 	m_currentLevel = Gamemode->GetLevelName();

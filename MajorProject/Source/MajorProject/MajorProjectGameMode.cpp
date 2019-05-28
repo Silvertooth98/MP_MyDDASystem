@@ -25,23 +25,9 @@ FString AMajorProjectGameMode::SetLevelName(FString LevelName)
 	return m_currentLevel;
 }
 
-int AMajorProjectGameMode::GetElapsedTime(bool intSeconds, bool floatSeconds)
+int AMajorProjectGameMode::GetElapsedTime()
 {
-	m_secondsFlt = UGameplayStatics::GetTimeSeconds(GetWorld());
+	m_secondsInt = (int)UGameplayStatics::GetTimeSeconds(GetWorld());
 
-	if (intSeconds)
-	{
-		m_secondsInt = (int)m_secondsFlt;
-		m_secondsInInt = true;
-
-		return m_secondsInt;
-	}
-	else if (floatSeconds)
-	{
-		m_secondsInInt = false;
-
-		return m_secondsFlt;
-	}
-
-	return 0;
+	return m_secondsInt;
 }
