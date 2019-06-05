@@ -514,7 +514,9 @@
     <ClCompile Include="..\..\Source\MajorProject\DDATriggerCapsule.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\DDATriggerCapsule.h" />
     <None Include="..\..\Source\MajorProject\MajorProject.Build.cs" />
+    <ClCompile Include="..\..\Source\MajorProject\Difficulty.cpp" />
     <ClCompile Include="..\..\Source\MajorProject\MajorProject.cpp" />
+    <ClInclude Include="..\..\Source\MajorProject\Difficulty.h" />
     <ClInclude Include="..\..\Source\MajorProject\MajorProject.h" />
     <ClCompile Include="..\..\Source\MajorProject\MajorProjectCharacter.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectCharacter.h" />

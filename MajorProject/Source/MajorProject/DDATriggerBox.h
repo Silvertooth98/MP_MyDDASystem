@@ -237,6 +237,13 @@ protected:
 
 	int m_intSeconds;
 
+	// Level 01 Section 01 const variables to replace magic numbers
+	/*const int m_L1S1SecondsCheck = 5;
+	const int m_L1S1EasyMovementCheck = 5;
+	const int m_L1S1MediumMovementCheck01 = 3;
+	const int m_L1S1MediumMovementCheck02 = 5;
+	const int m_L1S1HardMovementCheck = 2;*/
+	
 	FString m_lastDifficultySetting;
 	bool m_setDifficulty;
 

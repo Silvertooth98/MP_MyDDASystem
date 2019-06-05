@@ -64,6 +64,8 @@ void AMajorProjectCharacter::BeginPlay()
 
 	// Link gamemode variable to the gamemode
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
+
+	m_CharDDifficulty = new Difficulty();
 }
 
 void AMajorProjectCharacter::Tick(float DeltaTime)
@@ -228,4 +230,9 @@ void AMajorProjectCharacter::DisplayTotalTime()
 			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
 		}
 	}
+}
+
+AMajorProjectCharacter::~AMajorProjectCharacter()
+{
+	delete m_CharDDifficulty;
 }

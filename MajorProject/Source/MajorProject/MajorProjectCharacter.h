@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "CharacterCameraShake.h"
 #include "MajorProjectGameMode.h"
+#include "Difficulty.h"
 #include "MajorProjectCharacter.generated.h"
 
 UENUM(BlueprintType)
@@ -52,10 +53,14 @@ class AMajorProjectCharacter : public ACharacter
 
 	// Gamemode class pointer variable
 	UPROPERTY(EditAnywhere)
-	AMajorProjectGameMode* Gamemode;
+	AMajorProjectGameMode* Gamemode;	
 
 public:
 	AMajorProjectCharacter();
+	~AMajorProjectCharacter();
+
+	// Difficulty class pointer variable
+	Difficulty* m_CharDDifficulty;
 
 	// FString variable for the player's character name to check when entering trigger boxes
 	UPROPERTY(EditAnywhere, Category = "Character Name")
