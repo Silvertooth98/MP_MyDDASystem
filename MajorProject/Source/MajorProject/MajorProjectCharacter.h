@@ -59,8 +59,11 @@ public:
 	AMajorProjectCharacter();
 	~AMajorProjectCharacter();
 
+	/** Handles updating the difficulty enum within this class */
+	void Update();
+
 	// Difficulty class pointer variable
-	Difficulty* m_CharDDifficulty;
+	Difficulty* m_CharDifficulty;
 
 	// FString variable for the player's character name to check when entering trigger boxes
 	UPROPERTY(EditAnywhere, Category = "Character Name")

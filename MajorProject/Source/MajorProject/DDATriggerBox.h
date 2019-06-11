@@ -7,21 +7,7 @@
 #include "MajorProjectGameInstance.h"
 #include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.h"
-#include "TextFile.h"
 #include "DDATriggerBox.generated.h"
-
-UENUM()
-enum class EDifficulty : uint8
-{
-	EASY_01,
-	EASY_02,
-
-	MEDIUM_01,
-	MEDIUM_02,
-
-	HARD_01,
-	HARD_02
-};
 
 UCLASS()
 class MAJORPROJECT_API ADDATriggerBox : public ATriggerBox
@@ -32,11 +18,8 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
-							FString TotalTime, FString TotalMovementTime,
-							FString TotalInLightTime, FString TextFileNumber);
-
 	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false, bool S5 = false);
+	void DifficultyShift(bool IsFirstTB = false, bool IsLastTB = false);
 
 public:
 
@@ -48,11 +31,6 @@ public:
 	UFUNCTION()
 	void OnOverLapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
 
-	UFUNCTION(BlueprintPure, Category = "Trigger Box")
-	bool GetDifficultyChange() { return m_setDifficulty; }
-
-	FString GetLastDifficulty() { return m_lastDifficultySetting; }
-
 //########################################################################################################################
 							// LEVEL 01 SENTRIES
 //########################################################################################################################
@@ -60,7 +38,7 @@ public:
 							// SECTION 1 SENTRIES
 //#####################################################################################################
 	
-// Array of type actor for the sentries to delete when in easy mode
+	// Array of type actor for the sentries to delete when in easy mode
 	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
 	TArray<AActor*> m_L1S1EasyModeSetup;
 
@@ -68,7 +46,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
 	TArray<AActor*> m_L1S1MediumModeSetup;
 
-	// DEBUGGING * WON'T REMOVE ANY
 	// Array of type actor for the sentries to delete when in hard mode
 	UPROPERTY(EditAnywhere, Category = "Level 01 - Section 01 Trigger Box")
 	TArray<AActor*> m_L1S1HardModeSetup;
@@ -220,31 +197,29 @@ public:
 protected:
 
 	UMajorProjectGameInstance* GameInstance;
-
 	AMajorProjectGameMode* Gamemode;
-
 	AMajorProjectCharacter* Character;
 
-	UTextFile* m_textFile;
-
-	EDifficulty m_difficulty;
-
-	FString m_playerCharacterName;
+	FString m_playerCharName;
 	FString m_currentLevel;
 	FString m_totalTime;
 	FString m_movementTime;
 	FString m_inLightTime;
+	FString m_levelName;
+	FString m_sectionNum;
+	FString m_levelDifficulty;
 
 	int m_intSeconds;
 
-	// Level 01 Section 01 const variables to replace magic numbers
-	/*const int m_L1S1SecondsCheck = 5;
-	const int m_L1S1EasyMovementCheck = 5;
-	const int m_L1S1MediumMovementCheck01 = 3;
-	const int m_L1S1MediumMovementCheck02 = 5;
-	const int m_L1S1HardMovementCheck = 2;*/
-	
-	FString m_lastDifficultySetting;
-	bool m_setDifficulty;
+	int m_timeChk;
+	int m_mvmntChk01;
+	int m_mvmntChk02;
+	int m_mvmntChk03;
+	int m_mvmntChk04;
+	int m_mvmntChk05;
+	int m_inLightChk01;
+	int m_inLightChk02;
+	int m_inLightChk03;
+	int m_inLightChk04;
 
 };

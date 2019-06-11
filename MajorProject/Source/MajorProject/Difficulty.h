@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TextFile.h"
 
-enum class EDDifficulty : uint8
+enum class EDifficulty : uint8
 {
 	NONE,
 
@@ -24,18 +25,23 @@ public:
 	Difficulty();
 	~Difficulty();
 
-	EDDifficulty GetDDifficulty() { return m_DDifficulty; }
-	EDDifficulty SetDDifficulty(EDDifficulty SetDDifficulty);
+	void SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
+							FString TotalTime, FString TotalMovementTime,
+							FString TotalInLightTime, FString TextFileNumber);
 
-	void StartingDifficulty(bool Easy = false, bool Medium = false, bool Hard = false);
-	void EasyDifficulty();
-	void PureEasyDifficulty();
-	void MediumDifficulty();
-	void HardDifficulty();
-	void PureHardDifficulty();
-	void FinalDifficulty(bool Easy = false, bool Medium = false, bool Hard = false);
+	EDifficulty GetDifficulty() { return m_Difficulty; }
+	EDifficulty SetDifficulty(EDifficulty SetDifficulty);
+
+	void SetExactDifficulty(bool Easy = false, bool Medium = false, bool Hard = false,
+		FString Level = "", FString SectionNum = "", FString TotalTime = "", FString TotalMovementTime = "", FString TotalInLightTime = "");
+	void EasyDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void PureEasyDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void MediumDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void HardDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void PureHardDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
 
 private:
-	EDDifficulty m_DDifficulty = EDDifficulty::NONE;
+	UTextFile* m_textFile;
+	EDifficulty m_Difficulty = EDifficulty::NONE;
 
 };

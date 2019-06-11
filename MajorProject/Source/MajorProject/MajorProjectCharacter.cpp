@@ -65,7 +65,7 @@ void AMajorProjectCharacter::BeginPlay()
 	// Link gamemode variable to the gamemode
 	Gamemode = (AMajorProjectGameMode*)GetWorld()->GetAuthGameMode();
 
-	m_CharDDifficulty = new Difficulty();
+	m_CharDifficulty = new Difficulty();
 }
 
 void AMajorProjectCharacter::Tick(float DeltaTime)
@@ -106,6 +106,45 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	// Mouse rotation bindings which provide an absolute delta
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+}
+
+// Set the difficulty to be the same as the difficulty set within the difficulty class
+void AMajorProjectCharacter::Update()
+{
+	if (m_CharDifficulty->GetDifficulty() == EDifficulty::NONE)
+	{
+		SetDifficulty(ESetDifficulty::NONE);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+	{
+		SetDifficulty(ESetDifficulty::EASY_01);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
+	{
+		SetDifficulty(ESetDifficulty::EASY_02);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
+	{
+		SetDifficulty(ESetDifficulty::MEDIUM_01);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
+	{
+		SetDifficulty(ESetDifficulty::MEDIUM_02);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
+	{
+		SetDifficulty(ESetDifficulty::HARD_01);
+	}
+
+	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
+	{
+		SetDifficulty(ESetDifficulty::HARD_02);
+	}
 }
 
 void AMajorProjectCharacter::MoveForward(float Value)
@@ -158,12 +197,14 @@ void AMajorProjectCharacter::MoveRight(float Value)
 	}
 }
 
+// DEBUG
 void AMajorProjectCharacter::MovementTimer()
 {
 	if (GEngine)
 	{
 		// Add 1 to the current movement time integer
 		m_movementTime = m_movementTime + 1;
+		// Convert int to FString
 		FString movementTimeStr = FString::FromInt(m_movementTime);
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, movementTimeStr);
 	}
@@ -234,5 +275,5 @@ void AMajorProjectCharacter::DisplayTotalTime()
 
 AMajorProjectCharacter::~AMajorProjectCharacter()
 {
-	delete m_CharDDifficulty;
+	delete m_CharDifficulty;
 }
