@@ -40,15 +40,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 
 	if (m_currentLevel == "Level_01")
 	{
-		// Set the total time variable to equal the current total time
-		m_totalTime = FString::FromInt(Gamemode->GetSecondsInt());
-
-		// Set the total movement time variable to equal the current total movement time
-		m_movementTime = FString::FromInt(Character->GetTotalMovementTime());
-
-		// Set the total in light time variable to equal the current total in light time
-		m_inLightTime = FString::FromInt(Character->GetTotalInLightTime());
-
 		//#####################################################################################################
 									// SECTION 1 TRIGGER BOX
 		//#####################################################################################################
@@ -57,19 +48,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 1");
 
-			// COULD CHANGE INTO AN ENUM
-			// Set boolean for section01 in the character class to true and the other section booleans to false
-			Character->m_section01 = true;
-			Character->m_section02 = false;
-			Character->m_section03 = false;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_01
+			Character->m_section = ESection::SECTION_01;
 
 			// Check if easy difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1EasyModeSetup.Num(); i++)
 				{
@@ -80,8 +64,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if medium difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1MediumModeSetup.Num(); i++)
 				{
@@ -92,8 +74,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if hard difficuly
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1HardModeSetup.Num(); i++)
 				{
@@ -115,18 +95,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 2");
 
-			// Set boolean for section02 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = true;
-			Character->m_section03 = false;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_02
+			Character->m_section = ESection::SECTION_02;
 
 			// Check if Easy 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2EasyMode1Setup.Num(); i++)
 				{
@@ -137,8 +111,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Easy 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2EasyMode2Setup.Num(); i++)
 				{
@@ -149,8 +121,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2MediumMode1Setup.Num(); i++)
 				{
@@ -161,8 +131,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2MediumMode2Setup.Num(); i++)
 				{
@@ -173,8 +141,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2HardMode1Setup.Num(); i++)
 				{
@@ -185,8 +151,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2HardMode2Setup.Num(); i++)
 				{
@@ -203,18 +167,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 3");
 
-			// Set boolean for section03 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = false;
-			Character->m_section03 = true;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_03
+			Character->m_section = ESection::SECTION_03;
 
 			// Check if Easy 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3EasyMode1Setup.Num(); i++)
 				{
@@ -225,8 +183,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Easy 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3EasyMode2Setup.Num(); i++)
 				{
@@ -237,8 +193,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3MediumMode1Setup.Num(); i++)
 				{
@@ -249,8 +203,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3MediumMode2Setup.Num(); i++)
 				{
@@ -261,8 +213,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3HardMode1Setup.Num(); i++)
 				{
@@ -273,8 +223,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S3HardMode2Setup.Num(); i++)
 				{
@@ -286,23 +234,17 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		//#####################################################################################################
 									// SECTION 4 TRIGGER BOX
 		//#####################################################################################################
-			// Check if player is within the fourth section trigger box
+		// Check if player is within the fourth section trigger box
 		else if (S4)
 		{
 			print("SECTION 4");
 
-			// Set boolean for section04 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = false;
-			Character->m_section03 = false;
-			Character->m_section04 = true;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_04
+			Character->m_section = ESection::SECTION_04;
 
 			// Check if Easy 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4EasyMode1Setup.Num(); i++)
 				{
@@ -313,8 +255,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Easy 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4EasyMode2Setup.Num(); i++)
 				{
@@ -325,8 +265,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4MediumMode1Setup.Num(); i++)
 				{
@@ -337,8 +275,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4MediumMode2Setup.Num(); i++)
 				{
@@ -349,8 +285,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4HardMode1Setup.Num(); i++)
 				{
@@ -361,8 +295,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S4HardMode2Setup.Num(); i++)
 				{
@@ -379,36 +311,29 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 5");
 
-			// Set boolean for section05 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = false;
-			Character->m_section03 = false;
-			Character->m_section04 = false;
-			Character->m_section05 = true;
+			// Set section enum in the character class to section_05
+			Character->m_section = ESection::SECTION_05;
 
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+			// Check if Easy_01 or Easy_02 difficulty
+			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01 ||
+				Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
 			}
 
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
+			// Check if Medium_01 or Medium_02 difficulty
+			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01 ||
+					 Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
 			}
 
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
+			// Check if Hard_01 or Hard_02 difficulty
+			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01 ||
+					 Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
 			}
@@ -427,15 +352,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 
 	else if (m_currentLevel == "Level_02")
 	{
-		// Set the total time variable to equal the current total time
-		m_totalTime = FString::FromInt(Gamemode->GetSecondsInt());
-
-		// Set the total movement time variable to equal the current total movement time
-		m_movementTime = FString::FromInt(Character->GetTotalMovementTime());
-
-		// Set the total in light time variable to equal the current total in light time
-		m_inLightTime = FString::FromInt(Character->GetTotalInLightTime());
-
 		//#####################################################################################################
 									// SECTION 1 TRIGGER BOX
 		//#####################################################################################################
@@ -444,18 +360,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 1");
 
-			// Set boolean for section01 in the character class to true and the other section booleans to false
-			Character->m_section01 = true;
-			Character->m_section02 = false;
-			Character->m_section03 = false;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_01
+			Character->m_section = ESection::SECTION_01;
 
 			// Check if easy difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1EasyModeSetup.Num(); i++)
 				{
@@ -466,8 +376,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if medium difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1MediumModeSetup.Num(); i++)
 				{
@@ -478,8 +386,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if hard difficuly
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1HardModeSetup.Num(); i++)
 				{
@@ -501,18 +407,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 2");
 
-			// Set boolean for section02 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = true;
-			Character->m_section03 = false;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_02
+			Character->m_section = ESection::SECTION_02;
 
 			// Check if Easy 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2EasyMode1Setup.Num(); i++)
 				{
@@ -523,8 +423,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Easy 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2EasyMode2Setup.Num(); i++)
 				{
@@ -535,8 +433,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2MediumMode1Setup.Num(); i++)
 				{
@@ -547,8 +443,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2MediumMode2Setup.Num(); i++)
 				{
@@ -559,8 +453,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2HardMode1Setup.Num(); i++)
 				{
@@ -571,8 +463,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S2HardMode2Setup.Num(); i++)
 				{
@@ -589,18 +479,12 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("SECTION 3");
 
-			// Set boolean for section03 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = false;
-			Character->m_section03 = true;
-			Character->m_section04 = false;
-			Character->m_section05 = false;
+			// Set section enum in the character class to section_03
+			Character->m_section = ESection::SECTION_03;
 
 			// Check if Easy 1 difficulty
 			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
 			{
-				print("DIFFICULTY - EASY_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3EasyMode1Setup.Num(); i++)
 				{
@@ -611,8 +495,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Easy 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
 			{
-				print("DIFFICULTY - EASY_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3EasyMode2Setup.Num(); i++)
 				{
@@ -623,8 +505,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
 			{
-				print("DIFFICULTY - MEDIUM_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3MediumMode1Setup.Num(); i++)
 				{
@@ -635,8 +515,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Medium 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
 			{
-				print("DIFFICULTY - MEDIUM_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3MediumMode2Setup.Num(); i++)
 				{
@@ -647,8 +525,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 1 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
 			{
-				print("DIFFICULTY - HARD_01");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3HardMode1Setup.Num(); i++)
 				{
@@ -659,8 +535,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Check if Hard 2 difficulty
 			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
 			{
-				print("DIFFICULTY - HARD_02");
-
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3HardMode2Setup.Num(); i++)
 				{
@@ -677,96 +551,8 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		{
 			print("FINAL TRIGGERBOX");
 
-			// Set boolean for section04 in the character class to true and the other section booleans to false
-			Character->m_section01 = false;
-			Character->m_section02 = false;
-			Character->m_section03 = false;
-			Character->m_section04 = true;
-			Character->m_section05 = false;
-
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
-			{
-				print("DIFFICULTY - EASY_01");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::EASY_01);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("EASY_01"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
-
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
-				print("DIFFICULTY - EASY_02");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::EASY_02);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("EASY_02"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
-
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
-				print("DIFFICULTY - MEDIUM_01");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::MEDIUM_01);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("MEDIUM_01"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
-
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
-				print("DIFFICULTY - MEDIUM_02");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::MEDIUM_02);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("MEDIUM_02"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
-
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
-				print("DIFFICULTY - HARD_01");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::HARD_01);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("HARD_01"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
-
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
-				print("DIFFICULTY - HARD_02");
-
-				// Set difficulty within the character class
-				Character->SetDifficulty(ESetDifficulty::HARD_02);
-
-				// Save difficulty details to text file
-				Character->m_CharDifficulty->SaveDataToTextFile(FString("Level_02"), FString("Section 04"),
-								   FString("HARD_02"), m_totalTime, m_movementTime,
-								   m_inLightTime, FString("04"));
-			}
+			// Set section enum in the character class to section_04
+			Character->m_section = ESection::SECTION_04;
 		}
 	}
 }
@@ -788,27 +574,27 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 	// If the trigger box is a first or last within the level
 	if (IsFirstTB || IsLastTB)
 	{
-		// Check if seconds is greater than or equal to 5
+		// Check if seconds is greater than or equal to time check value
 		if (m_intSeconds >= m_timeChk)
 		{
-			// Check if total movement time is greater than 5
+			// Check if total movement time is greater than movement check 1 value
 			if (Character->GetTotalMovementTime() > m_mvmntChk01)
 			{
 				if (IsLastTB)
 				{
-					// Check if total time in sentry light is between 0-3
+					// Check if total time in sentry light is less than or equal to in light check 1 value
 					if (Character->GetTotalInLightTime() <= m_inLightChk01)
 					{
 						// Set final difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 
-					// Check if total time in sentry light is between 4-7
+					// Check if total time in sentry light is between in light check 2 and 3
 					else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
 					{
 						// Set final difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 
@@ -816,7 +602,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 					else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 					{
 						// Set final difficulty to Easy by using the Set Exact Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetExactDifficulty(true, false, false, m_levelName,
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 				}
@@ -824,7 +610,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				else
 				{
 					// Set difficulty to Easy by using the Set Exact Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(true, false, false, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 			}
@@ -839,7 +625,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 					if (Character->GetTotalInLightTime() <= m_inLightChk03)
 					{
 						// Set final difficulty to Medium by using the Final Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 
@@ -847,7 +633,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 					else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 					{
 						// Set final difficulty to Hard by using the Final Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 				}
@@ -855,7 +641,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				else
 				{
 					// Set starting difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 			}
@@ -864,7 +650,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
 			{
 				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
@@ -876,7 +662,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			if (Character->GetTotalMovementTime() == m_mvmntChk05)
 			{
 				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 
@@ -886,7 +672,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
 				{
 					// Set final difficulty to Hard by using the Final Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
@@ -894,7 +680,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				else
 				{
 					// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 			}
@@ -903,7 +689,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1))
 			{
 				// Set starting difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 
@@ -911,7 +697,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			else
 			{
 				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
@@ -920,7 +706,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 	// Else, if the trigger box is not either a first or last trigger box within the level
 	else
 	{
-		// Check if seconds is greater than or equal to 15
+		// Check if seconds is greater than or equal to time check value
 		if (m_intSeconds >= m_timeChk)
 		{
 			// Check if total movement time is greater than 13
@@ -930,21 +716,22 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				if (Character->GetTotalInLightTime() == m_inLightChk01)
 				{
 					// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-					Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
 				// Check if total time in sentry light is 1, 2 or 3
 				else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
 					// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-					Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
+												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
 				// Check if total time in sentry light is 4 or more
 				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 				{
 					// Make difficulty easier by calling the Easy Difficulty function within the difficulty class
-					Character->m_CharDifficulty->EasyDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->LowerDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 			}
 
@@ -955,14 +742,15 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				if (Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
 					// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-					Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
+												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
 				// Check if total in light time equals greater than or equal to 3
 				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 				{
 					// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-					Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 			}
 
@@ -970,11 +758,11 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
 			{
 				// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-				Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
 
-		// If seconds equals less than 15
+		// If seconds equals less than time check value
 		else
 		{
 			// Check if total movement time is greater than or equal to the total time - 1
@@ -984,14 +772,16 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 
 				// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
 				// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
-				Character->m_CharDifficulty->PureHardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 
 			// Else, check if total movement time equals total time - 2 or - 3
 			else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
 			{
 				// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-				Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 
 			// Otherwise, set to hard mode
@@ -999,7 +789,8 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			{
 				// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
 				// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
-				Character->m_CharDifficulty->PureHardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
 	}
@@ -1247,7 +1038,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				if (GameInstance->GetDifficulty() == EFinalDifficulty::EASY_01)
 				{
 					// Set starting difficulty to Easy by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(true, false, false, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
@@ -1255,7 +1046,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				else if (GameInstance->GetDifficulty() == EFinalDifficulty::MEDIUM_01)
 				{
 					// Set starting difficulty to Medium by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(false, true, false, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
@@ -1263,7 +1054,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				else if (GameInstance->GetDifficulty() == EFinalDifficulty::HARD_01)
 				{
 					// Set starting difficulty to Hard by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetExactDifficulty(false, false, true, m_levelName,
+					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
@@ -1372,93 +1163,20 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "04";
 
-				// Check if seconds is greater than or equal to 53
-				if (m_intSeconds >= 53)
-				{
-					// Check if total movement time is greater than 50
-					if (Character->GetTotalMovementTime() >= 50)
-					{
-						// Check if total time in sentry light is less than or equal to 2
-						if (Character->GetTotalInLightTime() <= 2)
-						{
-							// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-							Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-						}
-
-						// Check if total time in sentry light is 3, 4 or 5
-						else if (Character->GetTotalInLightTime() >= 3 && Character->GetTotalInLightTime() <= 5)
-						{
-							// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-							Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-						}
-
-						// Check if total time in sentry light is greater than or equal to 6
-						else if (Character->GetTotalInLightTime() >= 6)
-						{
-							// Make difficulty easier by calling the Easy Difficulty function within the difficulty class
-							Character->m_CharDifficulty->EasyDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-						}
-					}
-
-					// Check if total movement time is equal to 47, 48 or 49
-					else if (Character->GetTotalMovementTime() >= 47 && Character->GetTotalMovementTime() <= 49)
-					{
-						// If total in light is less than or equal to 4
-						if (Character->GetTotalInLightTime() <= 4)
-						{
-							// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-							Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-						}
-
-						// Check if total in light time is greater than or equal to 5
-						else if (Character->GetTotalInLightTime() >= 5)
-						{
-							// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-							Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-						}
-					}
-
-					// Check if total movement time is less than or equal to 46
-					else if (Character->GetTotalMovementTime() <= 46)
-					{
-						// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-						Character->m_CharDifficulty->HardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-				}
-
-				// If seconds equals less than 50
-				else
-				{
-					// Check if total movement time is greater than or equal to the total time - 3
-					if (Character->GetTotalMovementTime() >= (m_intSeconds - 3))
-					{
-						print("movement >= total - 3");
-
-						// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
-						// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
-						Character->m_CharDifficulty->PureHardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-
-					// Else, check if total movement time equals total time - 4 or - 5
-					else if (Character->GetTotalMovementTime() == (m_intSeconds - 4) || Character->GetTotalMovementTime() == (m_intSeconds - 5))
-					{
-						print("Movement = total - 4 or - 5");
-
-						// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-						Character->m_CharDifficulty->MediumDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-
-					// Otherwise, set to hard mode
-					else
-					{
-						// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
-						// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
-						Character->m_CharDifficulty->PureHardDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-				}
+				// Set data values to check for difficulty changes
+				m_timeChk = 53;						// Check current time against 53
+				m_mvmntChk01 = 50;					// First Movement Check against 50
+				m_mvmntChk02 = 47;					// Second Movement Check against 47
+				m_mvmntChk03 = 49;					// Third Movement Check against 49
+				m_mvmntChk04 = 46;					// Fourth Movement Check against 46
+				m_mvmntChk05 = (m_intSeconds - 3);	// Fifth Movement Check against (current time - 3)
+				m_inLightChk01 = 2;					// First In Light Check against 2
+				m_inLightChk02 = 3;					// Second In Light Check against 3
+				m_inLightChk03 = 5;					// Third In Light Check against 5
+				m_inLightChk04 = 6;					// Fourth In Light Check against 6
 
 				// Shift the difficulty based on data checks
-				//DifficultyShift();
+				DifficultyShift(false, true);
 
 				// Update character class difficulty here
 				Character->Update();

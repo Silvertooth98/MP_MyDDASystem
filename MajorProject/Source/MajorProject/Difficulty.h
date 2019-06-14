@@ -19,6 +19,13 @@ enum class EDifficulty : uint8
 	HARD_02
 };
 
+enum class EExactDifficulty : uint8
+{
+	EASY,
+	MEDIUM,
+	HARD
+};
+
 class MAJORPROJECT_API Difficulty
 {
 public:
@@ -30,15 +37,12 @@ public:
 							FString TotalInLightTime, FString TextFileNumber);
 
 	EDifficulty GetDifficulty() { return m_Difficulty; }
-	EDifficulty SetDifficulty(EDifficulty SetDifficulty);
+	//EDifficulty SetDifficulty(EDifficulty SetDifficulty);
 
-	void SetExactDifficulty(bool Easy = false, bool Medium = false, bool Hard = false,
-		FString Level = "", FString SectionNum = "", FString TotalTime = "", FString TotalMovementTime = "", FString TotalInLightTime = "");
-	void EasyDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
-	void PureEasyDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
-	void MediumDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
-	void HardDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
-	void PureHardDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void SetDifficulty(EExactDifficulty Edifficulty, FString Level = "", FString SectionNum = "",
+					   FString TotalTime = "", FString TotalMovementTime = "", FString TotalInLightTime = "");
+	void LowerDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	void IncreaseDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
 
 private:
 	UTextFile* m_textFile;

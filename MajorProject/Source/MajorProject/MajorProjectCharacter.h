@@ -24,6 +24,16 @@ enum class ESetDifficulty : uint8
 	HARD_02 	UMETA(DisplayName = "HARD_02")
 };
 
+UENUM(BlueprintType)
+enum class ESection : uint8
+{
+	SECTION_01	UMETA(DisplayName = "SECTION_01"),
+	SECTION_02 	UMETA(DisplayName = "SECTION_02"),
+	SECTION_03 	UMETA(DisplayName = "SECTION_03"),
+	SECTION_04 	UMETA(DisplayName = "SECTION_04"),
+	SECTION_05 	UMETA(DisplayName = "SECTION_05")
+};
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -94,6 +104,9 @@ public:
 	// ESetDifficulty enum variable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "DifficultyEnum")
 	ESetDifficulty m_setDifficulty = ESetDifficulty::NONE;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "SectionEnum")
+	ESection m_section = ESection::SECTION_01;
 
 	// Level Section Booleans
 	UPROPERTY(BlueprintReadWrite, category = "Level Sections")
