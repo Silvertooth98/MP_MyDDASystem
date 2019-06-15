@@ -209,6 +209,14 @@ protected:
 	FString m_sectionNum;
 	FString m_levelDifficulty;
 
+	const FString LEVEL01NAME = "Level_01";
+	const FString LEVEL02NAME = "Level_02";
+	const FString TRIGGERBOX01 = "DDATriggerBox_01";
+	const FString TRIGGERBOX02 = "DDATriggerBox_02";
+	const FString TRIGGERBOX03 = "DDATriggerBox_03";
+	const FString TRIGGERBOX04 = "DDATriggerBox_04";
+	const FString TRIGGERBOX05 = "DDATriggerBox_05";
+
 	int m_intSeconds;
 
 	int m_timeChk;

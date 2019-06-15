@@ -1,5 +1,5 @@
 Level_01 - Section 05
-Difficulty Set to: EASY_01
-Total Time: 58
-Total Movement Time: 52
-Total In Light Time: 26
+Difficulty Set to: HARD_02
+Total Time: 36
+Total Movement Time: 36
+Total In Light Time: 8

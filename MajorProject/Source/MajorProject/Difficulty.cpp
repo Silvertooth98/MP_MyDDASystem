@@ -22,13 +22,6 @@ void Difficulty::SaveDataToTextFile(FString Level, FString LevelSection, FString
 						FString("TextFiles/" + Level + "/Test" + TextFileNumber + ".txt"));
 }
 
-//EDifficulty Difficulty::SetDifficulty(EDifficulty SetDifficulty)
-//{
-//	m_Difficulty = SetDifficulty;
-//
-//	return m_Difficulty;
-//}
-
 void Difficulty::SetDifficulty(EExactDifficulty Edifficulty, FString Level, FString SectionNum,
 							   FString TotalTime, FString TotalMovementTime, FString TotalInLightTime)
 {

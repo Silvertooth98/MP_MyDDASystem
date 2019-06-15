@@ -36,7 +36,6 @@ void ADDATriggerCapsule::OnOverLapEnd(AActor* OverlappedActor, AActor* OtherActo
 {
 	if (OtherActor && OtherActor != this && OtherActor->GetName() == "FirstPersonCharacter")
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, FString(TEXT("Pause")));
 		Character->PauseInLightTimer();
 	}
 }

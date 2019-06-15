@@ -37,7 +37,6 @@ public:
 							FString TotalInLightTime, FString TextFileNumber);
 
 	EDifficulty GetDifficulty() { return m_Difficulty; }
-	//EDifficulty SetDifficulty(EDifficulty SetDifficulty);
 
 	void SetDifficulty(EExactDifficulty Edifficulty, FString Level = "", FString SectionNum = "",
 					   FString TotalTime = "", FString TotalMovementTime = "", FString TotalInLightTime = "");

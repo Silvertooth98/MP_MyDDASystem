@@ -80,11 +80,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 					m_L1S1HardModeSetup[i]->Destroy();
 				}
 			}
-
-			else
-			{
-				print("ERROR - NO SET DIFFICULTY - Difficulty check function");
-			}
 		}
 
 		//#####################################################################################################
@@ -337,12 +332,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
 			}
-
-			// Print error message if difficulty equals anything other than Easy_01, Medium_01 or Hard_01
-			else
-			{
-				print("DIFFICULTY - ERROR SETTING FINAL DIFFICULTY");
-			}
 		}
 	}
 	
@@ -363,9 +352,13 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 			// Set section enum in the character class to section_01
 			Character->m_section = ESection::SECTION_01;
 
-			// Check if easy difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+			// If Easy_01 at the end of Level_01, set difficulty to Easy_01
+			if (GameInstance->GetDifficulty() == EFinalDifficulty::EASY_01)
 			{
+				// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1EasyModeSetup.Num(); i++)
 				{
@@ -373,9 +366,13 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 				}
 			}
 
-			// Check if medium difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
+			// If Medium_01 at the end of Level_01, set difficulty to Medium_01
+			else if (GameInstance->GetDifficulty() == EFinalDifficulty::MEDIUM_01)
 			{
+				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1MediumModeSetup.Num(); i++)
 				{
@@ -383,19 +380,18 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 				}
 			}
 
-			// Check if hard difficuly
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
+			// If Hard_01 at the end of Level_01, set difficulty to Hard_01
+			else if (GameInstance->GetDifficulty() == EFinalDifficulty::HARD_01)
 			{
+				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S1HardModeSetup.Num(); i++)
 				{
 					m_L2S1HardModeSetup[i]->Destroy();
 				}
-			}
-
-			else
-			{
-				print("ERROR - NO SET DIFFICULTY - Difficulty check function");
 			}
 		}
 
@@ -549,7 +545,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S
 		// Check if player is within the fourth and final section trigger box
 		else if (S4)
 		{
-			print("FINAL TRIGGERBOX");
+			print("END OF " + LEVEL02NAME);
 
 			// Set section enum in the character class to section_04
 			Character->m_section = ESection::SECTION_04;
@@ -571,215 +567,147 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 	// Set the total in light time variable to equal the current total in light time
 	m_inLightTime = FString::FromInt(Character->GetTotalInLightTime());
 
-	// If the trigger box is a first or last within the level
-	if (IsFirstTB || IsLastTB)
+	// Check if seconds is greater than or equal to time check
+	if (m_intSeconds >= m_timeChk)
 	{
-		// Check if seconds is greater than or equal to time check value
-		if (m_intSeconds >= m_timeChk)
+		// Check if total movement time is greater than or equal to movement check 1
+		if (Character->GetTotalMovementTime() >= m_mvmntChk01)
 		{
-			// Check if total movement time is greater than movement check 1 value
-			if (Character->GetTotalMovementTime() > m_mvmntChk01)
+			// Check if it's not the first trigger box (so either last one or one during level)
+			if (!IsFirstTB)
 			{
-				if (IsLastTB)
+				// Check if total time in sentry light is less than or equal to in light check 1
+				if (Character->GetTotalInLightTime() <= m_inLightChk01)
 				{
-					// Check if total time in sentry light is less than or equal to in light check 1 value
-					if (Character->GetTotalInLightTime() <= m_inLightChk01)
+					// Check if last trigger box in level
+					if (IsLastTB)
 					{
-						// Set final difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
+						// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
 						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
-
-					// Check if total time in sentry light is between in light check 2 and 3
-					else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
+					// Else, it is a trigger box during the middle of the level
+					else
 					{
-						// Set final difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-
-					// Check if total time in sentry light is 8 or more
-					else if (Character->GetTotalInLightTime() >= m_inLightChk04)
-					{
-						// Set final difficulty to Easy by using the Set Exact Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+						// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
+						Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 					}
 				}
 
-				else
+				// Check if total time in sentry light is between in light check 2 and 3
+				else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
-					// Set difficulty to Easy by using the Set Exact Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-			}
-
-			// Check if total movement time is equal to 3, 4, or 5
-			else if (Character->GetTotalMovementTime() >= m_mvmntChk02
-				  && Character->GetTotalMovementTime() <= m_mvmntChk03)
-			{
-				if (IsLastTB)
-				{
-					// If total in light equals 7 or less
-					if (Character->GetTotalInLightTime() <= m_inLightChk03)
-					{
-						// Set final difficulty to Medium by using the Final Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-
-					// Check if total in light time equals greater than or equal to 8
-					else if (Character->GetTotalInLightTime() >= m_inLightChk04)
-					{
-						// Set final difficulty to Hard by using the Final Difficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-				}
-				
-				else
-				{
-					// Set starting difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
+					// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
-			}
 
-			// Check if total movement time is equal to 0, 1, or 2
-			else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
+				// Check if total time in sentry light is greater than or equal to in light check 4
+				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
+				{
+					// Check if last trigger box in level
+					if (IsLastTB)
+					{
+						// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
+													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					}
+					// Else, it is a trigger box during the middle of the level
+					else
+					{
+						// Make difficulty easier by calling the LowerDifficulty function within the difficulty class
+						Character->m_CharDifficulty->LowerDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					}						
+				}
+			}
+			// Else the trigger box is the first within the level
+			else
 			{
-				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+				// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
+				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
 
-		// If seconds equals less than 5
-		else
+		// Check if total movement time is between movement check 2 and 3
+		else if (Character->GetTotalMovementTime() >= m_mvmntChk02
+				&& Character->GetTotalMovementTime() <= m_mvmntChk03)
 		{
-			// Check if total movement time is equal to the total time spent in the level
-			if (Character->GetTotalMovementTime() == m_mvmntChk05)
+			// Check if it's not the first trigger box (so either last one or one during level)
+			if (!IsFirstTB)
 			{
-				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-			}
-
-			else if (IsLastTB)
-			{
-				// Else, check if total movement time equals total time - 5 or - 6
-				if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
+				// Check if total time in sentry light is less than or equal to in light check 3
+				if (Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
-					// Set final difficulty to Hard by using the Final Difficulty function within the difficulty class
+					// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 				}
 
-				// Otherwise, set to hard mode
-				else
+				// Check if total time in sentry light is greater than or equal to in light check 4
+				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 				{
-					// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					// Check if last trigger box in level
+					if (IsLastTB)
+					{
+						// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
+						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					}
+					// Else, it is a trigger box during the middle of the level
+					else
+					{
+						// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
+						Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					}
 				}
 			}
-
-			// Check if total movement time is equal to the total time - 1
-			else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1))
+			// Else the trigger box is the first within the level
+			else
 			{
-				// Set starting difficulty to Medium by using the Set Exact Difficulty function within the difficulty class
+				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
+		}
 
-			// Otherwise, set to hard mode
-			else
+		// Check if total movement time is greater than or equal movement check 4
+		else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
+		{
+			// Check if first or last trigger box in level
+			if (IsFirstTB || IsLastTB)
 			{
-				// Set starting difficulty to Hard by using the Set Exact Difficulty function within the difficulty class
+				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+			}
+			// Else, it is a trigger box during the middle of the level
+			else
+			{
+				// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
+				Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
 		}
 	}
 
-	// Else, if the trigger box is not either a first or last trigger box within the level
+	// Else, seconds is less than time check
 	else
 	{
-		// Check if seconds is greater than or equal to time check value
-		if (m_intSeconds >= m_timeChk)
+		// Check if total movement time is equal to movement check 5
+		if (Character->GetTotalMovementTime() == m_mvmntChk05)
 		{
-			// Check if total movement time is greater than 13
-			if (Character->GetTotalMovementTime() >= m_mvmntChk01)
-			{
-				// Check if total time in sentry light is equal to 0
-				if (Character->GetTotalInLightTime() == m_inLightChk01)
-				{
-					// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-					Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// Check if total time in sentry light is 1, 2 or 3
-				else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
-				{
-					// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// Check if total time in sentry light is 4 or more
-				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
-				{
-					// Make difficulty easier by calling the Easy Difficulty function within the difficulty class
-					Character->m_CharDifficulty->LowerDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-			}
-
-			// Check if total movement time is equal to 9, 10, 11, or 12
-			else if (Character->GetTotalMovementTime() >= m_mvmntChk02 && Character->GetTotalMovementTime() <= m_mvmntChk03)
-			{
-				// If total in light equals 2 or less
-				if (Character->GetTotalInLightTime() <= m_inLightChk03)
-				{
-					// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// Check if total in light time equals greater than or equal to 3
-				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
-				{
-					// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-					Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-			}
-
-			// Check if total movement time is equal to or less than 8
-			else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
-			{
-				// Make difficulty harder by calling the Hard Difficulty function within the difficulty class
-				Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-			}
+			// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
+			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 		}
 
-		// If seconds equals less than time check value
-		else
+		// Check if it's not the first trigger box (so either last one or one during level)
+		else if (!IsFirstTB)
 		{
-			// Check if total movement time is greater than or equal to the total time - 1
-			if (Character->GetTotalMovementTime() >= m_mvmntChk05)
+			// Check if total movement time equals movement check 5 - 1 or - 2
+			if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
 			{
-				print("movement >= total - 1");
-
-				// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
-				// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-			}
-
-			// Else, check if total movement time equals total time - 2 or - 3
-			else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
-			{
-				// Make difficulty medium by calling the Medium Difficulty function within the difficulty class
+				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
@@ -787,11 +715,26 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			// Otherwise, set to hard mode
 			else
 			{
-				// If Hard_01 or Hard_02 difficulty, set difficulty to Hard_02
-				// Otherwise, difficulty will be set to Hard_01 regardless of current difficulty
+				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
 											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 			}
+		}
+
+		// Check if total movement time is equal to movement check - 1
+		else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1))
+		{
+			// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
+			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
+										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+		}
+
+		// Otherwise, set to hard mode
+		else
+		{
+			// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
+			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
+										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
 		}
 	}
 }
@@ -811,21 +754,20 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		//############################################################################################################################
 												// LEVEL 01 TRIGGER BOXES
 		//############################################################################################################################
-		if (m_currentLevel == "Level_01")
+		if (m_currentLevel == LEVEL01NAME)
 		{
 			// Set level name FString (for saving data to text)
-			m_levelName = "Level_01";
+			m_levelName = LEVEL01NAME;
 
 			//#####################################################################################################
 										// SECTION 1 TRIGGER BOX
 			//#####################################################################################################
 
 			// Check if the trigger box is the first one
-			if (OverlappedActor->GetName() == "DDATriggerBox_01")
+			if (OverlappedActor->GetName() == TRIGGERBOX01)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "01";
 
@@ -839,10 +781,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Check the data for changing the difficulty
 				DifficultyShift(true);		
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(true);
 
@@ -855,11 +795,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the second one
-			else if (OverlappedActor->GetName() == "DDATriggerBox_02")
+			else if (OverlappedActor->GetName() == TRIGGERBOX02)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number (for saving data to text)
 				m_sectionNum = "02";
 
@@ -877,10 +816,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Check the data for changing the difficulty
 				DifficultyShift();
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, true);
 
@@ -893,11 +830,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the third one
-			else if (OverlappedActor->GetName() == "DDATriggerBox_03")
+			else if (OverlappedActor->GetName() == TRIGGERBOX03)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "03";
 
@@ -915,10 +851,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, false, true);
 
@@ -931,11 +865,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the fourth one
-			else if (OverlappedActor->GetName() == "DDATriggerBox_04")
+			else if (OverlappedActor->GetName() == TRIGGERBOX04)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "04";
 
@@ -953,10 +886,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, false, false, true);
 
@@ -969,11 +900,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the fifth and last one for level 1
-			else if (OverlappedActor->GetName() == "DDATriggerBox_05")
+			else if (OverlappedActor->GetName() == TRIGGERBOX05)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-				
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "05";
 
@@ -991,10 +921,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift(false, true);
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, false, false, false, true);
 
@@ -1007,68 +935,33 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 													// LEVEL 02 TRIGGER BOXES
 		//############################################################################################################################
 
-		else if (m_currentLevel == "Level_02")
+		else if (m_currentLevel == LEVEL02NAME)
 		{
 			// Set level name FString (for saving data to text)
-			m_levelName = "Level_02";
+			m_levelName = LEVEL02NAME;
 
 			//#####################################################################################################
 										// SECTION 1 TRIGGER BOX
 			//#####################################################################################################
 
 			// Check if the trigger box is the first one
-			if (OverlappedActor->GetName() == "DDATriggerBox_01")
+			if (OverlappedActor->GetName() == TRIGGERBOX01)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set the total time variable to equal the current total time
 				m_totalTime = FString::FromInt(m_intSeconds);
-
 				// Set the total movement time variable to equal the current total movement time
 				m_movementTime = FString::FromInt(Character->GetTotalMovementTime());
-
 				// Set the total in light time variable to equal the current total in light time
 				m_inLightTime = FString::FromInt(Character->GetTotalInLightTime());
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "01";
 
-				// If Easy_01 at the end of Level_01, set difficulty to Easy_01
-				if (GameInstance->GetDifficulty() == EFinalDifficulty::EASY_01)
-				{
-					// Set starting difficulty to Easy by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// If Medium_01 at the end of Level_01, set difficulty to Medium_01
-				else if (GameInstance->GetDifficulty() == EFinalDifficulty::MEDIUM_01)
-				{
-					// Set starting difficulty to Medium by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// If Hard_01 at the end of Level_01, set difficulty to Hard_01
-				else if (GameInstance->GetDifficulty() == EFinalDifficulty::HARD_01)
-				{
-					// Set starting difficulty to Hard by using the Starting Difficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-				}
-
-				// Else, print ERROR message
-				else
-				{
-					print("ERROR GETTING LAST SET DIFFICULTY");
-				}
-
-				// Update character class difficulty here
-				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(true);
+				// Update character class difficulty here
+				Character->Update();				
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -1079,11 +972,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the first one
-			if (OverlappedActor->GetName() == "DDATriggerBox_02")
+			if (OverlappedActor->GetName() == TRIGGERBOX02)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "02";
 
@@ -1101,10 +993,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, true);
 
@@ -1117,11 +1007,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the third one
-			if (OverlappedActor->GetName() == "DDATriggerBox_03")
+			if (OverlappedActor->GetName() == TRIGGERBOX03)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "03";
 
@@ -1139,10 +1028,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, false, true);
 
@@ -1155,11 +1042,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 			//#####################################################################################################
 
 			// Check if the trigger box is the fourth and final one
-			if (OverlappedActor->GetName() == "DDATriggerBox_04")
+			if (OverlappedActor->GetName() == TRIGGERBOX04)
 			{
 				// Get the current seconds spent in level
 				m_intSeconds = Gamemode->GetSecondsInt();
-
 				// Set section number FString (for saving data to text)
 				m_sectionNum = "04";
 
@@ -1177,10 +1063,8 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift(false, true);
-
 				// Update character class difficulty here
 				Character->Update();
-
 				// Setup the difficulty within the level
 				DifficultyFinializedSetup(false, false, false, true);
 
@@ -1192,7 +1076,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 	else
 	{
-		print("No level");
+		print("ERROR - No level");
 	}
 }
 
