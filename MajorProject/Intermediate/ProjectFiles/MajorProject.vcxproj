@@ -513,10 +513,20 @@
     <ClInclude Include="..\..\Source\MajorProject\DDATriggerBox.h" />
     <ClCompile Include="..\..\Source\MajorProject\DDATriggerCapsule.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\DDATriggerCapsule.h" />
-    <None Include="..\..\Source\MajorProject\MajorProject.Build.cs" />
     <ClCompile Include="..\..\Source\MajorProject\Difficulty.cpp" />
-    <ClCompile Include="..\..\Source\MajorProject\MajorProject.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\Difficulty.h" />
+    <None Include="..\..\Source\MajorProject\MajorProject.Build.cs" />
+    <ClCompile Include="..\..\Source\MajorProject\DifficultyState.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\Easy02State.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\EasyState.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\Hard02State.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\HardState.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\MajorProject.cpp" />
+    <ClInclude Include="..\..\Source\MajorProject\DifficultyState.h" />
+    <ClInclude Include="..\..\Source\MajorProject\Easy02State.h" />
+    <ClInclude Include="..\..\Source\MajorProject\EasyState.h" />
+    <ClInclude Include="..\..\Source\MajorProject\Hard02State.h" />
+    <ClInclude Include="..\..\Source\MajorProject\HardState.h" />
     <ClInclude Include="..\..\Source\MajorProject\MajorProject.h" />
     <ClCompile Include="..\..\Source\MajorProject\MajorProjectCharacter.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectCharacter.h" />
@@ -526,7 +536,12 @@
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectGameMode.h" />
     <ClCompile Include="..\..\Source\MajorProject\MajorProjectHUD.cpp" />
     <ClInclude Include="..\..\Source\MajorProject\MajorProjectHUD.h" />
+    <ClCompile Include="..\..\Source\MajorProject\Medium02State.cpp" />
+    <ClCompile Include="..\..\Source\MajorProject\MediumState.cpp" />
     <ClCompile Include="..\..\Source\MajorProject\TextFile.cpp" />
+    <ClInclude Include="..\..\Source\MajorProject\Medium02State.h" />
+    <ClInclude Include="..\..\Source\MajorProject\MediumState.h" />
+    <ClInclude Include="..\..\Source\MajorProject\MyEnums.h" />
     <ClInclude Include="..\..\Source\MajorProject\TextFile.h" />
   </ItemGroup>
   <PropertyGroup>

@@ -1,5 +1,5 @@
 Level_02 - Section 04
-Difficulty Set to: MEDIUM_01
-Total Time: 60
-Total Movement Time: 54
-Total In Light Time: 4
+Difficulty Set to: HARD_01
+Total Time: 49
+Total Movement Time: 46
+Total In Light Time: 13

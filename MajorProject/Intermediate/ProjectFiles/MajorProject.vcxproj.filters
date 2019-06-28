@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MajorProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{01BEF3A3-A8EF-44DE-A407-ECF73A067708}</UniqueIdentifier>
+      <UniqueIdentifier>{C83C13B2-A3C3-4304-9046-10B60F8B3835}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MajorProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{39B78EA3-C2AA-4790-8AED-637A457D3379}</UniqueIdentifier>
+      <UniqueIdentifier>{33017572-5C42-4F94-B24B-12F41748D1EB}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MajorProject">
-      <UniqueIdentifier>{E0EA0E95-BAFA-4252-9D7C-70BA0D480336}</UniqueIdentifier>
+      <UniqueIdentifier>{8042BC45-A849-4667-A5D8-91AB44A4E1DB}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MajorProject\CharacterCameraShake.cpp">
       <Filter>Source\MajorProject</Filter>
@@ -91,13 +91,63 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\MajorProject\Difficulty.h">
+    <ClInclude Include="..\..\Source\MajorProject\MyEnums.h">
       <Filter>Source\MajorProject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\HardState.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\Difficulty.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\DifficultyState.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\Easy02State.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\EasyState.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\Hard02State.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\MediumState.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MajorProject\Medium02State.h">
+      <Filter>Source\MajorProject\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\MajorProject\Difficulty.cpp">
-      <Filter>Source\MajorProject</Filter>
+      <Filter>Source\MajorProject\StateMachine</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\DifficultyState.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\Easy02State.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\EasyState.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\Hard02State.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\HardState.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\Medium02State.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MajorProject\MediumState.cpp">
+      <Filter>Source\MajorProject\StateMachine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\MajorProject\StateMachine">
+      <UniqueIdentifier>{a34dc293-6024-4db1-ac74-0218ab8aef93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

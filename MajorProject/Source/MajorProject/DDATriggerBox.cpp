@@ -32,523 +32,489 @@ void ADDATriggerBox::BeginPlay()
 	m_playerCharName = Character->PlayerCharacterName;
 }
 
-void ADDATriggerBox::DifficultyFinializedSetup(bool S1, bool S2, bool S3, bool S4, bool S5)
+void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 {
-//############################################################################################################################
-											// LEVEL 01 SECTIONS
-//############################################################################################################################
-
+	//############################################################################################################################
+												// LEVEL 01 SECTIONS
+	//############################################################################################################################
 	if (m_currentLevel == "Level_01")
 	{
+		switch (section)
+		{
 		//#####################################################################################################
 									// SECTION 1 TRIGGER BOX
 		//#####################################################################################################
 		// Check if player is within the first section trigger box
-		if (S1)
-		{
-			print("SECTION 1");
-
+		case ESections::SECTION_01:
+			print("Switch case S1");
 			// Set section enum in the character class to section_01
 			Character->m_section = ESection::SECTION_01;
 
-			// Check if easy difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+			switch (Character->m_CharDifficulty->GetStateEDiff())
 			{
+			case EDifficulty::EASY_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1EasyModeSetup.Num(); i++)
 				{
 					m_L1S1EasyModeSetup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if medium difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
+			case EDifficulty::MEDIUM_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1MediumModeSetup.Num(); i++)
 				{
 					m_L1S1MediumModeSetup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if hard difficuly
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
+			case EDifficulty::HARD_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S1HardModeSetup.Num(); i++)
 				{
 					m_L1S1HardModeSetup[i]->Destroy();
 				}
+				break;
+
+			default:
+				break;
 			}
-		}
+			break;
 
 		//#####################################################################################################
 									// SECTION 2 TRIGGER BOX
 		//#####################################################################################################
 		// Check if player is within the second section trigger box
-		else if (S2)
-		{
-			print("SECTION 2");
-
+		case ESections::SECTION_02:
+			print("Switch case S2");
 			// Set section enum in the character class to section_02
 			Character->m_section = ESection::SECTION_02;
 
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+			switch (Character->m_CharDifficulty->GetStateEDiff())
 			{
+			case EDifficulty::EASY_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2EasyMode1Setup.Num(); i++)
 				{
 					m_L1S2EasyMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
+			case EDifficulty::EASY_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2EasyMode2Setup.Num(); i++)
 				{
 					m_L1S2EasyMode2Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Medium 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
+			case EDifficulty::MEDIUM_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2MediumMode1Setup.Num(); i++)
 				{
 					m_L1S2MediumMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
+			case EDifficulty::MEDIUM_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2MediumMode2Setup.Num(); i++)
 				{
 					m_L1S2MediumMode2Setup[i]->Destroy();
 				}
-			}
 
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
+			case EDifficulty::HARD_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2HardMode1Setup.Num(); i++)
 				{
 					m_L1S2HardMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
+			case EDifficulty::HARD_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L1S2HardMode2Setup.Num(); i++)
 				{
 					m_L1S2HardMode2Setup[i]->Destroy();
 				}
+				break;
+
+			default:
+				break;
 			}
-		}
-
-		//#####################################################################################################
-									// SECTION 3 TRIGGER BOX
-		//#####################################################################################################
-			// Check if player is within the third section trigger box
-		else if (S3)
-		{
-			print("SECTION 3");
-
-			// Set section enum in the character class to section_03
-			Character->m_section = ESection::SECTION_03;
-
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3EasyMode1Setup.Num(); i++)
-				{
-					m_L1S3EasyMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3EasyMode2Setup.Num(); i++)
-				{
-					m_L1S3EasyMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3MediumMode1Setup.Num(); i++)
-				{
-					m_L1S3MediumMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3MediumMode2Setup.Num(); i++)
-				{
-					m_L1S3MediumMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3HardMode1Setup.Num(); i++)
-				{
-					m_L1S3HardMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S3HardMode2Setup.Num(); i++)
-				{
-					m_L1S3HardMode2Setup[i]->Destroy();
-				}
-			}
-		}
-
-		//#####################################################################################################
-									// SECTION 4 TRIGGER BOX
-		//#####################################################################################################
-		// Check if player is within the fourth section trigger box
-		else if (S4)
-		{
-			print("SECTION 4");
-
-			// Set section enum in the character class to section_04
-			Character->m_section = ESection::SECTION_04;
-
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4EasyMode1Setup.Num(); i++)
-				{
-					m_L1S4EasyMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4EasyMode2Setup.Num(); i++)
-				{
-					m_L1S4EasyMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4MediumMode1Setup.Num(); i++)
-				{
-					m_L1S4MediumMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4MediumMode2Setup.Num(); i++)
-				{
-					m_L1S4MediumMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4HardMode1Setup.Num(); i++)
-				{
-					m_L1S4HardMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L1S4HardMode2Setup.Num(); i++)
-				{
-					m_L1S4HardMode2Setup[i]->Destroy();
-				}
-			}
-		}
-
-		//#####################################################################################################
-									// SECTION 5 TRIGGER BOX
-		//#####################################################################################################
-		// Check if player is within the fifth and final section trigger box
-		else if (S5)
-		{
-			print("SECTION 5");
-
-			// Set section enum in the character class to section_05
-			Character->m_section = ESection::SECTION_05;
-
-			// Check if Easy_01 or Easy_02 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01 ||
-				Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
-			}
-
-			// Check if Medium_01 or Medium_02 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01 ||
-					 Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
-			}
-
-			// Check if Hard_01 or Hard_02 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01 ||
-					 Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
-			}
-		}
-	}
-	
-//############################################################################################################################
-											// LEVEL 02 SECTIONS
-//############################################################################################################################
-
-	else if (m_currentLevel == "Level_02")
-	{
-		//#####################################################################################################
-									// SECTION 1 TRIGGER BOX
-		//#####################################################################################################
-		// Check if player is within the first section trigger box
-		if (S1)
-		{
-			print("SECTION 1");
-
-			// Set section enum in the character class to section_01
-			Character->m_section = ESection::SECTION_01;
-
-			// If Easy_01 at the end of Level_01, set difficulty to Easy_01
-			if (GameInstance->GetDifficulty() == EFinalDifficulty::EASY_01)
-			{
-				// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S1EasyModeSetup.Num(); i++)
-				{
-					m_L2S1EasyModeSetup[i]->Destroy();
-				}
-			}
-
-			// If Medium_01 at the end of Level_01, set difficulty to Medium_01
-			else if (GameInstance->GetDifficulty() == EFinalDifficulty::MEDIUM_01)
-			{
-				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S1MediumModeSetup.Num(); i++)
-				{
-					m_L2S1MediumModeSetup[i]->Destroy();
-				}
-			}
-
-			// If Hard_01 at the end of Level_01, set difficulty to Hard_01
-			else if (GameInstance->GetDifficulty() == EFinalDifficulty::HARD_01)
-			{
-				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S1HardModeSetup.Num(); i++)
-				{
-					m_L2S1HardModeSetup[i]->Destroy();
-				}
-			}
-		}
-
-		//#####################################################################################################
-									// SECTION 2 TRIGGER BOX
-		//#####################################################################################################
-		// Check if player is within the second section trigger box
-		else if (S2)
-		{
-			print("SECTION 2");
-
-			// Set section enum in the character class to section_02
-			Character->m_section = ESection::SECTION_02;
-
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2EasyMode1Setup.Num(); i++)
-				{
-					m_L2S2EasyMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2EasyMode2Setup.Num(); i++)
-				{
-					m_L2S2EasyMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2MediumMode1Setup.Num(); i++)
-				{
-					m_L2S2MediumMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2MediumMode2Setup.Num(); i++)
-				{
-					m_L2S2MediumMode2Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2HardMode1Setup.Num(); i++)
-				{
-					m_L2S2HardMode1Setup[i]->Destroy();
-				}
-			}
-
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
-				// Step through the array and destroy all the actors
-				for (int i = 0; i < m_L2S2HardMode2Setup.Num(); i++)
-				{
-					m_L2S2HardMode2Setup[i]->Destroy();
-				}
-			}
-		}
+			break;
 
 		//#####################################################################################################
 									// SECTION 3 TRIGGER BOX
 		//#####################################################################################################
 		// Check if player is within the third section trigger box
-		else if (S3)
-		{
-			print("SECTION 3");
-
+		case ESections::SECTION_03:
+			print("Switch case S3");
 			// Set section enum in the character class to section_03
 			Character->m_section = ESection::SECTION_03;
 
-			// Check if Easy 1 difficulty
-			if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
+			switch (Character->m_CharDifficulty->GetStateEDiff())
 			{
+			case EDifficulty::EASY_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3EasyMode1Setup.Num(); i++)
+				{
+					m_L1S3EasyMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::EASY_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3EasyMode2Setup.Num(); i++)
+				{
+					m_L1S3EasyMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3MediumMode1Setup.Num(); i++)
+				{
+					m_L1S3MediumMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3MediumMode2Setup.Num(); i++)
+				{
+					m_L1S3MediumMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3HardMode1Setup.Num(); i++)
+				{
+					m_L1S3HardMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S3HardMode2Setup.Num(); i++)
+				{
+					m_L1S3HardMode2Setup[i]->Destroy();
+				}
+				break;
+
+			default:
+				break;
+			}
+			break;
+
+		//#####################################################################################################
+									// SECTION 4 TRIGGER BOX
+		//#####################################################################################################
+		// Check if player is within the fourth section trigger box
+		case ESections::SECTION_04:
+			print("Switch case S4");
+			// Set section enum in the character class to section_04
+			Character->m_section = ESection::SECTION_04;
+
+			switch (Character->m_CharDifficulty->GetStateEDiff())
+			{
+			case EDifficulty::EASY_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4EasyMode1Setup.Num(); i++)
+				{
+					m_L1S4EasyMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::EASY_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4EasyMode2Setup.Num(); i++)
+				{
+					m_L1S4EasyMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4MediumMode1Setup.Num(); i++)
+				{
+					m_L1S4MediumMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4MediumMode2Setup.Num(); i++)
+				{
+					m_L1S4MediumMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4HardMode1Setup.Num(); i++)
+				{
+					m_L1S4HardMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L1S4HardMode2Setup.Num(); i++)
+				{
+					m_L1S4HardMode2Setup[i]->Destroy();
+				}
+				break;
+
+			default:
+				break;
+			}
+			break;
+
+		//#####################################################################################################
+									// SECTION 5 TRIGGER BOX
+		//#####################################################################################################
+		// Check if player is within the last section trigger box
+		case ESections::SECTION_05:
+			print("Switch case S5");
+			// Set section enum in the character class to section_05
+			Character->m_section = ESection::SECTION_05;
+
+			switch (Character->m_CharDifficulty->GetStateEDiff())
+			{
+			case EDifficulty::EASY_01:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
+				break;
+
+			case EDifficulty::EASY_02:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
+				break;
+
+			case EDifficulty::MEDIUM_01:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
+				break;
+
+			case EDifficulty::MEDIUM_02:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
+				break;
+
+			case EDifficulty::HARD_01:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
+				break;
+
+			case EDifficulty::HARD_02:
+				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
+				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
+				break;
+
+			default:
+				break;
+			}
+			break;
+
+		default:
+			print("Switch case S1 = false");
+			break;
+		}
+	}
+
+	//############################################################################################################################
+												// LEVEL 02 SECTIONS
+	//############################################################################################################################
+	else if (m_currentLevel == "Level_02")
+	{
+		switch (section)
+		{
+		//#####################################################################################################
+									// SECTION 1 TRIGGER BOX
+		//#####################################################################################################
+		// Check if player is within the first section trigger box
+		case ESections::SECTION_01:
+			print("Switch case S1");
+			// Set section enum in the character class to section_01
+			Character->m_section = ESection::SECTION_01;
+
+			switch (GameInstance->GetDifficulty())
+			{
+			case EFinalDifficulty::EASY_01:
+				Character->m_CharDifficulty->Update(EStates::EASY);
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S1EasyModeSetup.Num(); i++)
+				{
+					m_L2S1EasyModeSetup[i]->Destroy();
+				}
+				break;
+
+			case EFinalDifficulty::MEDIUM_01:
+				Character->m_CharDifficulty->Update(EStates::MEDIUM);
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S1MediumModeSetup.Num(); i++)
+				{
+					m_L2S1MediumModeSetup[i]->Destroy();
+				}
+				break;
+
+			case EFinalDifficulty::HARD_01:
+				Character->m_CharDifficulty->Update(EStates::HARD);
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S1HardModeSetup.Num(); i++)
+				{
+					m_L2S1HardModeSetup[i]->Destroy();
+				}
+				break;
+
+			default:
+				break;
+			}
+			break;
+
+		//#####################################################################################################
+									// SECTION 2 TRIGGER BOX
+		//#####################################################################################################
+		// Check if player is within the second section trigger box
+		case ESections::SECTION_02:
+			print("Switch case S2");
+			// Set section enum in the character class to section_02
+			Character->m_section = ESection::SECTION_02;
+
+			switch (Character->m_CharDifficulty->GetStateEDiff())
+			{
+			case EDifficulty::EASY_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2EasyMode1Setup.Num(); i++)
+				{
+					m_L2S2EasyMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::EASY_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2EasyMode2Setup.Num(); i++)
+				{
+					m_L2S2EasyMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2MediumMode1Setup.Num(); i++)
+				{
+					m_L2S2MediumMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::MEDIUM_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2MediumMode2Setup.Num(); i++)
+				{
+					m_L2S2MediumMode2Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_01:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2HardMode1Setup.Num(); i++)
+				{
+					m_L2S2HardMode1Setup[i]->Destroy();
+				}
+				break;
+
+			case EDifficulty::HARD_02:
+				// Step through the array and destroy all the actors
+				for (int i = 0; i < m_L2S2HardMode2Setup.Num(); i++)
+				{
+					m_L2S2HardMode2Setup[i]->Destroy();
+				}
+				break;
+
+			default:
+				break;
+			}
+			break;
+
+		//#####################################################################################################
+									// SECTION 3 TRIGGER BOX
+		//#####################################################################################################
+		// Check if player is within the third section trigger box
+		case ESections::SECTION_03:
+			print("Switch case S3");
+			// Set section enum in the character class to section_03
+			Character->m_section = ESection::SECTION_03;
+
+			switch (Character->m_CharDifficulty->GetStateEDiff())
+			{
+			case EDifficulty::EASY_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3EasyMode1Setup.Num(); i++)
 				{
 					m_L2S3EasyMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Easy 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-			{
+			case EDifficulty::EASY_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3EasyMode2Setup.Num(); i++)
 				{
 					m_L2S3EasyMode2Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Medium 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-			{
+			case EDifficulty::MEDIUM_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3MediumMode1Setup.Num(); i++)
 				{
 					m_L2S3MediumMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Medium 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-			{
+			case EDifficulty::MEDIUM_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3MediumMode2Setup.Num(); i++)
 				{
 					m_L2S3MediumMode2Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Hard 1 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-			{
+			case EDifficulty::HARD_01:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3HardMode1Setup.Num(); i++)
 				{
 					m_L2S3HardMode1Setup[i]->Destroy();
 				}
-			}
+				break;
 
-			// Check if Hard 2 difficulty
-			else if (Character->m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-			{
+			case EDifficulty::HARD_02:
 				// Step through the array and destroy all the actors
 				for (int i = 0; i < m_L2S3HardMode2Setup.Num(); i++)
 				{
 					m_L2S3HardMode2Setup[i]->Destroy();
 				}
+				break;
+
+			default:
+				break;
 			}
-		}
+			break;
 
 		//#####################################################################################################
 									// SECTION 4 TRIGGER BOX
 		//#####################################################################################################
-		// Check if player is within the fourth and final section trigger box
-		else if (S4)
-		{
+		// Check if player is within the last section trigger box
+		case ESections::SECTION_04:
+			print("Switch case S4");
 			print("END OF " + LEVEL02NAME);
-
 			// Set section enum in the character class to section_04
 			Character->m_section = ESection::SECTION_04;
+			break;
+
+		default:
+			break;
 		}
 	}
 }
@@ -579,53 +545,25 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				// Check if total time in sentry light is less than or equal to in light check 1
 				if (Character->GetTotalInLightTime() <= m_inLightChk01)
 				{
-					// Check if last trigger box in level
-					if (IsLastTB)
-					{
-						// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-					// Else, it is a trigger box during the middle of the level
-					else
-					{
-						// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
-						Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
+					Character->m_CharDifficulty->Update(EStates::HARD);
 				}
 
 				// Check if total time in sentry light is between in light check 2 and 3
 				else if (Character->GetTotalInLightTime() >= m_inLightChk02 && Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
-					// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->Update(EStates::MEDIUM);
 				}
 
 				// Check if total time in sentry light is greater than or equal to in light check 4
 				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 				{
-					// Check if last trigger box in level
-					if (IsLastTB)
-					{
-						// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-					// Else, it is a trigger box during the middle of the level
-					else
-					{
-						// Make difficulty easier by calling the LowerDifficulty function within the difficulty class
-						Character->m_CharDifficulty->LowerDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}						
+					Character->m_CharDifficulty->Update(EStates::EASY);
 				}
 			}
 			// Else the trigger box is the first within the level
 			else
 			{
-				// Set difficulty to Easy by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::EASY, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->Update(EStates::EASY);
 			}
 		}
 
@@ -639,54 +577,26 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 				// Check if total time in sentry light is less than or equal to in light check 3
 				if (Character->GetTotalInLightTime() <= m_inLightChk03)
 				{
-					// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-					Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-												m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+					Character->m_CharDifficulty->Update(EStates::MEDIUM);
 				}
 
 				// Check if total time in sentry light is greater than or equal to in light check 4
 				else if (Character->GetTotalInLightTime() >= m_inLightChk04)
 				{
-					// Check if last trigger box in level
-					if (IsLastTB)
-					{
-						// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-						Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-													m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
-					// Else, it is a trigger box during the middle of the level
-					else
-					{
-						// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
-						Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-					}
+					Character->m_CharDifficulty->Update(EStates::HARD);
 				}
 			}
 			// Else the trigger box is the first within the level
 			else
 			{
-				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->Update(EStates::MEDIUM);
 			}
 		}
 
 		// Check if total movement time is greater than or equal movement check 4
 		else if (Character->GetTotalMovementTime() <= m_mvmntChk04)
 		{
-			// Check if first or last trigger box in level
-			if (IsFirstTB || IsLastTB)
-			{
-				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-			}
-			// Else, it is a trigger box during the middle of the level
-			else
-			{
-				// Make difficulty harder by calling the IncreaseDifficulty function within the difficulty class
-				Character->m_CharDifficulty->IncreaseDifficulty(m_levelName, m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
-			}
+			Character->m_CharDifficulty->Update(EStates::HARD);
 		}
 	}
 
@@ -696,9 +606,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 		// Check if total movement time is equal to movement check 5
 		if (Character->GetTotalMovementTime() == m_mvmntChk05)
 		{
-			// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+			Character->m_CharDifficulty->Update(EStates::HARD);
 		}
 
 		// Check if it's not the first trigger box (so either last one or one during level)
@@ -708,16 +616,14 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
 			{
 				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->Update(EStates::MEDIUM);
 			}
 
 			// Otherwise, set to hard mode
 			else
 			{
 				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-				Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-											m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+				Character->m_CharDifficulty->Update(EStates::HARD);
 			}
 		}
 
@@ -725,16 +631,14 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 		else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1))
 		{
 			// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
-			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::MEDIUM, m_levelName,
-										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+			Character->m_CharDifficulty->Update(EStates::MEDIUM);
 		}
 
 		// Otherwise, set to hard mode
 		else
 		{
 			// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
-			Character->m_CharDifficulty->SetDifficulty(EExactDifficulty::HARD, m_levelName,
-										m_sectionNum, m_totalTime, m_movementTime, m_inLightTime);
+			Character->m_CharDifficulty->Update(EStates::HARD);
 		}
 	}
 }
@@ -780,11 +684,14 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_mvmntChk05 = m_intSeconds;		// Fifth Movement Check against current time
 
 				// Check the data for changing the difficulty
-				DifficultyShift(true);		
+				DifficultyShift(true);
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(true);
+				DifficultyFinializedSetup(ESections::SECTION_01);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -816,10 +723,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Check the data for changing the difficulty
 				DifficultyShift();
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, true);
+				DifficultyFinializedSetup(ESections::SECTION_02);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -851,10 +761,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, false, true);
+				DifficultyFinializedSetup(ESections::SECTION_03);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -886,10 +799,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, false, false, true);
+				DifficultyFinializedSetup(ESections::SECTION_04);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -921,10 +837,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift(false, true);
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, false, false, false, true);
+				DifficultyFinializedSetup(ESections::SECTION_05);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -959,7 +878,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "01";
 
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(true);
+				DifficultyFinializedSetup(ESections::SECTION_01);
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();				
 
@@ -993,10 +915,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, true);
+				DifficultyFinializedSetup(ESections::SECTION_02);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -1028,10 +953,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, false, true);
+				DifficultyFinializedSetup(ESections::SECTION_03);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();
@@ -1063,10 +991,13 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 				// Shift the difficulty based on data checks
 				DifficultyShift(false, true);
+				// Save difficulty details onto text file
+				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
+											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
 				// Update character class difficulty here
 				Character->Update();
 				// Setup the difficulty within the level
-				DifficultyFinializedSetup(false, false, false, true);
+				DifficultyFinializedSetup(ESections::SECTION_04);
 
 				// Destroy the trigger box
 				OverlappedActor->Destroy();

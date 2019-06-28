@@ -7,6 +7,7 @@
 #include "MajorProjectGameInstance.h"
 #include "MajorProjectGameMode.h"
 #include "MajorProjectCharacter.h"
+#include "MyEnums.h"
 #include "DDATriggerBox.generated.h"
 
 UCLASS()
@@ -18,7 +19,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	void DifficultyFinializedSetup(bool S1 = false, bool S2 = false, bool S3 = false, bool S4 = false, bool S5 = false);
+	void DifficultyFinializedSetup(ESections section);
 	void DifficultyShift(bool IsFirstTB = false, bool IsLastTB = false);
 
 public:

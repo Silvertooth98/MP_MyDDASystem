@@ -6,5 +6,5 @@
 
 bool UTextFile::SaveTxt(FString SaveText, FString FileName)
 {
-	return FFileHelper::SaveStringToFile(SaveText, *(FPaths::GameDir() + FileName)); // , FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Append);
+	return FFileHelper::SaveStringToFile(SaveText, *(FPaths::ProjectDir() + FileName)); // , FFileHelper::EEncodingOptions::AutoDetect, &IFileManager::Get(), EFileWrite::FILEWRITE_Append);
 }

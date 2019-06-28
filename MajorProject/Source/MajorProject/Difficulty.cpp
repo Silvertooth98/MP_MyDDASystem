@@ -7,6 +7,7 @@
 
 Difficulty::Difficulty()
 {
+	_state = new DifficultyState();
 }
 
 void Difficulty::SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
@@ -22,229 +23,26 @@ void Difficulty::SaveDataToTextFile(FString Level, FString LevelSection, FString
 						FString("TextFiles/" + Level + "/Test" + TextFileNumber + ".txt"));
 }
 
-void Difficulty::SetDifficulty(EExactDifficulty Edifficulty, FString Level, FString SectionNum,
-							   FString TotalTime, FString TotalMovementTime, FString TotalInLightTime)
+void Difficulty::Update(EStates EState)
 {
-	// If EDifficulty enum is set to Easy
-	if (Edifficulty == EExactDifficulty::EASY)
+	class DifficultyState* state = _state->Update(*this, EState);
+
+	if (state != nullptr)
 	{
-		// Else if any other difficulty, set difficulty to Hard_01
-		if (m_Difficulty == EDifficulty::NONE		||
-			m_Difficulty == EDifficulty::HARD_01	||
-			m_Difficulty == EDifficulty::HARD_02	||
-			m_Difficulty == EDifficulty::MEDIUM_01  ||
-			m_Difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - EASY_01 (Difficulty Class)");
-			m_Difficulty = EDifficulty::EASY_01;
+		print("!= nullptr");
+		_state->Exit(*this);
 
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("EASY_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
+		delete _state;
+		_state = state;
 
-		// If Easy_01 or Easy_02, set difficulty to Easy_02
-		else if (m_Difficulty == EDifficulty::EASY_01 ||
-				 m_Difficulty == EDifficulty::EASY_02)
-		{
-			print("DIFFICULTY - EASY_02 (Difficulty Class)");
-			m_Difficulty = EDifficulty::EASY_02;
-
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("EASY_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
-
-		// Else, Error messages
-		else
-		{
-			print("ERROR SETTING DIFFICULTY IN PUREEASYDIFFICULTY (DIFFICULTY CLASS)");
-			m_Difficulty = EDifficulty::NONE;
-		}
-	}
-
-	// If EDifficulty enum is set to Medium
-	else if (Edifficulty == EExactDifficulty::MEDIUM)
-	{
-		// If no difficulty is set or Easy_01, Easy_02, Hard_01 or Hard_02, set difficulty to Medium_01
-		if (m_Difficulty == EDifficulty::NONE	 ||
-			m_Difficulty == EDifficulty::EASY_01 ||
-			m_Difficulty == EDifficulty::EASY_02 ||
-			m_Difficulty == EDifficulty::HARD_01 ||
-			m_Difficulty == EDifficulty::HARD_02)
-		{
-			print("DIFFICULTY - MEDIUM_01 (Difficulty Class)");
-			m_Difficulty = EDifficulty::MEDIUM_01;
-
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("MEDIUM_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
-
-		else if (m_Difficulty == EDifficulty::MEDIUM_01 ||
-				 m_Difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - MEDIUM_02 (Difficulty Class)");
-			m_Difficulty = EDifficulty::MEDIUM_02;
-
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("MEDIUM_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
-
-		// Else, Error messages
-		else
-		{
-			print("ERROR SETTING DIFFICULTY IN MEDIUMDIFFICULTY (DIFFICULTY CLASS)");
-			m_Difficulty = EDifficulty::NONE;
-		}
-	}
-
-	// If EDifficulty enum is set to Hard
-	else if (Edifficulty == EExactDifficulty::HARD)
-	{
-		// If any other difficulty, set difficulty to Hard_01
-		if (m_Difficulty == EDifficulty::NONE		||
-			m_Difficulty == EDifficulty::EASY_01	||
-			m_Difficulty == EDifficulty::EASY_02	||
-			m_Difficulty == EDifficulty::MEDIUM_01	||
-			m_Difficulty == EDifficulty::MEDIUM_02)
-		{
-			print("DIFFICULTY - HARD_01 (Difficulty Class)");
-			m_Difficulty = EDifficulty::HARD_01;
-
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("HARD_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
-
-		// Else if Hard_01 or Hard_02, set difficulty to Hard_02
-		else if (m_Difficulty == EDifficulty::HARD_01 ||
-				 m_Difficulty == EDifficulty::HARD_02)
-		{
-			print("DIFFICULTY - HARD_02 (Difficulty Class)");
-			m_Difficulty = EDifficulty::HARD_02;
-
-			// Save difficulty details to text file
-			SaveDataToTextFile(Level, SectionNum, FString("HARD_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-		}
-
-		// Else, Error messages
-		else
-		{
-			print("ERROR SETTING DIFFICULTY IN PUREHARDDIFFICULTY (DIFFICULTY CLASS)");
-			m_Difficulty = EDifficulty::NONE;
-		}
-	}
-	
-	// Else, Error messages
-	else
-	{
-		print("ERROR SETTING DIFFICULTY IN SETEXACTDIFFICULTY (DIFFICULTY CLASS)");
-		m_Difficulty = EDifficulty::NONE;
-	}
-}
-
-void Difficulty::LowerDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime)
-{
-	// If no difficulty or Medium_01 difficulty, set difficulty to Easy_01
-	if (m_Difficulty == EDifficulty::NONE ||
-		m_Difficulty == EDifficulty::MEDIUM_01)
-	{
-		print("DIFFICULTY - EASY_01 (Difficulty Class)");
-		m_Difficulty = EDifficulty::EASY_01;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("EASY_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// If Easy_01 or Easy_02 difficulty, set difficulty to Easy_02
-	else if (m_Difficulty == EDifficulty::EASY_01 ||
-			 m_Difficulty == EDifficulty::EASY_02)
-	{
-		print("DIFFICULTY - EASY_02 (Difficulty Class)");
-		m_Difficulty = EDifficulty::EASY_02;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("EASY_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// If Medium_02 or Hard_01 difficulty, set difficulty to Medium_01
-	else if (m_Difficulty == EDifficulty::MEDIUM_02 ||
-			 m_Difficulty == EDifficulty::HARD_01)
-	{
-		print("DIFFICULTY - MEDIUM_01 (Difficulty Class)");
-		m_Difficulty = EDifficulty::MEDIUM_01;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("MEDIUM_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// If Hard_02 difficulty, set difficulty to Hard_01
-	else if (m_Difficulty == EDifficulty::HARD_02)
-	{
-		print("DIFFICULTY - HARD_01 (Difficulty Class)");
-		m_Difficulty = EDifficulty::HARD_01;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("HARD_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// Else, Error messages
-	else
-	{
-		print("ERROR SETTING DIFFICULTY IN EASYDIFFICULTY (DIFFICULTY CLASS)");
-		m_Difficulty = EDifficulty::NONE;
-	}
-}
-
-void Difficulty::IncreaseDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime)
-{
-	// If no difficulty is set or Medium_02 difficulty, set difficulty to Hard_02
-	if (m_Difficulty == EDifficulty::MEDIUM_02 ||
-		m_Difficulty == EDifficulty::NONE)
-	{
-		print("DIFFICULTY - HARD_01 (Difficulty Class)");
-		m_Difficulty = EDifficulty::HARD_01;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("HARD_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// If Easy_01 or Easy_02 difficulty, set difficulty to Medium_01
-	else if (m_Difficulty == EDifficulty::EASY_01 ||
-			 m_Difficulty == EDifficulty::EASY_02)
-	{
-		print("DIFFICULTY - MEDIUM_01 (Difficulty Class)");
-		m_Difficulty = EDifficulty::MEDIUM_01;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("MEDIUM_01"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// If Medium_01 difficulty, set difficulty to Medium_02
-	else if (m_Difficulty == EDifficulty::MEDIUM_01)
-	{
-		print("DIFFICULTY - MEDIUM_02 (Difficulty Class)");
-		m_Difficulty = EDifficulty::MEDIUM_02;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("MEDIUM_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	else if (m_Difficulty == EDifficulty::HARD_01 ||
-			 m_Difficulty == EDifficulty::HARD_02)
-	{
-		print("DIFFICULTY - HARD_02 (Difficulty Class)");
-		m_Difficulty = EDifficulty::HARD_02;
-
-		// Save difficulty details to text file
-		SaveDataToTextFile(Level, SectionNum, FString("HARD_02"), TotalTime, TotalMovementTime, TotalInLightTime, SectionNum);
-	}
-
-	// Else, Error messages
-	else
-	{
-		print("ERROR SETTING DIFFICULTY IN HARDDIFFICULTY (DIFFICULTY CLASS)");
-		m_Difficulty = EDifficulty::NONE;
+		_state->Enter(*this);
+		m_currentDiff = _state->GetStrDiff();
+		m_stateEDiff = _state->GetDifficulty();
 	}
 }
 
 Difficulty::~Difficulty()
 {
+	print("Deleting _state pointer");
+	delete _state;
 }

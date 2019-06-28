@@ -7,6 +7,7 @@
 #include "CharacterCameraShake.h"
 #include "MajorProjectGameMode.h"
 #include "Difficulty.h"
+#include "MyEnums.h"
 #include "MajorProjectCharacter.generated.h"
 
 UENUM(BlueprintType)

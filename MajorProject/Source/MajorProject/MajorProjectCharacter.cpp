@@ -1,5 +1,7 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
+#define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, text)
+
 #include "MajorProjectCharacter.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -111,39 +113,48 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 // Set the difficulty to be the same as the difficulty set within the difficulty class
 void AMajorProjectCharacter::Update()
 {
-	if (m_CharDifficulty->GetDifficulty() == EDifficulty::NONE)
+	// This doesn't works ?
+	/*if (->GetDifficulty() == EDifficulty::EASY_01)
 	{
+		print("EASY_01 - State Diff class GetDiff()");
+	}*/
+	// This works
+	/*if (m_CharDifficulty->GetStateEDiff() == EDifficulty::EASY_01)
+	{
+		print("EASY_01 - State Diff from Diff class GetStateEDiff()");
+	}*/
+
+	switch (m_CharDifficulty->GetStateEDiff())
+	{
+	case EDifficulty::NONE:
 		SetDifficulty(ESetDifficulty::NONE);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_01)
-	{
+		break;
+	case EDifficulty::EASY_01:
+		print("EASY_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::EASY_01);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::EASY_02)
-	{
+		break;
+	case EDifficulty::EASY_02:
+		print("EASY_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::EASY_02);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_01)
-	{
+		break;
+	case EDifficulty::MEDIUM_01:
+		print("MEDIUM_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::MEDIUM_01);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::MEDIUM_02)
-	{
+		break;
+	case EDifficulty::MEDIUM_02:
+		print("MEDIUM_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::MEDIUM_02);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_01)
-	{
+		break;
+	case EDifficulty::HARD_01:
+		print("HARD_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::HARD_01);
-	}
-
-	else if (m_CharDifficulty->GetDifficulty() == EDifficulty::HARD_02)
-	{
+		break;
+	case EDifficulty::HARD_02:
+		print("HARD_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::HARD_02);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -275,5 +286,6 @@ void AMajorProjectCharacter::DisplayTotalTime()
 
 AMajorProjectCharacter::~AMajorProjectCharacter()
 {
+	print("Deleting Char class pointers");
 	delete m_CharDifficulty;
 }

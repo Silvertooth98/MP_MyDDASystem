@@ -4,20 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "TextFile.h"
-
-enum class EDifficulty : uint8
-{
-	NONE,
-
-	EASY_01,
-	EASY_02,
-
-	MEDIUM_01,
-	MEDIUM_02,
-
-	HARD_01,
-	HARD_02
-};
+#include "DifficultyState.h"
+#include "MyEnums.h"
 
 enum class EExactDifficulty : uint8
 {
@@ -30,21 +18,24 @@ class MAJORPROJECT_API Difficulty
 {
 public:
 	Difficulty();
-	~Difficulty();
+	virtual ~Difficulty();
 
 	void SaveDataToTextFile(FString Level, FString LevelSection, FString Difficulty,
 							FString TotalTime, FString TotalMovementTime,
 							FString TotalInLightTime, FString TextFileNumber);
 
 	EDifficulty GetDifficulty() { return m_Difficulty; }
+	EDifficulty GetStateEDiff() { return m_stateEDiff; }
+	FString GetStrDiff() { return m_currentDiff; }
 
-	void SetDifficulty(EExactDifficulty Edifficulty, FString Level = "", FString SectionNum = "",
-					   FString TotalTime = "", FString TotalMovementTime = "", FString TotalInLightTime = "");
-	void LowerDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
-	void IncreaseDifficulty(FString Level, FString SectionNum, FString TotalTime, FString TotalMovementTime, FString TotalInLightTime);
+	virtual void Update(EStates EState);
 
 private:
 	UTextFile* m_textFile;
-	EDifficulty m_Difficulty = EDifficulty::NONE;
+	class DifficultyState* _state;
 
+	EDifficulty m_Difficulty = EDifficulty::NONE;
+	EDifficulty m_stateEDiff = EDifficulty::NONE;
+
+	FString m_currentDiff;
 };
