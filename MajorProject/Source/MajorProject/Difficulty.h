@@ -7,13 +7,6 @@
 #include "DifficultyState.h"
 #include "MyEnums.h"
 
-enum class EExactDifficulty : uint8
-{
-	EASY,
-	MEDIUM,
-	HARD
-};
-
 class MAJORPROJECT_API Difficulty
 {
 public:

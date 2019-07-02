@@ -7,6 +7,7 @@
 
 Difficulty::Difficulty()
 {
+	// Create a new DifficultyState pointer
 	_state = new DifficultyState();
 }
 
@@ -25,24 +26,37 @@ void Difficulty::SaveDataToTextFile(FString Level, FString LevelSection, FString
 
 void Difficulty::Update(EStates EState)
 {
+	// Make local pointer variable to the DifficultyState class and then make the
+	// variable equal to the current DifficultyState class's Update function returned value
 	class DifficultyState* state = _state->Update(*this, EState);
 
+	// If the local pointer variable does not equal a nullptr
 	if (state != nullptr)
 	{
+		// Exit the current DifficultyState
 		print("!= nullptr");
 		_state->Exit(*this);
 
+		// Delete the current DifficultyState pointer
 		delete _state;
+		// Make the DifficultyState pointer equal to the local variable pointer
+		// which is equal to the returned value from the Update function
 		_state = state;
 
+		// Enter the new state and run the Enter function
 		_state->Enter(*this);
+		
+		// Set the current difficulty FString to the current difficulty
+		// by calling the GetStrDiff function from the new state pointer
 		m_currentDiff = _state->GetStrDiff();
+		// Set the difficulty enum value to the newly set difficulty
 		m_stateEDiff = _state->GetDifficulty();
 	}
 }
 
 Difficulty::~Difficulty()
 {
+	// Delete the DifficultyState pointer
 	print("Deleting _state pointer");
 	delete _state;
 }

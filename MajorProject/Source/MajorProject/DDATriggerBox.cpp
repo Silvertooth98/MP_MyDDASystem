@@ -11,7 +11,7 @@
 ADDATriggerBox::ADDATriggerBox()
 {
 	OnActorBeginOverlap.AddDynamic(this, &ADDATriggerBox::OnOverlapBegin);
-	OnActorEndOverlap.AddDynamic(this, &ADDATriggerBox::OnOverLapEnd);
+	//OnActorEndOverlap.AddDynamic(this, &ADDATriggerBox::OnOverLapEnd);
 }
 
 void ADDATriggerBox::BeginPlay()
@@ -30,6 +30,21 @@ void ADDATriggerBox::BeginPlay()
 
 	// Set the variable for the player character name by getting the name from the player character class
 	m_playerCharName = Character->PlayerCharacterName;
+}
+
+void ADDATriggerBox::SetDataChecks(int time, int movement01, int movement02, int movement03, int movement04,
+								   int movement05, int inLight01, int inLight02, int inLight03, int inLight04)
+{
+	m_timeChk = time;
+	m_mvmntChk01 = movement01;
+	m_mvmntChk02 = movement02;
+	m_mvmntChk03 = movement03;
+	m_mvmntChk04 = movement04;
+	m_mvmntChk05 = movement05;
+	m_inLightChk01 = inLight01;
+	m_inLightChk02 = inLight02;
+	m_inLightChk03 = inLight03;
+	m_inLightChk04 = inLight04;
 }
 
 void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
@@ -284,30 +299,18 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 			switch (Character->m_CharDifficulty->GetStateEDiff())
 			{
 			case EDifficulty::EASY_01:
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
-				break;
-
 			case EDifficulty::EASY_02:
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::EASY_01;
 				break;
-
+				
 			case EDifficulty::MEDIUM_01:
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
-				break;
-
 			case EDifficulty::MEDIUM_02:
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::MEDIUM_01;
 				break;
 
 			case EDifficulty::HARD_01:
-				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
-				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
-				break;
-
 			case EDifficulty::HARD_02:
 				// Set the difficulty within the Game Instance Class, for initial difficulty within Level_02
 				GameInstance->m_finalDifficulty = EFinalDifficulty::HARD_01;
@@ -519,7 +522,7 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 	}
 }
 
-void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
+void ADDATriggerBox::DifficultyShift(bool IsFirstTB)
 {
 	// Get the current seconds spent in level
 	m_intSeconds = Gamemode->GetSecondsInt();
@@ -571,7 +574,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 		else if (Character->GetTotalMovementTime() >= m_mvmntChk02
 				&& Character->GetTotalMovementTime() <= m_mvmntChk03)
 		{
-			// Check if it's not the first trigger box (so either last one or one during level)
+			// Check if it's not the first trigger box
 			if (!IsFirstTB)
 			{
 				// Check if total time in sentry light is less than or equal to in light check 3
@@ -609,7 +612,7 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB, bool IsLastTB)
 			Character->m_CharDifficulty->Update(EStates::HARD);
 		}
 
-		// Check if it's not the first trigger box (so either last one or one during level)
+		// Check if it's not the first trigger box
 		else if (!IsFirstTB)
 		{
 			// Check if total movement time equals movement check 5 - 1 or - 2
@@ -676,12 +679,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "01";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 5;						// Check current time against 5
-				m_mvmntChk01 = 5;					// First Movement Check against 5
-				m_mvmntChk02 = 3;					// Second Movement Check against 3
-				m_mvmntChk03 = 4;					// Third Movement Check against 4
-				m_mvmntChk04 = 2;					// Fourth Movement Check against 2
-				m_mvmntChk05 = m_intSeconds;		// Fifth Movement Check against current time
+				SetDataChecks(5, 5, 3, 4, 2, m_intSeconds);
 
 				// Check the data for changing the difficulty
 				DifficultyShift(true);
@@ -710,16 +708,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "02";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 15;						// Check current time against 15
-				m_mvmntChk01 = 13;					// First Movement Check against 13
-				m_mvmntChk02 = 9;					// Second Movement Check against 9
-				m_mvmntChk03 = 12;					// Third Movement Check against 12
-				m_mvmntChk04 = 8;					// Fourth Movement Check against 8
-				m_mvmntChk05 = (m_intSeconds - 1);	// Fifth Movement Check against (current time - 1)
-				m_inLightChk01 = 0;					// First In Light Check against 0
-				m_inLightChk02 = 1;					// Second In Light Check against 1
-				m_inLightChk03 = 3;					// Third In Light Check against 3
-				m_inLightChk04 = 4;					// Fourth In Light Check against 4
+				SetDataChecks(15, 13, 9, 12, 8, (m_intSeconds - 1), 0, 1, 3, 4);
 
 				// Check the data for changing the difficulty
 				DifficultyShift();
@@ -748,16 +737,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "03";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 25;						// Check current time against 25
-				m_mvmntChk01 = 20;					// First Movement Check against 20
-				m_mvmntChk02 = 17;					// Second Movement Check against 17
-				m_mvmntChk03 = 19;					// Third Movement Check against 19
-				m_mvmntChk04 = 16;					// Fourth Movement Check against 16
-				m_mvmntChk05 = (m_intSeconds - 2);	// Fifth Movement Check against (current time - 2)
-				m_inLightChk01 = 1;					// First In Light Check against 1
-				m_inLightChk02 = 2;					// Second In Light Check against 2
-				m_inLightChk03 = 5;					// Third In Light Check against 5
-				m_inLightChk04 = 6;					// Fourth In Light Check against 6
+				SetDataChecks(25, 20, 17, 19, 16, (m_intSeconds - 2), 1, 2, 5, 6);
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
@@ -786,16 +766,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "04";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 45;						// Check current time against 45
-				m_mvmntChk01 = 38;					// First Movement Check against 38
-				m_mvmntChk02 = 36;					// Second Movement Check against 36
-				m_mvmntChk03 = 37;					// Third Movement Check against 37
-				m_mvmntChk04 = 35;					// Fourth Movement Check against 35
-				m_mvmntChk05 = (m_intSeconds - 3);	// Fifth Movement Check against (current time - 3)
-				m_inLightChk01 = 2;					// First In Light Check against 2
-				m_inLightChk02 = 3;					// Second In Light Check against 3
-				m_inLightChk03 = 6;					// Third In Light Check against 6
-				m_inLightChk04 = 7;					// Fourth In Light Check against 7
+				SetDataChecks(45, 38, 36, 37, 35, (m_intSeconds - 3), 2, 3, 6, 7);
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
@@ -824,19 +795,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "05";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 50;						// Check current time against 50
-				m_mvmntChk01 = 43;					// First Movement Check against 43
-				m_mvmntChk02 = 40;					// Second Movement Check against 40
-				m_mvmntChk03 = 42;					// Third Movement Check against 42
-				m_mvmntChk04 = 39;					// Fourth Movement Check against 39
-				m_mvmntChk05 = (m_intSeconds - 4);	// Fifth Movement Check against (current time - 4)
-				m_inLightChk01 = 3;					// First In Light Check against 3
-				m_inLightChk02 = 4;					// Second In Light Check against 4
-				m_inLightChk03 = 7;					// Third In Light Check against 7
-				m_inLightChk04 = 8;					// Fourth In Light Check against 8
+				SetDataChecks(50, 43, 40, 42, 39, (m_intSeconds - 4), 3, 4, 7, 8);
 
 				// Shift the difficulty based on data checks
-				DifficultyShift(false, true);
+				DifficultyShift();
 				// Save difficulty details onto text file
 				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
 											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
@@ -902,16 +864,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "02";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 17;						// Check current time against 17
-				m_mvmntChk01 = 16;					// First Movement Check against 16
-				m_mvmntChk02 = 14;					// Second Movement Check against 14
-				m_mvmntChk03 = 15;					// Third Movement Check against 15
-				m_mvmntChk04 = 13;					// Fourth Movement Check against 13
-				m_mvmntChk05 = (m_intSeconds - 1);	// Fifth Movement Check against (current time - 1)
-				m_inLightChk01 = 0;					// First In Light Check against 0
-				m_inLightChk02 = 1;					// Second In Light Check against 1
-				m_inLightChk03 = 3;					// Third In Light Check against 3
-				m_inLightChk04 = 4;					// Fourth In Light Check against 4
+				SetDataChecks(17, 16, 14, 15, 13, (m_intSeconds - 1), 0, 1, 3, 4);
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
@@ -940,16 +893,7 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "03";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 30;						// Check current time against 30
-				m_mvmntChk01 = 28;					// First Movement Check against 28
-				m_mvmntChk02 = 26;					// Second Movement Check against 26
-				m_mvmntChk03 = 27;					// Third Movement Check against 27
-				m_mvmntChk04 = 25;					// Fourth Movement Check against 25
-				m_mvmntChk05 = (m_intSeconds - 2);	// Fifth Movement Check against (current time - 2)
-				m_inLightChk01 = 1;					// First In Light Check against 1
-				m_inLightChk02 = 2;					// Second In Light Check against 2
-				m_inLightChk03 = 4;					// Third In Light Check against 4
-				m_inLightChk04 = 5;					// Fourth In Light Check against 5
+				SetDataChecks(30, 28, 26, 27, 25, (m_intSeconds - 2), 1, 2, 4, 5);
 
 				// Shift the difficulty based on data checks
 				DifficultyShift();
@@ -978,19 +922,10 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				m_sectionNum = "04";
 
 				// Set data values to check for difficulty changes
-				m_timeChk = 53;						// Check current time against 53
-				m_mvmntChk01 = 50;					// First Movement Check against 50
-				m_mvmntChk02 = 47;					// Second Movement Check against 47
-				m_mvmntChk03 = 49;					// Third Movement Check against 49
-				m_mvmntChk04 = 46;					// Fourth Movement Check against 46
-				m_mvmntChk05 = (m_intSeconds - 3);	// Fifth Movement Check against (current time - 3)
-				m_inLightChk01 = 2;					// First In Light Check against 2
-				m_inLightChk02 = 3;					// Second In Light Check against 3
-				m_inLightChk03 = 5;					// Third In Light Check against 5
-				m_inLightChk04 = 6;					// Fourth In Light Check against 6
+				SetDataChecks(53, 50, 47, 49, 46, (m_intSeconds - 3), 2, 3, 5, 6);
 
 				// Shift the difficulty based on data checks
-				DifficultyShift(false, true);
+				DifficultyShift();
 				// Save difficulty details onto text file
 				Character->m_CharDifficulty->SaveDataToTextFile(m_levelName, m_sectionNum, FString(Character->m_CharDifficulty->GetStrDiff()),
 											m_totalTime, m_movementTime, m_inLightTime, m_sectionNum);
@@ -1011,12 +946,12 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 	}
 }
 
-void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
-{
-	// Check if the actor exiting the trigger box is the same as the FString variable holding the character name
-	if (OtherActor && OtherActor != this && OtherActor->GetName() == m_playerCharName)
-	{
-		printf("Actor Left = %s", *OverlappedActor->GetName());
-		printf("Actor Overlapped = %s", *OtherActor->GetName());
-	}
-}
+//void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
+//{
+//	// Check if the actor exiting the trigger box is the same as the FString variable holding the character name
+//	if (OtherActor && OtherActor != this && OtherActor->GetName() == m_playerCharName)
+//	{
+//		printf("Actor Left = %s", *OverlappedActor->GetName());
+//		printf("Actor Overlapped = %s", *OtherActor->GetName());
+//	}
+//}

@@ -20,15 +20,9 @@ DifficultyState* Hard02State::Update(Difficulty& diff, EStates State)
 	case EStates::NONE:
 		return nullptr;
 		break;
-	case EStates::EASY:
+	case EStates::EASY: case EStates::MEDIUM:
 	{
-		// Don't want to jump from Hard_02 to Easy so go to Medium
-		DifficultyState* ms = new MediumState();
-		return ms;
-		break;
-	}
-	case EStates::MEDIUM:
-	{
+		// If EASY - Don't want to jump from Hard_02 to Easy so go to Medium
 		DifficultyState* ms = new MediumState();
 		return ms;
 		break;

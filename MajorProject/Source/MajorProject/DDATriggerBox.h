@@ -19,8 +19,10 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	void SetDataChecks(int time = 0, int movement01 = 0, int movement02 = 0, int movement03 = 0, int movement04 = 0,
+					   int movement05 = 0, int inLight01 = 0, int inLight02 = 0, int inLight03 = 0, int inLight04 = 0);
 	void DifficultyFinializedSetup(ESections section);
-	void DifficultyShift(bool IsFirstTB = false, bool IsLastTB = false);
+	void DifficultyShift(bool IsFirstTB = false);
 
 public:
 
@@ -29,8 +31,8 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(class AActor* OverlappedActor, class AActor* OtherActor);
 	
-	UFUNCTION()
-	void OnOverLapEnd(class AActor* OverlappedActor, class AActor* OtherActor);
+	/*UFUNCTION()
+	void OnOverLapEnd(class AActor* OverlappedActor, class AActor* OtherActor);*/
 
 //########################################################################################################################
 							// LEVEL 01 SENTRIES

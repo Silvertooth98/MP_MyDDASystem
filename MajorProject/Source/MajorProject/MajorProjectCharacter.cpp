@@ -113,17 +113,6 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 // Set the difficulty to be the same as the difficulty set within the difficulty class
 void AMajorProjectCharacter::Update()
 {
-	// This doesn't works ?
-	/*if (->GetDifficulty() == EDifficulty::EASY_01)
-	{
-		print("EASY_01 - State Diff class GetDiff()");
-	}*/
-	// This works
-	/*if (m_CharDifficulty->GetStateEDiff() == EDifficulty::EASY_01)
-	{
-		print("EASY_01 - State Diff from Diff class GetStateEDiff()");
-	}*/
-
 	switch (m_CharDifficulty->GetStateEDiff())
 	{
 	case EDifficulty::NONE:

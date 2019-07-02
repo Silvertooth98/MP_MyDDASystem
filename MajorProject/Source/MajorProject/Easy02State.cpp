@@ -11,7 +11,6 @@ void Easy02State::Enter(Difficulty& diff)
 {
 	ESTATEDIFF = EDifficulty::EASY_02;
 	m_currentDiff = EASY02DIFF;
-	print("Entered Easy02State - Enter function");
 }
 
 DifficultyState* Easy02State::Update(Difficulty& diff, EStates State)
@@ -24,15 +23,9 @@ DifficultyState* Easy02State::Update(Difficulty& diff, EStates State)
 	case EStates::EASY:
 		return nullptr;
 		break;
-	case EStates::MEDIUM:
+	case EStates::MEDIUM: case EStates::HARD:
 	{
-		DifficultyState* ms = new MediumState();
-		return ms;
-		break;
-	}
-	case EStates::HARD:
-	{
-		// Don't want to jump from Easy02 to Hard so go to Medium
+		// If HARD - Don't want to jump from Easy02 to Hard so go to Medium
 		DifficultyState* ms = new MediumState();
 		return ms;
 		break;
