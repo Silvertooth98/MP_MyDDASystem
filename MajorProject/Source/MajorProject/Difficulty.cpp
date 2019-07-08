@@ -21,7 +21,7 @@ void Difficulty::SaveDataToTextFile(FString Level, FString LevelSection, FString
 						FString("\r\nTotal Time: " + TotalTime) +
 						FString("\r\nTotal Movement Time: " + TotalMovementTime) +
 						FString("\r\nTotal In Light Time: " + TotalInLightTime),
-						FString("TextFiles/" + Level + "/Test" + TextFileNumber + ".txt"));
+						FString("TextFiles/" + Level + "/Sys01Test" + TextFileNumber + ".txt"));
 }
 
 void Difficulty::Update(EStates EState)

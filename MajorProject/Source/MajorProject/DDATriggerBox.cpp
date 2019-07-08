@@ -11,7 +11,6 @@
 ADDATriggerBox::ADDATriggerBox()
 {
 	OnActorBeginOverlap.AddDynamic(this, &ADDATriggerBox::OnOverlapBegin);
-	//OnActorEndOverlap.AddDynamic(this, &ADDATriggerBox::OnOverLapEnd);
 }
 
 void ADDATriggerBox::BeginPlay()
@@ -945,13 +944,3 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		print("ERROR - No level");
 	}
 }
-
-//void ADDATriggerBox::OnOverLapEnd(AActor * OverlappedActor, AActor * OtherActor)
-//{
-//	// Check if the actor exiting the trigger box is the same as the FString variable holding the character name
-//	if (OtherActor && OtherActor != this && OtherActor->GetName() == m_playerCharName)
-//	{
-//		printf("Actor Left = %s", *OverlappedActor->GetName());
-//		printf("Actor Overlapped = %s", *OtherActor->GetName());
-//	}
-//}
