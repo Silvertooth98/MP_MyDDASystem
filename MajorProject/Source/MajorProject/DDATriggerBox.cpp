@@ -1,8 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-#define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, text)
-#define printf(text, fstring) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Yellow, FString::Printf(TEXT(text), fstring))
-
 #include "DDATriggerBox.h"
 #include "DrawDebugHelpers.h"
 #include "Engine/GameEngine.h"
@@ -60,7 +55,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the first section trigger box
 		case ESections::SECTION_01:
-			print("Switch case S1");
 			// Set section enum in the character class to section_01
 			Character->m_section = ESection::SECTION_01;
 
@@ -100,7 +94,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the second section trigger box
 		case ESections::SECTION_02:
-			print("Switch case S2");
 			// Set section enum in the character class to section_02
 			Character->m_section = ESection::SECTION_02;
 
@@ -163,7 +156,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the third section trigger box
 		case ESections::SECTION_03:
-			print("Switch case S3");
 			// Set section enum in the character class to section_03
 			Character->m_section = ESection::SECTION_03;
 
@@ -227,7 +219,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the fourth section trigger box
 		case ESections::SECTION_04:
-			print("Switch case S4");
 			// Set section enum in the character class to section_04
 			Character->m_section = ESection::SECTION_04;
 
@@ -291,7 +282,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the last section trigger box
 		case ESections::SECTION_05:
-			print("Switch case S5");
 			// Set section enum in the character class to section_05
 			Character->m_section = ESection::SECTION_05;
 
@@ -321,7 +311,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 			break;
 
 		default:
-			print("Switch case S1 = false");
 			break;
 		}
 	}
@@ -338,7 +327,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the first section trigger box
 		case ESections::SECTION_01:
-			print("Switch case S1");
 			// Set section enum in the character class to section_01
 			Character->m_section = ESection::SECTION_01;
 
@@ -381,7 +369,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the second section trigger box
 		case ESections::SECTION_02:
-			print("Switch case S2");
 			// Set section enum in the character class to section_02
 			Character->m_section = ESection::SECTION_02;
 
@@ -445,7 +432,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the third section trigger box
 		case ESections::SECTION_03:
-			print("Switch case S3");
 			// Set section enum in the character class to section_03
 			Character->m_section = ESection::SECTION_03;
 
@@ -509,8 +495,6 @@ void ADDATriggerBox::DifficultyFinializedSetup(ESections section)
 		//#####################################################################################################
 		// Check if player is within the last section trigger box
 		case ESections::SECTION_04:
-			print("Switch case S4");
-			print("END OF " + LEVEL02NAME);
 			// Set section enum in the character class to section_04
 			Character->m_section = ESection::SECTION_04;
 			break;
@@ -651,8 +635,6 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 
 	// Get the current level name and set it into the FString variable "m_currentLevel"
 	m_currentLevel = Gamemode->GetLevelName();
-
-	print("Level Name: " + m_currentLevel);
 
 	// Check if the actor overlapping the trigger box is the same as the FString variable holding the character name
 	if (OtherActor && OtherActor != this && OtherActor->GetName() == m_playerCharName)
@@ -937,10 +919,5 @@ void ADDATriggerBox::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 				OverlappedActor->Destroy();
 			}
 		}
-	}
-
-	else
-	{
-		print("ERROR - No level");
 	}
 }

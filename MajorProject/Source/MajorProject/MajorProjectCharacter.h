@@ -147,10 +147,6 @@ protected:
 	/** Handles the timer for the movement */
 	void MovementTimer();
 
-	// USED FOR DEBUGGING
-	/** Handles displaying total time */
-	void DisplayTotalTime();
-
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface

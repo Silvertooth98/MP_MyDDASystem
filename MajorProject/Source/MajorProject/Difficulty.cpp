@@ -1,7 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-#define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, text)
-
 #include "Difficulty.h"
 #include "Engine/GameEngine.h"
 
@@ -34,7 +30,6 @@ void Difficulty::Update(EStates EState)
 	if (state != nullptr)
 	{
 		// Exit the current DifficultyState
-		print("!= nullptr");
 		_state->Exit(*this);
 
 		// Delete the current DifficultyState pointer
@@ -57,6 +52,5 @@ void Difficulty::Update(EStates EState)
 Difficulty::~Difficulty()
 {
 	// Delete the DifficultyState pointer
-	print("Deleting _state pointer");
 	delete _state;
 }

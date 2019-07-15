@@ -1,7 +1,5 @@
 // Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
-#define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, text)
-
 #include "MajorProjectCharacter.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
@@ -98,9 +96,6 @@ void AMajorProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
-	// Bind display total time event
-	PlayerInputComponent->BindAction("TotalTime", IE_Pressed, this, &AMajorProjectCharacter::DisplayTotalTime);
-
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMajorProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMajorProjectCharacter::MoveRight);
@@ -119,27 +114,21 @@ void AMajorProjectCharacter::Update()
 		SetDifficulty(ESetDifficulty::NONE);
 		break;
 	case EDifficulty::EASY_01:
-		print("EASY_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::EASY_01);
 		break;
 	case EDifficulty::EASY_02:
-		print("EASY_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::EASY_02);
 		break;
 	case EDifficulty::MEDIUM_01:
-		print("MEDIUM_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::MEDIUM_01);
 		break;
 	case EDifficulty::MEDIUM_02:
-		print("MEDIUM_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::MEDIUM_02);
 		break;
 	case EDifficulty::HARD_01:
-		print("HARD_01 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::HARD_01);
 		break;
 	case EDifficulty::HARD_02:
-		print("HARD_02 - State Diff from Diff class GetStateEDiff() in switch case");
 		SetDifficulty(ESetDifficulty::HARD_02);
 		break;
 	default:
@@ -161,7 +150,6 @@ void AMajorProjectCharacter::MoveForward(float Value)
 		{
 			// Set the movement timer to start. Run the MovementTimer function in 1 second intervals. 
 			GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
 		}
 		// If the movement timer does exist
 		else
@@ -186,7 +174,6 @@ void AMajorProjectCharacter::MoveRight(float Value)
 		{
 			// Set the movement timer to start. Run the MovementTimer function in 1 second intervals. 
 			GetWorldTimerManager().SetTimer(m_movementTimer, this, &AMajorProjectCharacter::MovementTimer, 1.0f, true, 1.0f);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
 		}
 		// If the movement timer does exist
 		else
@@ -206,7 +193,6 @@ void AMajorProjectCharacter::MovementTimer()
 		m_movementTime = m_movementTime + 1;
 		// Convert int to FString
 		FString movementTimeStr = FString::FromInt(m_movementTime);
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, movementTimeStr);
 	}
 }
 
@@ -217,7 +203,6 @@ void AMajorProjectCharacter::InLightTimer()
 	{
 		// Set the in light timer to start. Run the InLightTimer function in 1 second intervals. 
 		GetWorldTimerManager().SetTimer(m_inLightTimer, this, &AMajorProjectCharacter::AddToInLightTimer, 1.0f, true, 1.0f);
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Timer Created"));
 	}
 	// If the in light timer does exist
 	else
@@ -234,7 +219,6 @@ void AMajorProjectCharacter::AddToInLightTimer()
 		// Add 1 to the current in light time integer
 		m_inLightTime = m_inLightTime + 1;
 		FString inLightStr = FString::FromInt(m_inLightTime);
-		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, inLightStr);
 	}
 }
 
@@ -251,30 +235,7 @@ ESetDifficulty AMajorProjectCharacter::SetDifficulty(ESetDifficulty SetDifficult
 	return m_setDifficulty;
 }
 
-// USED FOR DEBUGGING
-void AMajorProjectCharacter::DisplayTotalTime()
-{
-	Gamemode->GetElapsedTime();
-
-	if (GEngine)
-	{
-		m_intSeconds = Gamemode->GetSecondsInt();
-
-		FString TheIntStr = FString::FromInt(m_intSeconds);
-
-		if (m_intSeconds >= 3)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, *TheIntStr);
-		}
-		else
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Green, *TheIntStr);
-		}
-	}
-}
-
 AMajorProjectCharacter::~AMajorProjectCharacter()
 {
-	print("Deleting Char class pointers");
 	delete m_CharDifficulty;
 }

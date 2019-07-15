@@ -1,5 +1,3 @@
-#define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.0, FColor::Green, text)
-
 #include "Hard02State.h"
 #include "Engine/GameEngine.h"
 
