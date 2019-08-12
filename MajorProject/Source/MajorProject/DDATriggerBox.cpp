@@ -601,14 +601,12 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB)
 			// Check if total movement time equals movement check 5 - 1 or - 2
 			if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1) || Character->GetTotalMovementTime() == (m_mvmntChk05 - 2))
 			{
-				// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->Update(EStates::MEDIUM);
 			}
 
 			// Otherwise, set to hard mode
 			else
 			{
-				// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
 				Character->m_CharDifficulty->Update(EStates::HARD);
 			}
 		}
@@ -616,14 +614,12 @@ void ADDATriggerBox::DifficultyShift(bool IsFirstTB)
 		// Check if total movement time is equal to movement check - 1
 		else if (Character->GetTotalMovementTime() == (m_mvmntChk05 - 1))
 		{
-			// Set difficulty to Medium by using the SetDifficulty function within the difficulty class
 			Character->m_CharDifficulty->Update(EStates::MEDIUM);
 		}
 
 		// Otherwise, set to hard mode
 		else
 		{
-			// Set difficulty to Hard by using the SetDifficulty function within the difficulty class
 			Character->m_CharDifficulty->Update(EStates::HARD);
 		}
 	}
